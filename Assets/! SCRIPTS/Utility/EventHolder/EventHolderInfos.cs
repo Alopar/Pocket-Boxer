@@ -1,0 +1,207 @@
+using UnityEngine;
+using Gameplay;
+using UnityEngine.Events;
+using Manager;
+
+namespace EventHolder
+{
+    #region INPUT
+    public class InputInfo
+    {
+        public Vector2 Direction { get; private set; }
+        public bool PointerDown { get; private set; }
+        public bool PointerUp { get; private set; }
+        public bool IsDeathZone { get; private set; }
+        public float Distance { get; private set; }
+
+        public InputInfo(Vector2 direction, bool pointerDown, bool pointerUp, float distance, bool isDeathZone)
+        {
+            Direction = direction;
+            PointerDown = pointerDown;
+            PointerUp = pointerUp;
+            IsDeathZone = isDeathZone;
+            Distance = distance;
+        }
+
+        public override string ToString()
+        {
+            return $"Down: {PointerDown}, Up: {PointerUp}, Activated: {IsDeathZone}";
+        }
+    }
+
+    public class InputControlInfo
+    {
+        public bool Enable { get; private set; }
+
+        public InputControlInfo(bool enable)
+        {
+            Enable = enable;
+        }
+    }
+    #endregion
+
+    #region CAMERA
+    public class CameraOffsetInfo
+    {
+        public Vector3 Offset { get; private set; }
+
+        public CameraOffsetInfo(Vector3 offset)
+        {
+            Offset = offset;
+        }
+    }
+
+    public class CameraLookAtInfo
+    {
+        public Transform LookAtPoint { get; private set; }
+
+        public CameraLookAtInfo(Transform lookAtPoint)
+        {
+            LookAtPoint = lookAtPoint;
+        }
+    }
+
+    public class CameraLookPlayerInfo
+    {
+        // N/A
+    }
+    #endregion
+
+    #region POINTERS
+    public class TrackTargetInfo
+    {
+        public Transform Target { get; private set; }
+
+        public TrackTargetInfo(Transform target)
+        {
+            Target = target;
+        }
+    }
+    #endregion
+
+    #region RESOURCES
+    public class MoneyChangeInfo
+    {
+        public uint Value { get; private set; }
+
+        public MoneyChangeInfo(uint value)
+        {
+            Value = value;
+        }
+    }
+
+    public class DiamondChangeInfo
+    {
+        public uint Value { get; private set; }
+
+        public DiamondChangeInfo(uint value)
+        {
+            Value = value;
+        }
+    }
+    #endregion
+
+    #region PLAYER
+    public class PlayerSpawnInfo
+    {
+        public PlayerController PlayerController { get; private set; }
+
+        public PlayerSpawnInfo(PlayerController playerController)
+        {
+            PlayerController = playerController;
+        }
+    }
+    #endregion
+
+    #region CINEMA
+    public class CinemaStartInfo
+    {
+        public string ID { get; private set; }
+        public UnityAction Callback { get; private set; }
+
+        public CinemaStartInfo(string iD, UnityAction callback)
+        {
+            ID = iD;
+            Callback = callback;
+        }
+    }
+
+    public class CinemaFinishInfo
+    {
+        // N/A
+    }
+
+    public class CinemaActorMoveInfo
+    {
+        public ActorComponent Actor { get; private set; }
+        public Transform TargetPoint { get; private set; }
+
+        public CinemaActorMoveInfo(ActorComponent actor, Transform targetPoint)
+        {
+            Actor = actor;
+            TargetPoint = targetPoint;
+        }
+    }
+
+    public class CinemaActorEmotionInfo
+    {
+        public ActorComponent Actor { get; private set; }
+        public string EmotionName { get; private set; }
+
+        public CinemaActorEmotionInfo(ActorComponent actor, string emotionName)
+        {
+            Actor = actor;
+            EmotionName = emotionName;
+        }
+    }
+    #endregion
+
+    #region UPGRADE
+    public class UpgradeChangeInfo
+    {
+        // N/A
+    }
+
+    public class UpgradeIncreaseInfo
+    {
+        public UpgradeType UpgradeType { get; private set; }
+
+        public UpgradeIncreaseInfo(UpgradeType upgradeType)
+        {
+            UpgradeType = upgradeType;
+        }
+    }
+    #endregion
+
+    #region TUTORIAL
+    public class GameplayEventInfo
+    {
+        public GameplayEvent GameplayEvent { get; private set; }
+
+        public GameplayEventInfo(GameplayEvent gameplayEvent)
+        {
+            GameplayEvent = gameplayEvent;
+        }
+    }
+
+    public class TutorialStepInfo
+    {
+        public TutorialStep TutorialStep { get; private set; }
+
+        public TutorialStepInfo(TutorialStep tutorialStep)
+        {
+            TutorialStep = tutorialStep;
+        }
+    }
+
+    public class TutorialObservingInfo
+    {
+        public GameObject GameObject { get; private set; }
+
+        public TutorialObservingInfo(GameObject gameObject)
+        {
+            GameObject = gameObject;
+        }
+    }
+    #endregion
+}
