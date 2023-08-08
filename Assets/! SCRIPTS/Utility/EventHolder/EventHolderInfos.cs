@@ -1,7 +1,8 @@
 using UnityEngine;
-using Gameplay;
 using UnityEngine.Events;
+using Gameplay;
 using Manager;
+using PointerType = Gameplay.PointerType;
 
 namespace EventHolder
 {
@@ -65,14 +66,36 @@ namespace EventHolder
     {
         // N/A
     }
+
+    public class CameraChangeFOVInfo
+    {
+        public float FOV { get; private set; }
+
+        public CameraChangeFOVInfo(float fov)
+        {
+            FOV = fov;
+        }
+    }
     #endregion
 
     #region POINTERS
     public class TrackTargetInfo
     {
         public Transform Target { get; private set; }
+        public PointerType PointerType { get; private set; }
 
-        public TrackTargetInfo(Transform target)
+        public TrackTargetInfo(Transform target, PointerType pointerType)
+        {
+            Target = target;
+            PointerType = pointerType;
+        }
+    }
+
+    public class UntrackTargetInfo
+    {
+        public Transform Target { get; private set; }
+
+        public UntrackTargetInfo(Transform target)
         {
             Target = target;
         }
@@ -109,6 +132,28 @@ namespace EventHolder
         public PlayerSpawnInfo(PlayerController playerController)
         {
             PlayerController = playerController;
+        }
+    }
+    #endregion
+
+    #region LEVEL
+    public class LevelStartInfo
+    {
+        public int Number { get; private set; }
+
+        public LevelStartInfo(int number)
+        {
+            Number = number;
+        }
+    }
+
+    public class LevelEndInfo
+    {
+        public int Number { get; private set; }
+
+        public LevelEndInfo(int number)
+        {
+            Number = number;
         }
     }
     #endregion
@@ -156,19 +201,44 @@ namespace EventHolder
     }
     #endregion
 
-    #region UPGRADE
-    public class UpgradeChangeInfo
+    #region SCREENS
+    public class ShowScreenInfo
     {
-        // N/A
+        public ScreenType ScreenType { get; private set; }
+
+        public ShowScreenInfo(ScreenType screenType)
+        {
+            ScreenType = screenType;
+        }
     }
 
-    public class UpgradeIncreaseInfo
+    public class CloseScreenInfo
     {
-        public UpgradeType UpgradeType { get; private set; }
+        public ScreenType ScreenType { get; private set; }
 
-        public UpgradeIncreaseInfo(UpgradeType upgradeType)
+        public CloseScreenInfo(ScreenType screenType)
         {
-            UpgradeType = upgradeType;
+            ScreenType = screenType;
+        }
+    }
+
+    public class ScreenOpenedInfo
+    {
+        public ScreenType ScreenType { get; private set; }
+
+        public ScreenOpenedInfo(ScreenType screenType)
+        {
+            ScreenType = screenType;
+        }
+    }
+
+    public class ScreenClosedInfo
+    {
+        public ScreenType ScreenType { get; private set; }
+
+        public ScreenClosedInfo(ScreenType screenType)
+        {
+            ScreenType = screenType;
         }
     }
     #endregion

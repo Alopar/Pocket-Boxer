@@ -1,6 +1,6 @@
 using UnityEngine;
-using EventHolder;
 using Manager;
+using EventHolder;
 
 namespace Gameplay
 {
@@ -21,23 +21,20 @@ namespace Gameplay
             if(info.TutorialStep == _tutorialStep)
             {
                 _view.SetActive(true);
+                if (_inUI) return;
 
-                if (!_inUI)
-                {
-                    EventHolder<TutorialObservingInfo>.NotifyListeners(new(gameObject));
-                }
+                EventHolder<TutorialObservingInfo>.NotifyListeners(new(gameObject));
+                return;
             }
-            else
-            {
-                _view.SetActive(false);
-            }
+
+            _view.SetActive(false);
         }
         #endregion
 
         #region UNITY CALLBACKS
         private void Awake()
         {
-            _view.SetActive(false);
+            Init();
         }
 
         private void OnEnable()
@@ -49,12 +46,12 @@ namespace Gameplay
         {
             EventHolder<TutorialStepInfo>.RemoveListener(h_TutorialStep);
         }
+        #endregion
 
-        private void LateUpdate()
+        #region METHODS PRIVATE
+        private void Init()
         {
-            if (_inUI) return;
-
-            transform.rotation = Quaternion.identity;
+            _view.SetActive(false);
         }
         #endregion
     }

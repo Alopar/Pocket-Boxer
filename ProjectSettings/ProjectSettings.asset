@@ -259,8 +259,8 @@ PlayerSettings:
   AndroidTargetDevices: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: C:/OneDrive/Gamedev/Project - Prod/Zombiegrad/keystore/zombiegrad.keystore
-  AndroidKeyaliasName: zombiegrad
+  AndroidKeystoreName: C:/OneDrive/Gamedev/Project - Prod/Beam Digger/keystore/beam-digger.keystore
+  AndroidKeyaliasName: beam-digger
   AndroidEnableArmv9SecurityFeatures: 0
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0

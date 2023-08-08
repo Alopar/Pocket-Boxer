@@ -17,11 +17,6 @@ namespace Gameplay
         [SerializeField] private float _startOffset = -10f;
         [SerializeField] private float _endOffset = 0f;
 
-        [Header("CITY SETTINGS:")]
-        [SerializeField, Range(0, 5)] private float _zoomTime = 0.5f;
-        [SerializeField, Range(0, 5)] private float _zoomRatio = 2f;
-        [SerializeField] private Ease _zoomEase = Ease.Linear;
-
         [Header("LINKS:")]
         [SerializeField] private CinemachineVirtualCamera _playerCamera;
         [SerializeField] private CinemachineVirtualCamera _observingCamera;
@@ -37,29 +32,57 @@ namespace Gameplay
         #endregion
 
         #region HANDLERS
-        private void h_PlayerSpawn(PlayerSpawnInfo info)
+        [EventHolder]
+        private void PlayerSpawn(PlayerSpawnInfo info)
         {
-            Init(info.PlayerController);
+            SetPlayer(info.PlayerController);
+            ChangeState(new FollowCameraState());
+        }
+
+        [EventHolder]
+        private void CameraChangeFOV(CameraChangeFOVInfo info)
+        {
+            var currentFOV = _playerCamera.m_Lens.FieldOfView;
+            DOVirtual.Float(currentFOV, info.FOV, _observingTime, (v) => { SetCameraFOV(v); }).SetEase(Ease.OutCubic);
         }
         #endregion
 
         #region UNITY CALLBACKS
+        private void Awake()
+        {
+            Init();
+        }
+
         private void OnEnable()
         {
-            EventHolder<PlayerSpawnInfo>.AddListener(h_PlayerSpawn, true);
+            SubscribeService.SubscribeListener(this);
         }
 
         private void OnDisable()
         {
-            EventHolder<PlayerSpawnInfo>.RemoveListener(h_PlayerSpawn);
+            SubscribeService.UnsubscribeListener(this);
         }
         #endregion
 
-        #region METHODS PUBLIC
-        public void Init(PlayerController player)
+        #region METHODS PRIVATE
+        private void Init()
         {
             _currentFollowOffset = _playerCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset;
+            _cameraOffset = _playerCamera.GetComponent<CinemachineCameraOffset>();
+            _transmitter = gameObject.AddComponent<MonoBehaviorTransmitter>();
 
+            SetCameraFOV(50f);
+        }
+
+        private void SetCameraFOV(float value)
+        {
+            var lens = _playerCamera.m_Lens;
+            lens.FieldOfView = value;
+            _playerCamera.m_Lens = lens;
+        }
+
+        private void SetPlayer(PlayerController player)
+        {
             _player = player;
             if (_player == null)
             {
@@ -68,10 +91,6 @@ namespace Gameplay
             }
 
             _playerCamera.Follow = _player.transform;
-            _cameraOffset = _playerCamera.GetComponent<CinemachineCameraOffset>();
-            _transmitter = gameObject.AddComponent<MonoBehaviorTransmitter>();
-
-            ChangeState(new ObserverCameraState());
         }
         #endregion
     }

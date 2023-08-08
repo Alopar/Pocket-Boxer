@@ -19,19 +19,18 @@ namespace Gameplay
             if(info == null)
             {
                 _content.SetActive(false);
+                return;
             }
-            else
-            {
-                _content.SetActive(true);
-                _tutorialTarget = info.GameObject.transform;
-            }
+
+            _tutorialTarget = info.GameObject.transform;
+            _content.SetActive(true);
         }
         #endregion
 
         #region UNITY CALLBACKS
         private void Awake()
         {
-            _content.SetActive(false);
+            Init();
         }
 
         private void OnEnable()
@@ -46,7 +45,19 @@ namespace Gameplay
 
         private void LateUpdate()
         {
-            if (!_tutorialTarget) return;
+            RotateAtTarget();
+        }
+        #endregion
+
+        #region METHODS PRIVATE
+        private void Init()
+        {
+            _content.SetActive(false);
+        }
+
+        private void RotateAtTarget()
+        {
+            if (_tutorialTarget == null) return;
             transform.LookAt(_tutorialTarget.transform, Vector3.up);
             transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
         }

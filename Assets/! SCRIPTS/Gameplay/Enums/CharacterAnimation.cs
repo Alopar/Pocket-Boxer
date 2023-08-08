@@ -5,15 +5,8 @@ namespace Gameplay
         Idle,
         Walk,
         Run,
-        Fear,
         Death,
-        Punch,
-        Pistol,
-        Rifle,
-        Raise,
+        Fire,
         Upgrade,
-        RightPunch,
-        LeftPunch,
-        Bite
     }
 }

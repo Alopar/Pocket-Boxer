@@ -5,10 +5,16 @@ namespace Utility
     public static class GameSettings
     {
         #region FIELDS PRIVATE
+        private const string START_SAVE_DATA_PRESET_PATH = "StartSaveData";
+        private const string DEBUG_SAVE_DATA_PRESET_PATH = "DebugSaveData";
+
         private static GameSettingsData _data;
         #endregion
 
         #region PROPERTIES
+        public static string StartSaveDataPresetPath => START_SAVE_DATA_PRESET_PATH;
+        public static string DebugSaveDataPresetPath => DEBUG_SAVE_DATA_PRESET_PATH;
+
         public static GameSettingsData Data => _data;
         #endregion
 

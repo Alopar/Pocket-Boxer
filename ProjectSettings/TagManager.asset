@@ -4,10 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - UiCamera
   - Interactable
   - TutorialMarker
   - PlayerSpawner
+  - Ground
   layers:
   - Default
   - TransparentFX
@@ -17,7 +17,7 @@ TagManager:
   - UI
   - Indicator
   - Furniture
-  - 
+  - Cargo
   - 
   - 
   - 

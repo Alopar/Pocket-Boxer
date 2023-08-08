@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEditor;
 using Manager;
 using EventHolder;
+using Services.SaveSystem;
+using Services.ServiceLocator;
 
 namespace Gameplay
 {
@@ -13,12 +15,12 @@ namespace Gameplay
 #if UNITY_EDITOR
         private void AddMoney()
         {
-            GameManager.Instance.AddMoney();
+            ServiceLocator.GetService<IWalletService>().SetCurrency<MoneyDeposite>(100000);
         }
 
         private void AddDiamond()
         {
-            GameManager.Instance.AddDiamond();
+            ServiceLocator.GetService<IWalletService>().SetCurrency<DiamondDeposite>(1000);
         }
 #endif
         #endregion
@@ -40,6 +42,10 @@ namespace Gameplay
                 base.OnInspectorGUI();
                 if (!Application.isPlaying) return;
 
+                GUILayout.Label("TUTORIAL INFO");
+                GUILayout.Label($"Tutorial step: {TutorialManager.Instance.CurrentStep}");
+
+                GUILayout.Space(10);
                 GUILayout.Label("UPGRADE INFO");
 
                 GUILayout.Space(10);

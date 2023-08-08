@@ -1,7 +1,9 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using EventHolder;
-using System.Collections.Generic;
-using System;
+using Services.SaveSystem;
+using Services.ServiceLocator;
 
 namespace Manager
 {
@@ -15,6 +17,8 @@ namespace Manager
         #region FIELDS PRIVATE
         private static TutorialManager _instance;
 
+        private ISaveService _saveService;
+
         private TutorialStep _currentStep;
         #endregion
 
@@ -25,7 +29,8 @@ namespace Manager
         #endregion
 
         #region HANDLERS
-        private void h_GameplayEvent(GameplayEventInfo info)
+        [EventHolder(false)]
+        private void GameplayEvent(GameplayEventInfo info)
         {
             if (_currentStep == TutorialStep.EndTutorial) return;
 
@@ -40,16 +45,6 @@ namespace Manager
         #endregion
 
         #region UNITY CALLBACKS
-        private void OnEnable()
-        {
-            EventHolder<GameplayEventInfo>.AddListener(h_GameplayEvent, false);
-        }
-
-        private void OnDisable()
-        {
-            EventHolder<GameplayEventInfo>.RemoveListener(h_GameplayEvent);
-        }
-
         private void Awake()
         {
             if (_instance == null)
@@ -63,6 +58,16 @@ namespace Manager
             }
         }
 
+        private void OnEnable()
+        {
+            SubscribeService.SubscribeListener(this);
+        }
+
+        private void OnDisable()
+        {
+            SubscribeService.UnsubscribeListener(this);
+        }
+
         private void Start()
         {
             EventHolder<TutorialStepInfo>.NotifyListeners(new(_currentStep));
@@ -72,14 +77,25 @@ namespace Manager
         #region METHODS PRIVATE
         private void Init()
         {
-            var loadData = SaveManager.Instance.Load<TutorialData>();
+            ResolveDependency();
+            LoadData();
+        }
+
+        private void ResolveDependency()
+        {
+            _saveService = ServiceLocator.GetService<ISaveService>();
+        }
+
+        private void LoadData()
+        {
+            var loadData = _saveService.Load<TutorialSaveData>();
             _currentStep = loadData.CurrentStep;
         }
 
         private void SaveData()
         {
-            var saveData = new TutorialData() { CurrentStep = _currentStep};
-            SaveManager.Instance.Save(saveData);
+            var saveData = new TutorialSaveData() { CurrentStep = _currentStep};
+            _saveService.Save(saveData);
         }
 
         private void StepActions(TutorialStep step)
@@ -96,56 +112,29 @@ namespace Manager
         public GameplayEvent Event;
     }
 
-    public enum GameplayEvent
+    public enum GameplayEvent : byte
     {
-        StartGame,
-        JoysticInput,
-        CitizenDie,
-        GettingCurrency,
-        OpenUpgradeScreen,
-        BuyUpgradeGoods,
-        CloseUpgradeScreen,
-        GateShown,
-        GateDamage,
-        GateDestroy,
-        LairShown,
-        LairDamage,
-        LairDestroy,
-        Void,
+        StartGame = 0,
+        JoysticInput = 1,
+        BlockDestroyed,
+        OrePickuped,
+        OreSelled,
+        ChargerBuyed,
+        IslandCleared,
+        NextIslandTransited,
+        Void = 254,
     }
 
-    public enum TutorialStep
+    public enum TutorialStep : byte
     {
-        StartTutorial,
-        Movement,
-        CitizenFight,
-        CurrencyReward,
-        OpenPlayerUpgradeScreen,
-        PlayerUpgradeGoods,
-        ClosePlayerUpgradeScreen,
-        OpenZombieUpgradeScreen,
-        ZombieUpgradeGoods,
-        CloseZombieUpgradeScreen,
-        FirstGateObserve,
-        FirstGateFight,
-        FirstGateDestroing,
-        FirstLairObserve,
-        FirstLairFight,
-        FirstLairDestroing,
-        SecondGateObserve,
-        SecondGateFight,
-        SecondGateDestroing,
-        SecondLairObserve,
-        SecondLairFight,
-        SecondLairDestroing,
-        ThirdGateObserve,
-        ThirdGateFight,
-        ThirdGateDestroing,
-        ThirdLairObserve,
-        ThirdLairFight,
-        ThirdLairDestroing,
-        FourthGateObserve,
-        FourthGateFight,
-        EndTutorial
+        StartTutorial = 0,
+        Movement = 1,
+        BlockDestruction,
+        PickupOre,
+        SellOre,
+        BuyCharger,
+        CleanIsland,
+        GoToNextIsland,
+        EndTutorial = 254,
     }
 }

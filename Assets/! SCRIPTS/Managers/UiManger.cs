@@ -22,8 +22,6 @@ namespace Manager
         #region HANDLERS
         private void SceneLoadedHandler(Scene scene, LoadSceneMode loadSceneMode)
         {
-            if (scene.name == "MoonSDKScene") return;
-
             _base = new GameObject("======== UI ========");
             foreach (var prefab in _screenPrefabs)
             {

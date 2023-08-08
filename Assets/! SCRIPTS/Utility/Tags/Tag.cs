@@ -10,8 +10,8 @@ public enum Tag
     MainCamera,
     Player,
     GameController,
-    UiCamera,
     Interactable,
     TutorialMarker,
     PlayerSpawner,
+    Ground,
 }

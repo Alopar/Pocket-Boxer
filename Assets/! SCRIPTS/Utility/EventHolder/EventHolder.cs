@@ -6,10 +6,13 @@ namespace EventHolder
 {
     public static class EventHolder<T> where T : class
     {
+        #region FIELDS PRIVATE
         private static readonly List<Action<T>> _listeners = new List<Action<T>>();
 
         private static T _currentInfo;
+        #endregion
 
+        #region METHODS PUBLIC
         public static void NotifyListeners(T info)
         {
             _currentInfo = info;
@@ -24,7 +27,7 @@ namespace EventHolder
         {
             _listeners.Add(listener);
 
-            if(instantNotify && _currentInfo != null)
+            if (instantNotify && _currentInfo != null)
             {
                 listener?.Invoke(_currentInfo);
             }
@@ -37,5 +40,6 @@ namespace EventHolder
                 _listeners.Remove(listener);
             }
         }
+        #endregion
     }
 }
