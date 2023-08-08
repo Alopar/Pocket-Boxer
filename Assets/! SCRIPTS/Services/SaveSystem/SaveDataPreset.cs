@@ -12,10 +12,6 @@ namespace Services.SaveSystem
         #region FIELDS INSPECTOR
         [SerializeField] private CurrencySaveData _currencyData;
         [SerializeField] private TutorialSaveData _tutorialData;
-        [SerializeField] private UpgradeSaveData _upgradeData;
-        [SerializeField] private BuildingSaveData _buildingData;
-        [SerializeField] private ArmorySaveData _armoryData;
-        [SerializeField] private LevelSaveData _levelData;
         #endregion
 
         #region FIELDS PRIVATE

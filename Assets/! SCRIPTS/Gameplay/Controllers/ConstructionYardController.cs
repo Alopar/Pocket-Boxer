@@ -48,7 +48,7 @@ namespace Gameplay
         private void Init()
         {
             ResolveDependency();
-            LoadProgress();
+            //LoadProgress();
 
             if (_constructed)
             {
@@ -75,30 +75,30 @@ namespace Gameplay
             _collider = GetComponent<Collider>();
         }
 
-        private void LoadProgress()
-        {
-            var loadData = _saveService.Load<BuildingSaveData>();
-            var building = loadData.Buildings.Find(e => e.ID == _id);
+        //private void LoadProgress()
+        //{
+        //    var loadData = _saveService.Load<BuildingSaveData>();
+        //    var building = loadData.Buildings.Find(e => e.ID == _id);
 
-            _invested = building.Invested;
-            _available = building.Available;
-            _constructed = building.Constructed;
-        }
+        //    _invested = building.Invested;
+        //    _available = building.Available;
+        //    _constructed = building.Constructed;
+        //}
 
-        private void SaveProgress()
-        {
-            var saveData = _saveService.Load<BuildingSaveData>();
-            var building = saveData.Buildings.Find(e => e.ID == _id);
-            saveData.Buildings.Remove(building);
+        //private void SaveProgress()
+        //{
+        //    var saveData = _saveService.Load<BuildingSaveData>();
+        //    var building = saveData.Buildings.Find(e => e.ID == _id);
+        //    saveData.Buildings.Remove(building);
 
-            building.Invested = _invested;
-            building.Available = _available;
-            building.Constructed = _constructed;
+        //    building.Invested = _invested;
+        //    building.Available = _available;
+        //    building.Constructed = _constructed;
 
-            saveData.Buildings.Add(building);
+        //    saveData.Buildings.Add(building);
 
-            _saveService.Save(saveData);
-        }
+        //    _saveService.Save(saveData);
+        //}
 
         private void TurnOn()
         {
@@ -137,7 +137,7 @@ namespace Gameplay
                 EventHolder<TutorialObservingInfo>.NotifyListeners(null);
             }
 
-            SaveProgress();
+            //SaveProgress();
             OnInvest?.Invoke(_invested, (int)_cost);
         }
         #endregion
