@@ -1,11 +1,12 @@
+using System;
 using UnityEngine;
 using TMPro;
 using EventHolder;
-using System;
+using Services.ScreenSystem;
 
 namespace Gameplay
 {
-    public class HudUiController : AScreenUiController
+    public class HudUiController : AbstarctScreenController
     {
         #region FIELDS INSPECTOR
         [Space(10)]

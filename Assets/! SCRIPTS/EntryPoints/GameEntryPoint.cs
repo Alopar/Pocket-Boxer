@@ -4,10 +4,11 @@ using Gameplay;
 using Services.Database;
 using Services.SaveSystem;
 using Services.AudioSystem;
+using Services.ScreenSystem;
+using Services.TutorialSystem;
 using Services.ServiceLocator;
 using Utility;
 using DG.Tweening;
-using Services.TutorialSystem;
 
 namespace Manager
 {
@@ -43,6 +44,9 @@ namespace Manager
             ServiceLocator.RegisterService<IDatabaseService>(new ScriptableObjectDatabase());
             ServiceLocator.RegisterService<IWalletService>(new Wallet(ServiceLocator.GetService<ISaveService>()));
             ServiceLocator.RegisterService<IAudioService>(new AudioSystem());
+
+            var screenContainer = Resources.Load<ScreenContainer>(GameSettings.ScreenContainerPath);
+            ServiceLocator.RegisterService(new ScreenSystem(screenContainer));
 
             var tutorialSequence = Resources.Load<TutorialSequence>(GameSettings.TutorialSequencePath);
             ServiceLocator.RegisterService(new TutorialSystem(tutorialSequence, ServiceLocator.GetService<ISaveService>()));

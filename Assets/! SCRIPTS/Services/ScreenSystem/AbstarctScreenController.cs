@@ -1,9 +1,8 @@
-using EventHolder;
 using UnityEngine;
 
-namespace Gameplay
+namespace Services.ScreenSystem
 {
-    public abstract class AScreenUiController : MonoBehaviour
+    public abstract class AbstarctScreenController : MonoBehaviour
     {
         #region FIELDS INSPECTOR
         [SerializeField] protected Canvas _canvas;

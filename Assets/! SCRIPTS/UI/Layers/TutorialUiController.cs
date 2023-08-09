@@ -1,10 +1,11 @@
 using UnityEngine;
 using EventHolder;
+using Services.ScreenSystem;
 using Services.TutorialSystem;
 
 namespace Gameplay
 {
-    public class TutorialUiController : AScreenUiController
+    public class TutorialUiController : AbstarctScreenController
     {
         #region FIELDS INSPECTOR
         [Space(10)]
