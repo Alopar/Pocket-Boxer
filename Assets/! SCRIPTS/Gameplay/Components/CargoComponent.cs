@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Manager;
-using EventHolder;
 using Lofelt.NiceVibrations;
 
 namespace Gameplay
@@ -150,7 +148,6 @@ namespace Gameplay
                     _cargo.Push(target);
 
                     HapticPatterns.PlayPreset(HapticPatterns.PresetType.LightImpact);
-                    EventHolder<GameplayEventInfo>.NotifyListeners(new(GameplayEvent.OrePickuped));
                 };
 
                 callbacks.Enqueue(callback);

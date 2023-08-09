@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using Gameplay;
-using Manager;
+using Services.TutorialSystem;
 using PointerType = Gameplay.PointerType;
 
 namespace EventHolder

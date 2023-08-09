@@ -5,6 +5,7 @@ using DG.Tweening;
 using Services.SaveSystem;
 using Services.ServiceLocator;
 using EventHolder;
+using Services.TutorialSystem;
 
 namespace Gameplay
 {
@@ -132,9 +133,6 @@ namespace Gameplay
             {
                 TurnOff();
                 ShowBuilding();
-
-                EventHolder<GameplayEventInfo>.NotifyListeners(new(GameplayEvent.ChargerBuyed));
-                EventHolder<TutorialObservingInfo>.NotifyListeners(null);
             }
 
             //SaveProgress();

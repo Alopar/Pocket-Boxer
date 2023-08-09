@@ -1,6 +1,6 @@
 using UnityEngine;
-using Manager;
 using EventHolder;
+using Services.TutorialSystem;
 
 namespace Gameplay
 {

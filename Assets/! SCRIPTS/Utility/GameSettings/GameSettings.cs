@@ -7,6 +7,7 @@ namespace Utility
         #region FIELDS PRIVATE
         private const string START_SAVE_DATA_PRESET_PATH = "StartSaveData";
         private const string DEBUG_SAVE_DATA_PRESET_PATH = "DebugSaveData";
+        private const string TUTORIAL_SEQUENCE_PATH = "TutorialSequence";
 
         private static GameSettingsData _data;
         #endregion
@@ -14,6 +15,7 @@ namespace Utility
         #region PROPERTIES
         public static string StartSaveDataPresetPath => START_SAVE_DATA_PRESET_PATH;
         public static string DebugSaveDataPresetPath => DEBUG_SAVE_DATA_PRESET_PATH;
+        public static string TutorialSequencePath => TUTORIAL_SEQUENCE_PATH;
 
         public static GameSettingsData Data => _data;
         #endregion

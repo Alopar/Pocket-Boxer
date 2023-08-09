@@ -7,6 +7,7 @@ using Services.AudioSystem;
 using Services.ServiceLocator;
 using Utility;
 using DG.Tweening;
+using Services.TutorialSystem;
 
 namespace Manager
 {
@@ -38,9 +39,13 @@ namespace Manager
             var startDataPreset = Resources.Load<SaveDataPreset>(GameSettings.StartSaveDataPresetPath);
             var debugDataPreset = Resources.Load<SaveDataPreset>(GameSettings.DebugSaveDataPresetPath);
             ServiceLocator.RegisterService<ISaveService>(new PlayerPrefSaveSystem(startDataPreset, debugDataPreset));
+
             ServiceLocator.RegisterService<IDatabaseService>(new ScriptableObjectDatabase());
             ServiceLocator.RegisterService<IWalletService>(new Wallet(ServiceLocator.GetService<ISaveService>()));
             ServiceLocator.RegisterService<IAudioService>(new AudioSystem());
+
+            var tutorialSequence = Resources.Load<TutorialSequence>(GameSettings.TutorialSequencePath);
+            ServiceLocator.RegisterService(new TutorialSystem(tutorialSequence, ServiceLocator.GetService<ISaveService>()));
         }
 
         private static void InitializeOtherSystems()

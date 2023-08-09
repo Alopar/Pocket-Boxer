@@ -2,15 +2,38 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-using Manager;
 using EventHolder;
-using Services.SaveSystem;
 using Services.ServiceLocator;
+using Services.TutorialSystem;
 
 namespace Gameplay
 {
     public class DebuggingPanel : MonoBehaviour
     {
+        #region FIELDS PRIVATE
+        private TutorialStep _tutorialStep;
+        #endregion
+
+        #region HANDLERS
+        [EventHolder]
+        private void TutorialStep(TutorialStepInfo info)
+        {
+            _tutorialStep = info.TutorialStep;
+        }
+        #endregion
+
+        #region UNITY CALLBACKS
+        private void OnEnable()
+        {
+            SubscribeService.SubscribeListener(this);
+        }
+
+        private void OnDisable()
+        {
+            SubscribeService.UnsubscribeListener(this);
+        }
+        #endregion
+
         #region METHODS PRIVATE
 #if UNITY_EDITOR
         private void AddMoney()
@@ -43,7 +66,7 @@ namespace Gameplay
                 if (!Application.isPlaying) return;
 
                 GUILayout.Label("TUTORIAL INFO");
-                GUILayout.Label($"Tutorial step: {TutorialManager.Instance.CurrentStep}");
+                GUILayout.Label($"Tutorial step: {_target._tutorialStep}");
 
                 GUILayout.Space(10);
                 GUILayout.Label("UPGRADE INFO");
