@@ -627,7 +627,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _view: {fileID: 8497932285276152021}
-  _moveSpeed: 2.5
+  _moveSpeed: 5
   _animator: {fileID: 7149530798365645701}
   _animationTransmitter: {fileID: 9182402181757499001}
   _rotationAtTargetSpeed: 8
