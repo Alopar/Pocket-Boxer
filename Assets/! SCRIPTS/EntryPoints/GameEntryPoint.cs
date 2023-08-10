@@ -9,6 +9,7 @@ using Services.TutorialSystem;
 using Services.ServiceLocator;
 using Utility;
 using DG.Tweening;
+using Utility.DependencyInjection;
 
 namespace Manager
 {
@@ -50,6 +51,17 @@ namespace Manager
 
             var tutorialSequence = Resources.Load<TutorialSequence>(GameSettings.TutorialSequencePath);
             ServiceLocator.RegisterService(new TutorialSystem(tutorialSequence, ServiceLocator.GetService<ISaveService>()));
+        }
+
+        private static void CreateGlobalContainer()
+        {
+            var collection = new DependenciesCollection();
+            var dependency = new Dependency();
+            dependency.Type = typeof(IDatabaseService);
+            dependency.Factory = DependencyFactory.FromClass<ScriptableObjectDatabase>();
+            dependency.IsSingleton = true;
+            collection.Add(dependency);
+            DependenciesGlobalContainer.Init(collection);
         }
 
         private static void InitializeOtherSystems()
