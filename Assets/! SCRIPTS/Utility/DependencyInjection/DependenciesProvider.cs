@@ -6,7 +6,7 @@ namespace Utility.DependencyInjection
 {
     public class DependenciesProvider
     {
-        private Dictionary<Type, Dependency> _dependencies = new();
+        private Dictionary<Type, DependencyStruct> _dependencies = new();
         private Dictionary<Type, object> _singletons = new();
 
         public DependenciesProvider(DependenciesCollection dependencies)
@@ -54,7 +54,7 @@ namespace Utility.DependencyInjection
                 var fields = type.GetFields(bindingFlags);
                 foreach (var field in fields)
                 {
-                    if (field.GetCustomAttribute<InjectFieldAttribute>(false) is null) continue;
+                    if (field.GetCustomAttribute<InjectAttribute>(false) is null) continue;
 
                     field.SetValue(dependant, Get(field.FieldType));
                 }

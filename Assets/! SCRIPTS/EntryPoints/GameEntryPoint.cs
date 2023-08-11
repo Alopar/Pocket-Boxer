@@ -53,15 +53,21 @@ namespace Manager
             ServiceLocator.RegisterService(new TutorialSystem(tutorialSequence, ServiceLocator.GetService<ISaveService>()));
         }
 
-        private static void CreateGlobalContainer()
+        private static void RegisterDependencyContext()
         {
-            var collection = new DependenciesCollection();
-            var dependency = new Dependency();
-            dependency.Type = typeof(IDatabaseService);
-            dependency.Factory = DependencyFactory.FromClass<ScriptableObjectDatabase>();
-            dependency.IsSingleton = true;
-            collection.Add(dependency);
-            DependenciesGlobalContainer.Init(collection);
+            var startDataPreset = Resources.Load<SaveDataPreset>(GameSettings.StartSaveDataPresetPath);
+            var debugDataPreset = Resources.Load<SaveDataPreset>(GameSettings.DebugSaveDataPresetPath);
+            GameDependenciesContext.Bind<ISaveService>().FromInstance(new PlayerPrefSaveSystem(startDataPreset, debugDataPreset));
+
+            GameDependenciesContext.Bind<IDatabaseService>().To<ScriptableObjectDatabase>().AsSingle();
+            GameDependenciesContext.Bind<IAudioService>().To<AudioSystem>().AsSingle();
+
+            var screenContainer = Resources.Load<ScreenContainer>(GameSettings.ScreenContainerPath);
+            GameDependenciesContext.Bind<ScreenSystem>().FromInstance(new ScreenSystem(screenContainer));
+
+            //var tutorialSequence = Resources.Load<TutorialSequence>(GameSettings.TutorialSequencePath);
+            //GameDependenciesContext.Bind<TutorialSystem>().FromInstance()
+            //ServiceLocator.RegisterService(new TutorialSystem(tutorialSequence, ServiceLocator.GetService<ISaveService>()));
         }
 
         private static void InitializeOtherSystems()
@@ -78,6 +84,7 @@ namespace Manager
         {
             InitializeGameSettings();
             RegisterServices();
+            RegisterDependencyContext();
 
             InitializeManagers();
             InitializeOtherSystems();

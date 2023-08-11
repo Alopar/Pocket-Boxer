@@ -3,16 +3,16 @@ using System.Collections.Generic;
 
 namespace Utility.DependencyInjection
 {
-    public class DependenciesCollection : IEnumerable<Dependency>
+    public class DependenciesCollection : IEnumerable<DependencyStruct>
     {
-        private List<Dependency> _dependencies = new();
+        private List<DependencyStruct> _dependencies = new();
 
-        public void Add(Dependency dependency)
+        public void Add(DependencyStruct dependency)
         {
             _dependencies.Add(dependency);
         }
 
-        public IEnumerator<Dependency> GetEnumerator()
+        public IEnumerator<DependencyStruct> GetEnumerator()
         {
             return _dependencies.GetEnumerator();
         }
