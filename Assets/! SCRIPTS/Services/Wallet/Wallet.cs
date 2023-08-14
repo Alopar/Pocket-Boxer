@@ -1,21 +1,21 @@
 using System;
 using System.Collections.Generic;
 using Services.SaveSystem;
+using Utility.DependencyInjection;
 
 namespace Gameplay
 {
     public class Wallet : IWalletService
     {
         #region FIELDS PRIVATE
-        private ISaveService _saveService;
+        [Inject] private ISaveService _saveService;
+
         private Dictionary<Type, object> _deposites = new();
         #endregion
 
         #region CONSTRUCTORS
-        public Wallet(ISaveService saveService)
+        public Wallet()
         {
-            _saveService = saveService;
-
             _deposites.Add(typeof(MoneyDeposite), new MoneyDeposite(_saveService));
             _deposites.Add(typeof(DiamondDeposite), new DiamondDeposite(_saveService));
         }

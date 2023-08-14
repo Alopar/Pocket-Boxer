@@ -1,8 +1,8 @@
+using System.IO;
 using UnityEngine;
 using UnityEditor;
-using System.IO;
 
-namespace Utility
+namespace Utility.GameSettings
 {
     public class GameSettingsWindow : EditorWindow
     {
@@ -44,13 +44,9 @@ namespace Utility
         #endregion
 
         #region METHODS PRIVATE
-        [MenuItem("Tools/Utility/Game Settings")]
         private static void Init()
         {
             LoadData();
-            var window = GetWindow<GameSettingsWindow>();
-            var icon = Resources.Load<Texture>(TITLE_ICON_PATH);
-            window.titleContent = new() { image = icon, text = "Game settings" };
         }
 
         private static void LoadData()
@@ -60,6 +56,15 @@ namespace Utility
                 var json = reader.ReadLine();
                 _gameSettingsData = JsonUtility.FromJson<GameSettingsData>(json);
             }
+        }
+
+        [MenuItem("Tools/Utility/Game Settings")]
+        private static void ShowWindow()
+        {
+            Init();
+            var window = GetWindow<GameSettingsWindow>();
+            var icon = Resources.Load<Texture>(TITLE_ICON_PATH);
+            window.titleContent = new() { image = icon, text = "Game settings" };
         }
         #endregion
     }

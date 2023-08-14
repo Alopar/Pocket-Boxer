@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using EventHolder;
-using Services.ServiceLocator;
 using Services.TutorialSystem;
+using Utility.DependencyInjection;
 
 namespace Gameplay
 {
@@ -38,12 +38,12 @@ namespace Gameplay
 #if UNITY_EDITOR
         private void AddMoney()
         {
-            ServiceLocator.GetService<IWalletService>().SetCurrency<MoneyDeposite>(100000);
+            DependenciesContext.Get<IWalletService>().SetCurrency<MoneyDeposite>(100000);
         }
 
         private void AddDiamond()
         {
-            ServiceLocator.GetService<IWalletService>().SetCurrency<DiamondDeposite>(1000);
+            DependenciesContext.Get<IWalletService>().SetCurrency<DiamondDeposite>(1000);
         }
 #endif
         #endregion

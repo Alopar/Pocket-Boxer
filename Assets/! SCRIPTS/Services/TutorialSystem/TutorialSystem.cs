@@ -1,21 +1,21 @@
 using EventHolder;
 using Services.SaveSystem;
+using Utility.DependencyInjection;
 
 namespace Services.TutorialSystem
 {
     public class TutorialSystem
     {
         #region FIELDS PRIVATE
-        private TutorialSequence _sequence;
-        private ISaveService _saveService;
+        [Inject] private ISaveService _saveService;
+        [Inject] private TutorialSequence _sequence;
+        
         private TutorialStep _currentStep;
         #endregion
 
         #region CONSTRUCTORS
-        public TutorialSystem(TutorialSequence sequence, ISaveService saveService)
+        public TutorialSystem()
         {
-            _sequence = sequence;
-            _saveService = saveService;
             Init();
         }
         #endregion

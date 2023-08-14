@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: StartSaveData
   m_EditorClassIdentifier: 
   _currencyData:
-    Money: 100
-    Diamond: 10
+    Money: 0
+    Diamond: 0
   _tutorialData:
     CurrentStep: 0

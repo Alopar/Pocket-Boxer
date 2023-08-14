@@ -6,10 +6,9 @@ using Services.SaveSystem;
 using Services.AudioSystem;
 using Services.ScreenSystem;
 using Services.TutorialSystem;
-using Services.ServiceLocator;
-using Utility;
-using DG.Tweening;
+using Utility.GameSettings;
 using Utility.DependencyInjection;
+using DG.Tweening;
 
 namespace Manager
 {
@@ -36,38 +35,25 @@ namespace Manager
             Object.DontDestroyOnLoad(managers);
         }
 
-        private static void RegisterServices()
-        {
-            var startDataPreset = Resources.Load<SaveDataPreset>(GameSettings.StartSaveDataPresetPath);
-            var debugDataPreset = Resources.Load<SaveDataPreset>(GameSettings.DebugSaveDataPresetPath);
-            ServiceLocator.RegisterService<ISaveService>(new PlayerPrefSaveSystem(startDataPreset, debugDataPreset));
-
-            ServiceLocator.RegisterService<IDatabaseService>(new ScriptableObjectDatabase());
-            ServiceLocator.RegisterService<IWalletService>(new Wallet(ServiceLocator.GetService<ISaveService>()));
-            ServiceLocator.RegisterService<IAudioService>(new AudioSystem());
-
-            var screenContainer = Resources.Load<ScreenContainer>(GameSettings.ScreenContainerPath);
-            ServiceLocator.RegisterService(new ScreenSystem(screenContainer));
-
-            var tutorialSequence = Resources.Load<TutorialSequence>(GameSettings.TutorialSequencePath);
-            ServiceLocator.RegisterService(new TutorialSystem(tutorialSequence, ServiceLocator.GetService<ISaveService>()));
-        }
-
         private static void RegisterDependencyContext()
         {
             var startDataPreset = Resources.Load<SaveDataPreset>(GameSettings.StartSaveDataPresetPath);
             var debugDataPreset = Resources.Load<SaveDataPreset>(GameSettings.DebugSaveDataPresetPath);
-            GameDependenciesContext.Bind<ISaveService>().FromInstance(new PlayerPrefSaveSystem(startDataPreset, debugDataPreset));
+            DependenciesContext.Bind<SaveDataPreset>("start").FromInstance(startDataPreset);
+            DependenciesContext.Bind<SaveDataPreset>("debug").FromInstance(debugDataPreset);
+            DependenciesContext.Bind<ISaveService>().To<PlayerPrefSaveSystem>().AsSingle();
 
-            GameDependenciesContext.Bind<IDatabaseService>().To<ScriptableObjectDatabase>().AsSingle();
-            GameDependenciesContext.Bind<IAudioService>().To<AudioSystem>().AsSingle();
+            DependenciesContext.Bind<IDatabaseService>().To<ScriptableObjectDatabase>().AsSingle();
+            DependenciesContext.Bind<IAudioService>().To<AudioSystem>().AsSingle();
+            DependenciesContext.Bind<IWalletService>().To<Wallet>().AsSingle();
 
             var screenContainer = Resources.Load<ScreenContainer>(GameSettings.ScreenContainerPath);
-            GameDependenciesContext.Bind<ScreenSystem>().FromInstance(new ScreenSystem(screenContainer));
+            DependenciesContext.Bind<ScreenContainer>().FromInstance(screenContainer);
+            DependenciesContext.Bind<ScreenSystem>().AsSingle().NonLazy();
 
-            //var tutorialSequence = Resources.Load<TutorialSequence>(GameSettings.TutorialSequencePath);
-            //GameDependenciesContext.Bind<TutorialSystem>().FromInstance()
-            //ServiceLocator.RegisterService(new TutorialSystem(tutorialSequence, ServiceLocator.GetService<ISaveService>()));
+            var tutorialSequence = Resources.Load<TutorialSequence>(GameSettings.TutorialSequencePath);
+            DependenciesContext.Bind<TutorialSequence>().FromInstance(tutorialSequence);
+            DependenciesContext.Bind<TutorialSystem>().AsSingle().NonLazy();
         }
 
         private static void InitializeOtherSystems()
@@ -83,7 +69,6 @@ namespace Manager
         public static void GameInitialize()
         {
             InitializeGameSettings();
-            RegisterServices();
             RegisterDependencyContext();
 
             InitializeManagers();

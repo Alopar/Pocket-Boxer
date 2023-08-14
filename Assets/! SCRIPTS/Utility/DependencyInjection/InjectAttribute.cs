@@ -5,7 +5,7 @@ namespace Utility.DependencyInjection
     [AttributeUsage(AttributeTargets.Field)]
     public class InjectAttribute : Attribute
     {
-        private readonly string _id = "";
+        private readonly string _id = null;
         public string ID => _id;
 
         public InjectAttribute()

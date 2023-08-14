@@ -1,5 +1,6 @@
 using EventHolder;
 using UnityEngine;
+using Utility.DependencyInjection;
 
 namespace Gameplay
 {
@@ -20,6 +21,8 @@ namespace Gameplay
         public void SpawnPlayer(PlayerController playerPrefab)
         {
             var player = Instantiate(playerPrefab, transform.position, Quaternion.identity);
+            DependenciesContext.Inject(player);
+
             player.transform.SetParent(transform.parent);
 
             EventHolder<PlayerSpawnInfo>.NotifyListeners(new PlayerSpawnInfo(player));

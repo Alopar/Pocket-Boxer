@@ -1,19 +1,19 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Utility.DependencyInjection;
 
 namespace Services.ScreenSystem
 {
     public class ScreenSystem
     {
         #region FIELDS PRIVATE
-        private readonly ScreenContainer _container;
+        [Inject] private ScreenContainer _container;
         #endregion
 
         #region CONSTRUCTORS
-        public ScreenSystem(ScreenContainer container)
+        public ScreenSystem()
         {
-            _container = container;
-            Init();
+            SceneManager.sceneLoaded += SceneLoadedHandler;
         }
         #endregion
 
@@ -25,11 +25,6 @@ namespace Services.ScreenSystem
         #endregion
 
         #region METHODS PRIVATE
-        private void Init()
-        {
-            SceneManager.sceneLoaded += SceneLoadedHandler;
-        }
-
         private void InitializeScreens()
         {
             var holder = new GameObject("======== UI ========");

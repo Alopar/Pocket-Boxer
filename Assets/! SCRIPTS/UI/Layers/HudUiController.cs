@@ -26,8 +26,9 @@ namespace Gameplay
         [EventHolder]
         private void DiamondChange(DiamondChangeInfo info)
         {
-            //var money = info.Value;
+            var money = info.Value;
             //_diamondText.text = money < 1000 ? money.ToString() : money < 1000000 ? $"{(float)money / 1000}K" : $"{(float)money / 1000000}ÊÊ";
+            _diamondText.text = money.ToString();
         }
         #endregion
 

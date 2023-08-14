@@ -3,7 +3,7 @@ using UnityEngine;
 using Manager;
 using EventHolder;
 using Services.Database;
-using Services.ServiceLocator;
+using Utility.DependencyInjection;
 
 namespace Gameplay
 {
@@ -19,9 +19,8 @@ namespace Gameplay
         #endregion
 
         #region FIELDS PRIVATE
+        [Inject] private IWalletService _wallet;
         private CargoComponent _cargo;
-
-        private IWalletService _wallet;
 
         private float _inputDelay = 0f;
         #endregion
@@ -107,7 +106,6 @@ namespace Gameplay
         {
             base.ResolveDependency();
             _cargo = GetComponent<CargoComponent>();
-            _wallet = ServiceLocator.GetService<IWalletService>();
         }
 
         private void PlaceAgentInStartPosition()

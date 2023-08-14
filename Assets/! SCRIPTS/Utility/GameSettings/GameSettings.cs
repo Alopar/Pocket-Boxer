@@ -1,6 +1,6 @@
 using System;
 
-namespace Utility
+namespace Utility.GameSettings
 {
     public static class GameSettings
     {
