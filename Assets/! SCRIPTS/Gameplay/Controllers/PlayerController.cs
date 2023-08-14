@@ -19,8 +19,9 @@ namespace Gameplay
         #endregion
 
         #region FIELDS PRIVATE
+        [MonoInject] private CargoComponent _cargo;
+
         [Inject] private IWalletService _wallet;
-        private CargoComponent _cargo;
 
         private float _inputDelay = 0f;
         #endregion
@@ -99,13 +100,7 @@ namespace Gameplay
         protected override void Init()
         {
             base.Init();
-            ResolveDependency();
-        }
-
-        protected override void ResolveDependency()
-        {
-            base.ResolveDependency();
-            _cargo = GetComponent<CargoComponent>();
+            PlaceAgentInStartPosition();
         }
 
         private void PlaceAgentInStartPosition()

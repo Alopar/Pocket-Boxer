@@ -39,21 +39,21 @@ namespace Manager
         {
             var startDataPreset = Resources.Load<SaveDataPreset>(GameSettings.StartSaveDataPresetPath);
             var debugDataPreset = Resources.Load<SaveDataPreset>(GameSettings.DebugSaveDataPresetPath);
-            DependenciesContext.Bind<SaveDataPreset>("start").FromInstance(startDataPreset);
-            DependenciesContext.Bind<SaveDataPreset>("debug").FromInstance(debugDataPreset);
-            DependenciesContext.Bind<ISaveService>().To<PlayerPrefSaveSystem>().AsSingle();
+            DependencyContainer.Bind<SaveDataPreset>("start").FromInstance(startDataPreset);
+            DependencyContainer.Bind<SaveDataPreset>("debug").FromInstance(debugDataPreset);
+            DependencyContainer.Bind<ISaveService>().To<PlayerPrefSaveSystem>().AsSingle();
 
-            DependenciesContext.Bind<IDatabaseService>().To<ScriptableObjectDatabase>().AsSingle();
-            DependenciesContext.Bind<IAudioService>().To<AudioSystem>().AsSingle();
-            DependenciesContext.Bind<IWalletService>().To<Wallet>().AsSingle();
+            DependencyContainer.Bind<IDatabaseService>().To<ScriptableObjectDatabase>().AsSingle();
+            DependencyContainer.Bind<IAudioService>().To<AudioSystem>().AsSingle();
+            DependencyContainer.Bind<IWalletService>().To<Wallet>().AsSingle();
 
             var screenContainer = Resources.Load<ScreenContainer>(GameSettings.ScreenContainerPath);
-            DependenciesContext.Bind<ScreenContainer>().FromInstance(screenContainer);
-            DependenciesContext.Bind<ScreenSystem>().AsSingle().NonLazy();
+            DependencyContainer.Bind<ScreenContainer>().FromInstance(screenContainer);
+            DependencyContainer.Bind<ScreenSystem>().AsSingle().NonLazy();
 
             var tutorialSequence = Resources.Load<TutorialSequence>(GameSettings.TutorialSequencePath);
-            DependenciesContext.Bind<TutorialSequence>().FromInstance(tutorialSequence);
-            DependenciesContext.Bind<TutorialSystem>().AsSingle().NonLazy();
+            DependencyContainer.Bind<TutorialSequence>().FromInstance(tutorialSequence);
+            DependencyContainer.Bind<TutorialSystem>().AsSingle().NonLazy();
         }
 
         private static void InitializeOtherSystems()

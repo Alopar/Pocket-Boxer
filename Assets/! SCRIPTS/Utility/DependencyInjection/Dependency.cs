@@ -45,7 +45,7 @@ namespace Utility.DependencyInjection
         private TContract CreateInstance(Type type)
         {
             var obj = FormatterServices.GetUninitializedObject(type);
-            DependenciesContext.Inject(obj);
+            DependencyContainer.Inject(obj);
             type.GetConstructor(Type.EmptyTypes).Invoke(obj, null);
 
             return (TContract)obj;

@@ -10,6 +10,10 @@ namespace Gameplay
         [SerializeField] private PlayerController _playerPrefab;
         #endregion
 
+        #region FIELDS PRIVATE
+        [Inject] private PlayerFactory _playerFactory;
+        #endregion
+
         #region UNITY CALLBACKS
         private void Start()
         {
@@ -20,10 +24,9 @@ namespace Gameplay
         #region METHODS PUBLIC
         public void SpawnPlayer(PlayerController playerPrefab)
         {
-            var player = Instantiate(playerPrefab, transform.position, Quaternion.identity);
-            DependenciesContext.Inject(player);
-
-            player.transform.SetParent(transform.parent);
+            var player = _playerFactory.Create(playerPrefab);
+            player.transform.position = transform.position;
+            player.transform.rotation = transform.rotation;
 
             EventHolder<PlayerSpawnInfo>.NotifyListeners(new PlayerSpawnInfo(player));
         }

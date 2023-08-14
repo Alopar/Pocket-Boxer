@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.AI;
 using Utility;
+using Utility.DependencyInjection;
 
 namespace Gameplay
 {
@@ -19,10 +20,10 @@ namespace Gameplay
         #endregion
 
         #region FIELDS PRIVATE
-        protected Camera _camera;
-        protected Collider _collider;
-        protected NavMeshAgent _navMeshAgent;
+        [MonoInject] protected Collider _collider;
+        [MonoInject] protected NavMeshAgent _navMeshAgent;
 
+        protected Camera _camera;
         protected float _currentMoveSpeed;
 
         protected CharacterAnimation? _lastCharacterAnimation = null;
@@ -49,16 +50,8 @@ namespace Gameplay
         #region METHODS PRIVATE
         protected virtual void Init()
         {
-            ResolveDependency();
-
             _currentMoveSpeed = _moveSpeed;
             _navMeshAgent.speed = _currentMoveSpeed;
-        }
-
-        protected virtual void ResolveDependency()
-        {
-            _collider = GetComponent<Collider>();
-            _navMeshAgent = GetComponent<NavMeshAgent>();
         }
 
         private void CameraCache()

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Utility.DependencyInjection
 {
-    public static class DependenciesContext
+    public static class DependencyContainer
     {
         #region FIELDS PRIVATE
         private static List<AbstractDependency> _dependencies = new();
@@ -14,7 +14,7 @@ namespace Utility.DependencyInjection
         #region METHODS PRIVATE
         private static MethodInfo CreateGenericMethod(Type parameterType, string name, Type[] argumentTypes)
         {
-            var type = typeof(DependenciesContext);
+            var type = typeof(DependencyContainer);
             var flags = BindingFlags.Static | BindingFlags.Public;
             var method = type.GetMethod(name, flags, null, argumentTypes, null);
             var typeArgs = new Type[1] { parameterType };
@@ -120,16 +120,8 @@ namespace Utility.DependencyInjection
                     var attibute = field.GetCustomAttribute<InjectAttribute>(false);
                     if (attibute is null) continue;
 
-                    MethodInfo method;
-                    if (attibute.ID is null)
-                    {
-                        method = CreateGenericMethod(field.FieldType, nameof(Get), Type.EmptyTypes);
-                    }
-                    else
-                    {
-                        method = CreateGenericMethod(field.FieldType, nameof(Get), new Type[1] { typeof(string) });
-                    }
-
+                    var argumentTypes = attibute.ID is null ? Type.EmptyTypes : new Type[1] { typeof(string) };
+                    var method = CreateGenericMethod(field.FieldType, nameof(Get), argumentTypes);
                     var parameters = attibute.ID is null ? null : new object[1] { attibute.ID };
                     field.SetValue(dependant, method.Invoke(null, parameters));
                 }

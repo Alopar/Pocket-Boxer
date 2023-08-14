@@ -7,8 +7,8 @@ namespace Services.SaveSystem
     public class PlayerPrefSaveSystem : ISaveService
     {
         #region FIELDS PRIVATE
-        [Inject("start")] private SaveDataPreset _startPreset;
-        [Inject("debug")] private SaveDataPreset _debugPreset;
+        [Inject(id:"start")] private SaveDataPreset _startPreset;
+        [Inject(id:"debug")] private SaveDataPreset _debugPreset;
         #endregion
 
         #region METHODS PUBLIC

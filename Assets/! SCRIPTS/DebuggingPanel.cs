@@ -38,12 +38,12 @@ namespace Gameplay
 #if UNITY_EDITOR
         private void AddMoney()
         {
-            DependenciesContext.Get<IWalletService>().SetCurrency<MoneyDeposite>(100000);
+            DependencyContainer.Get<IWalletService>().SetCurrency<MoneyDeposite>(100000);
         }
 
         private void AddDiamond()
         {
-            DependenciesContext.Get<IWalletService>().SetCurrency<DiamondDeposite>(1000);
+            DependencyContainer.Get<IWalletService>().SetCurrency<DiamondDeposite>(1000);
         }
 #endif
         #endregion
