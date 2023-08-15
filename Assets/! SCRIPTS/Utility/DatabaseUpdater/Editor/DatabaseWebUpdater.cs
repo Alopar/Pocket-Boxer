@@ -10,7 +10,7 @@ namespace Utility
         [MenuItem("Tools/Utility/Download Database")]
         private static void DownloadDatabase()
         {
-            Debug.Log("Upload database started:");
+            Debug.Log("Upload database started");
 
             var GUIDs = AssetDatabase.FindAssets("t:DatabaseTable");
             foreach (var guid in GUIDs)

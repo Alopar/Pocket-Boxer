@@ -2,6 +2,6 @@
 {
     public interface IDatabaseService
     {
-        AbstractTable<T> GetTable<T>(string name) where T : AbstractTableData;
+        AbstractTable<T> GetTable<T>(string name) where T : AbstractTableData , new();
     }
 }

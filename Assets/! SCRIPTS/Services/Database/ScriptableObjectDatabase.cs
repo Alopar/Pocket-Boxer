@@ -33,7 +33,7 @@ namespace Services.Database
         #endregion
 
         #region METHODS PUBLIC
-        public AbstractTable<T> GetTable<T>(string name) where T : AbstractTableData
+        public AbstractTable<T> GetTable<T>(string name) where T : AbstractTableData, new()
         {
             var tables = _tables.OfType<AbstractTable<T>>().ToList();
             if (tables.Count == 0)
