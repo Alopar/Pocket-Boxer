@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using EventHolder;
 using Services.ScreenSystem;
@@ -12,6 +13,22 @@ namespace Gameplay
         [Space(10)]
         [SerializeField] private TextMeshProUGUI _moneyText;
         [SerializeField] private TextMeshProUGUI _diamondText;
+
+        [Space(10)]
+        [SerializeField] private TextMeshProUGUI _strengthText;
+        [SerializeField] private Image _strengthFiller;
+
+        [Space(10)]
+        [SerializeField] private TextMeshProUGUI _dexterityText;
+        [SerializeField] private Image _dexterityFiller;
+
+        [Space(10)]
+        [SerializeField] private TextMeshProUGUI _enduranceText;
+        [SerializeField] private Image _enduranceFiller;
+
+        [Space(10)]
+        [SerializeField] private TextMeshProUGUI _energyText;
+        [SerializeField] private Image _energyFiller;
         #endregion
 
         #region HANDLERS
@@ -30,6 +47,15 @@ namespace Gameplay
             //_diamondText.text = money < 1000 ? money.ToString() : money < 1000000 ? $"{(float)money / 1000}K" : $"{(float)money / 1000000}ÊÊ";
             _diamondText.text = money.ToString();
         }
+
+        //[EventHolder]
+        //private void CargoOccupied(CargoOccupiedInfo info)
+        //{
+        //    _backpackText.text = CreateTextLabel(info.Occupied, info.Capacity);
+
+        //    var delta = (float)info.Occupied / info.Capacity;
+        //    _backpackFiller.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, _backpackFillerSize.x * delta);
+        //}
         #endregion
 
         #region UNITY CALLBACKS
