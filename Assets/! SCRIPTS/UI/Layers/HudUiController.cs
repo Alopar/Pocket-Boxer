@@ -7,7 +7,7 @@ using Services.ScreenSystem;
 
 namespace Gameplay
 {
-    public class HudUiController : AbstarctScreenController
+    public class HudUiController : AbstractScreenController
     {
         #region FIELDS INSPECTOR
         [Space(10)]
@@ -48,14 +48,14 @@ namespace Gameplay
             _diamondText.text = money.ToString();
         }
 
-        //[EventHolder]
-        //private void CargoOccupied(CargoOccupiedInfo info)
-        //{
-        //    _backpackText.text = CreateTextLabel(info.Occupied, info.Capacity);
+        [EventHolder]
+        private void BatteryOccupied(BatteryOccupiedInfo info)
+        {
+            _energyText.text = CreateTextLabel(info.Occupied, info.Capacity);
 
-        //    var delta = (float)info.Occupied / info.Capacity;
-        //    _backpackFiller.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, _backpackFillerSize.x * delta);
-        //}
+            var delta = (float)info.Occupied / info.Capacity;
+            _energyFiller.fillAmount = delta;
+        }
         #endregion
 
         #region UNITY CALLBACKS

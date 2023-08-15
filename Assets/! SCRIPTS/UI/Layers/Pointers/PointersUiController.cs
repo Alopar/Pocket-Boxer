@@ -5,7 +5,7 @@ using Services.ScreenSystem;
 
 namespace Gameplay
 {
-    public class PointersUiController : AbstarctScreenController
+    public class PointersUiController : AbstractScreenController
     {
         #region FIELDS INSPECTOR
         [Space(10)]

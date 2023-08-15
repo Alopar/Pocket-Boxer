@@ -5,7 +5,7 @@ using Services.TutorialSystem;
 
 namespace Gameplay
 {
-    public class TutorialUiController : AbstarctScreenController
+    public class TutorialUiController : AbstractScreenController
     {
         #region FIELDS INSPECTOR
         [Space(10)]

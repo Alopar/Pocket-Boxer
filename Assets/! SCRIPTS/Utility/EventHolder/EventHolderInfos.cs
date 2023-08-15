@@ -122,6 +122,76 @@ namespace EventHolder
             Value = value;
         }
     }
+
+    public class ExperiencePointsChangeInfo
+    {
+        public uint Value { get; private set; }
+
+        public ExperiencePointsChangeInfo(uint value)
+        {
+            Value = value;
+        }
+    }
+
+    public class StrengthPointsChangeInfo
+    {
+        public uint Value { get; private set; }
+
+        public StrengthPointsChangeInfo(uint value)
+        {
+            Value = value;
+        }
+    }
+
+    public class DexterityPointsChangeInfo
+    {
+        public uint Value { get; private set; }
+
+        public DexterityPointsChangeInfo(uint value)
+        {
+            Value = value;
+        }
+    }
+
+    public class EndurancePointsChangeInfo
+    {
+        public uint Value { get; private set; }
+
+        public EndurancePointsChangeInfo(uint value)
+        {
+            Value = value;
+        }
+    }
+
+    public class StrengthLevelChangeInfo
+    {
+        public uint Value { get; private set; }
+
+        public StrengthLevelChangeInfo(uint value)
+        {
+            Value = value;
+        }
+    }
+
+    public class DexterityLevelChangeInfo
+    {
+        public uint Value { get; private set; }
+
+        public DexterityLevelChangeInfo(uint value)
+        {
+            Value = value;
+        }
+    }
+
+    public class EnduranceLevelChangeInfo
+    {
+        public uint Value { get; private set; }
+
+        public EnduranceLevelChangeInfo(uint value)
+        {
+            Value = value;
+        }
+    }
     #endregion
 
     #region PLAYER
@@ -132,6 +202,18 @@ namespace EventHolder
         public PlayerSpawnInfo(PlayerController playerController)
         {
             PlayerController = playerController;
+        }
+    }
+
+    public class BatteryOccupiedInfo
+    {
+        public int Capacity { get; private set; }
+        public int Occupied { get; private set; }
+
+        public BatteryOccupiedInfo(int capacity, int occupied)
+        {
+            Capacity = capacity;
+            Occupied = occupied;
         }
     }
     #endregion

@@ -8,14 +8,14 @@ namespace Services.ScreenSystem
     public class ScreenContainer : ScriptableObject
     {
         #region FIELDS INSPECTOR
-        [SerializeField] private List<AbstarctScreenController> _screenPrefabs;
+        [SerializeField] private List<AbstractScreenController> _screenPrefabs;
 
         [Space(10)]
         [SerializeField] private GraphyManager _monitoringPrefab;
         #endregion
 
         #region PROPERTIES
-        public List<AbstarctScreenController> ScreenPrefabs => _screenPrefabs;
+        public List<AbstractScreenController> ScreenPrefabs => _screenPrefabs;
         public GraphyManager MonitoringPrefab => _monitoringPrefab;
         #endregion
     }
