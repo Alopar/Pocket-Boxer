@@ -46,7 +46,7 @@ namespace Services.Database
         public T GetDataByIndex(uint value)
         {
             var index = (int)Mathf.Clamp(value, 0, _datas.Count - 1);
-            return _datas[index].Copy<T>();
+            return (T)_datas[index].Copy();
         }
 
         public int GetCount()

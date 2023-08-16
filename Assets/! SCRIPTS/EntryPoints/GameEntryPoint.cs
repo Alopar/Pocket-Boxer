@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 using Gameplay;
+using Gameplay.Managers;
 using Services.Database;
 using Services.SaveSystem;
 using Services.AudioSystem;
@@ -26,13 +27,13 @@ namespace Manager
             GameSettings.Init(data);
         }
 
-        private static void InitializeManagers()
+        private static void InitializeSystems()
         {
             var prefab = Resources.Load("SYSTEMS");
-            var managers = GameObject.Instantiate(prefab);
-            managers.name = "===== MANAGERS =====";
+            var systems = GameObject.Instantiate(prefab);
+            systems.name = "===== SYSTEMS =====";
 
-            Object.DontDestroyOnLoad(managers);
+            Object.DontDestroyOnLoad(systems);
         }
 
         private static void RegisterDependencyContext()
@@ -54,6 +55,8 @@ namespace Manager
             var tutorialSequence = Resources.Load<TutorialSequence>(GameSettings.TutorialSequencePath);
             DependencyContainer.Bind<TutorialSequence>().FromInstance(tutorialSequence);
             DependencyContainer.Bind<TutorialSystem>().AsSingle().NonLazy();
+
+            DependencyContainer.Bind<StatsManager>().AsSingle().NonLazy();
         }
 
         private static void InitializeOtherSystems()
@@ -71,7 +74,7 @@ namespace Manager
             InitializeGameSettings();
             RegisterDependencyContext();
 
-            InitializeManagers();
+            InitializeSystems();
             InitializeOtherSystems();
         }
         #endregion

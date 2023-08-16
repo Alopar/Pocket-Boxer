@@ -5,6 +5,7 @@ using UnityEditor;
 using EventHolder;
 using Services.TutorialSystem;
 using Utility.DependencyInjection;
+using Gameplay.Managers;
 
 namespace Gameplay
 {
@@ -45,6 +46,26 @@ namespace Gameplay
         {
             DependencyContainer.Get<IWalletService>().SetCurrency<DiamondDeposite>(1000);
         }
+
+        private void AddExperiencePoints()
+        {
+            DependencyContainer.Get<IWalletService>().SetCurrency<ExperiencePointsDeposite>(100);
+        }
+
+        private void AddStrengthPoints()
+        {
+            DependencyContainer.Get<IWalletService>().SetCurrency<StrengthPointsDeposite>(10);
+        }
+
+        private void AddDexterityPoints()
+        {
+            DependencyContainer.Get<IWalletService>().SetCurrency<DexterityPointsDeposite>(10);
+        }
+
+        private void AddEndurancePoints()
+        {
+            DependencyContainer.Get<IWalletService>().SetCurrency<EndurancePointsDeposite>(10);
+        }
 #endif
         #endregion
 
@@ -69,13 +90,21 @@ namespace Gameplay
                 GUILayout.Label($"Tutorial step: {_target._tutorialStep}");
 
                 GUILayout.Space(10);
-                GUILayout.Label("UPGRADE INFO");
+                GUILayout.Label("STATS INFO");
+                var sm = DependencyContainer.Get<StatsManager>();
+                GUILayout.Label($"Strength level: {sm.GetLevel(StatType.Strength)}");
+                GUILayout.Label($"Dexterity level: {sm.GetLevel(StatType.Dexterity)}");
+                GUILayout.Label($"Endurance level: {sm.GetLevel(StatType.Endurance)}");
 
                 GUILayout.Space(10);
                 var buttons = new Dictionary<string, Action>
                 {
                     { "ADD MONEY", _target.AddMoney},
                     { "ADD DIAMOND", _target.AddDiamond},
+                    { "ADD EXPERIENCE POINTS", _target.AddExperiencePoints},
+                    { "ADD STRENGTH POINTS", _target.AddStrengthPoints},
+                    { "ADD DEXTERITY POINTS", _target.AddDexterityPoints},
+                    { "ADD ENDURANCE POINTS", _target.AddEndurancePoints},
                 };
 
                 foreach (var button in buttons)

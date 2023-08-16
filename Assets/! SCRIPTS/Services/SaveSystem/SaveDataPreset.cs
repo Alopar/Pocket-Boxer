@@ -12,6 +12,7 @@ namespace Services.SaveSystem
         #region FIELDS INSPECTOR
         [SerializeField] private CurrencySaveData _currencyData;
         [SerializeField] private TutorialSaveData _tutorialData;
+        [SerializeField] private StatsSaveData _statsData;
         #endregion
 
         #region FIELDS PRIVATE
@@ -67,7 +68,7 @@ namespace Services.SaveSystem
         public T GetGameData<T>() where T : AbstractSaveData
         {
             _gameDatas ??= CreateGameDatas();
-            return _gameDatas.OfType<T>().First().Copy<T>();
+            return (T)_gameDatas.OfType<T>().First().Copy();
         }
         #endregion
     }

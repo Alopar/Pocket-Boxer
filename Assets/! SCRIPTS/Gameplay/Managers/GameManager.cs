@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using EventHolder;
 
-namespace Manager
+namespace Gameplay.Managers
 {
     [DefaultExecutionOrder(-5)]
     public class GameManager : MonoBehaviour

@@ -15,5 +15,13 @@ MonoBehaviour:
   _currencyData:
     Money: 100
     Diamond: 10
+    ExperiencePoints: 1000
+    StrengthPoints: 10
+    DexterityPoints: 20
+    EndurancePoints: 30
   _tutorialData:
     CurrentStep: 254
+  _statsData:
+    StrengthLevel: 3
+    DexterityLevel: 2
+    EnduranceLevel: 1

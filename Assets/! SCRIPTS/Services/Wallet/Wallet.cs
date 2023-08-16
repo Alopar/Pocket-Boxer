@@ -5,6 +5,7 @@ using Utility.DependencyInjection;
 
 namespace Gameplay
 {
+    //TODO: refactoring wallet, remove more deposites
     public class Wallet : IWalletService
     {
         #region FIELDS PRIVATE
@@ -18,6 +19,10 @@ namespace Gameplay
         {
             _deposites.Add(typeof(MoneyDeposite), new MoneyDeposite(_saveService));
             _deposites.Add(typeof(DiamondDeposite), new DiamondDeposite(_saveService));
+            _deposites.Add(typeof(ExperiencePointsDeposite), new ExperiencePointsDeposite(_saveService));
+            _deposites.Add(typeof(StrengthPointsDeposite), new StrengthPointsDeposite(_saveService));
+            _deposites.Add(typeof(DexterityPointsDeposite), new DexterityPointsDeposite(_saveService));
+            _deposites.Add(typeof(EndurancePointsDeposite), new EndurancePointsDeposite(_saveService));
         }
         #endregion
 

@@ -49,6 +49,15 @@ MonoBehaviour:
   _content: {fileID: 6389631548151599414}
   _moneyText: {fileID: 4920175508780077496}
   _diamondText: {fileID: 8829768970172751416}
+  _experienceText: {fileID: 9125274706237374955}
+  _strengthText: {fileID: 5825336005394849464}
+  _strengthFiller: {fileID: 5796514610965979069}
+  _dexterityText: {fileID: 5374331012644333699}
+  _dexterityFiller: {fileID: 333994788562847560}
+  _enduranceText: {fileID: 5203797708748351278}
+  _enduranceFiller: {fileID: 5283281501395830671}
+  _energyText: {fileID: 7136682941911519526}
+  _energyFiller: {fileID: 2881381987727319354}
 --- !u!1 &411091628925271702
 GameObject:
   m_ObjectHideFlags: 0

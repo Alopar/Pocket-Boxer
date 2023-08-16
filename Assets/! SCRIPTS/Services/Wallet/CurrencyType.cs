@@ -3,6 +3,10 @@ namespace Gameplay
     public enum CurrencyType
     {
         Money,
-        Diamond
+        Diamond,
+        ExperiencePoints,
+        StrengthPoints,
+        DexterityPoints,
+        EndurancePoints
     }
 }

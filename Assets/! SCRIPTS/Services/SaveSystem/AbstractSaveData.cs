@@ -1,10 +1,13 @@
-using UnityEngine;
+using System;
 
 namespace Services.SaveSystem
 {
     public abstract class AbstractSaveData
     {
         public abstract string PrefName { get; }
-        public abstract T Copy<T>() where T : AbstractSaveData;
+        public virtual AbstractSaveData Copy()
+        {
+            return (AbstractSaveData)MemberwiseClone();
+        }
     }
 }

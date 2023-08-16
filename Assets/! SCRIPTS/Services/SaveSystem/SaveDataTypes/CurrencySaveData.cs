@@ -6,19 +6,13 @@ namespace Services.SaveSystem
     public class CurrencySaveData : AbstractSaveData
     {
         private const string PREF_NAME = "CURRENCY-DATA";
+        public override string PrefName => PREF_NAME;
 
         public ulong Money;
         public ulong Diamond;
-
-        public override string PrefName => PREF_NAME;
-
-        public override T Copy<T>()
-        {
-            return new CurrencySaveData()
-            {
-                Money = Money,
-                Diamond = Diamond
-            } as T;
-        }
+        public ulong ExperiencePoints;
+        public ulong StrengthPoints;
+        public ulong DexterityPoints;
+        public ulong EndurancePoints;
     }
 }

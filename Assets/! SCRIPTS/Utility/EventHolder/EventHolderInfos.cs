@@ -3,6 +3,7 @@ using UnityEngine.Events;
 using Gameplay;
 using Services.TutorialSystem;
 using PointerType = Gameplay.PointerType;
+using Gameplay.Managers;
 
 namespace EventHolder
 {
@@ -162,36 +163,6 @@ namespace EventHolder
             Value = value;
         }
     }
-
-    public class StrengthLevelChangeInfo
-    {
-        public uint Value { get; private set; }
-
-        public StrengthLevelChangeInfo(uint value)
-        {
-            Value = value;
-        }
-    }
-
-    public class DexterityLevelChangeInfo
-    {
-        public uint Value { get; private set; }
-
-        public DexterityLevelChangeInfo(uint value)
-        {
-            Value = value;
-        }
-    }
-
-    public class EnduranceLevelChangeInfo
-    {
-        public uint Value { get; private set; }
-
-        public EnduranceLevelChangeInfo(uint value)
-        {
-            Value = value;
-        }
-    }
     #endregion
 
     #region PLAYER
@@ -214,6 +185,22 @@ namespace EventHolder
         {
             Capacity = capacity;
             Occupied = occupied;
+        }
+    }
+    #endregion
+
+    #region STATS
+    public class StatsChangeInfo
+    {
+        public StatType Type { get; private set; }
+        public uint Level { get; private set; }
+        public float Delta { get; private set; }
+
+        public StatsChangeInfo(StatType type, uint level, float delta)
+        {
+            Type = type;
+            Level = level;
+            Delta = delta;
         }
     }
     #endregion
