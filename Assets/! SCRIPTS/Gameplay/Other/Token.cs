@@ -1,59 +1,39 @@
 using UnityEngine;
 using Utility.MonoPool;
+using Utility.DependencyInjection;
 
 namespace Gameplay
 {
     [SelectionBase]
-    public class Cargo : MonoBehaviour, IMagnetable, IPoolable
+    public class Token : MonoBehaviour, IMagnetable, IPoolable
     {
         #region FIELDS INSPECTOR
         [SerializeField] private Transform _view;
-
         [SerializeField, Range(0, 10)] private float _attractDelay;
+        [SerializeField] private CurrencyType _currencyType;
         #endregion
 
         #region FIELDS PRIVATE
-        private Collider _collider;
-        private Rigidbody _rigidbody;
+        [MonoInject] private Collider _collider;
 
         private bool _isAttactable;
+        private uint _cost;
         #endregion
 
-        #region UNITY CALLBACKS
-        private void Awake()
-        {
-            Init();
-        }
+        #region PROPERTIES
+        public uint Cost => _cost;
+        public CurrencyType Currency => _currencyType;
         #endregion
 
         #region METHODS PRIVATE
-        private void Init()
-        {
-            ResolveDependency();
-        }
-
-        private void ResolveDependency()
-        {
-            _collider = GetComponent<Collider>();
-            _rigidbody = GetComponent<Rigidbody>();
-        }
-
         private void PhysicsOn()
         {
             _collider.enabled = true;
-            _rigidbody.isKinematic = false;
         }
 
         private void PhysicsOff()
         {
             _collider.enabled = false;
-            _rigidbody.isKinematic = true;
-        }
-
-        private void SetForce(Vector3 force, Vector3 torque)
-        {
-            _rigidbody.AddForce(force, ForceMode.Impulse);
-            _rigidbody.AddTorque(torque, ForceMode.Impulse);
         }
 
         private void AttractableOn()
@@ -63,10 +43,10 @@ namespace Gameplay
         #endregion
 
         #region METHODS PUBLIC
-        public void GiveKick(Vector3 force, Vector3 torque)
+        public void Init(uint cost)
         {
+            _cost = cost;
             PhysicsOn();
-            SetForce(force, torque);
 
             _isAttactable = false;
             Invoke(nameof(AttractableOn), _attractDelay);

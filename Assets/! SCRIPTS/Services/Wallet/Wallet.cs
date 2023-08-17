@@ -5,7 +5,6 @@ using Utility.DependencyInjection;
 
 namespace Gameplay
 {
-    //TODO: refactoring wallet, remove more deposites
     public class Wallet : IWalletService
     {
         #region FIELDS PRIVATE

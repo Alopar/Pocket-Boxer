@@ -175,7 +175,7 @@ Transform:
   m_GameObject: {fileID: 897092753492620566}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: -0.15}
+  m_LocalPosition: {x: 0, y: 1.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -321,37 +321,6 @@ Transform:
   - {fileID: 5721352274076575890}
   - {fileID: 1151232188757973741}
   m_Father: {fileID: 3291780065475643802}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2260099086676697494
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1681556936783550885}
-  m_Layer: 0
-  m_Name: CargoPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1681556936783550885
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2260099086676697494}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8497932285276152021}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2812061267129603614
 GameObject:
@@ -516,8 +485,8 @@ GameObject:
   - component: {fileID: 8946828350290432336}
   - component: {fileID: 3377788090616286787}
   - component: {fileID: 3585255204227996007}
+  - component: {fileID: 4813005234092883839}
   - component: {fileID: 5638752438173211302}
-  - component: {fileID: 416264627816205692}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -632,6 +601,18 @@ MonoBehaviour:
   _animationTransmitter: {fileID: 9182402181757499001}
   _rotationAtTargetSpeed: 8
   _investitonByOnce: 5
+--- !u!114 &4813005234092883839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4145454253543308751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b83d78f0f543a7e46a25996be136988d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5638752438173211302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -686,31 +667,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   _magnetVisualisator: {fileID: 4226784764555132192}
---- !u!114 &416264627816205692
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4145454253543308751}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eabd5c033b3b5224c84c1f86f175e7c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _cargoPoint: {fileID: 1681556936783550885}
-  _layerOffset: 0.15
-  _cargoOffsets:
-  - {x: 0, y: 0, z: 0}
-  - {x: -0.15, y: 0, z: 0}
-  - {x: 0.15, y: 0, z: 0}
-  - {x: 0, y: 0, z: -0.15}
-  - {x: -0.15, y: 0, z: -0.15}
-  - {x: 0.15, y: 0, z: -0.15}
-  _gizmoEnabled: 0
-  _gizmoColor: {r: 1, g: 0, b: 0.8506589, a: 0.6}
-  _gizmoRadius: 0.1
-  _gizmoNumbers: 60
 --- !u!1 &4194909911942392277
 GameObject:
   m_ObjectHideFlags: 0
@@ -931,7 +887,6 @@ Transform:
   m_Children:
   - {fileID: 2356920837530991159}
   - {fileID: 8925977730953794611}
-  - {fileID: 1681556936783550885}
   - {fileID: 4693202451544798638}
   m_Father: {fileID: 3291780065475643802}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
