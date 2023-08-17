@@ -1,14 +1,13 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 using EventHolder;
 using Services.Database;
 using Services.SaveSystem;
-using UnityEngine;
 using Utility.DependencyInjection;
 
 namespace Gameplay.Managers
 {
-    //TODO: refactoring handlers!
     public class StatsManager
     {
         #region FIELDS PRIVATE
@@ -35,66 +34,42 @@ namespace Gameplay.Managers
         private void StrengthPointsChange(StrengthPointsChangeInfo info)
         {
             var statType = StatType.Strength;
-            var statData = GetData(statType);
-            if(statData.Cost <= info.Value)
-            {
-                _statLevels[StatType.Strength]++;
-                SaveData();
+            Action<float> eventCallback = (float delta) => { 
+                EventHolder<StrengthChangeInfo>.NotifyListeners(new(_statLevels[statType], delta)); 
+            };
+            Action<uint> walletCallback = (uint cost) => {
+                _walletService.TryGetCurrency<StrengthPointsDeposite>(cost);
+            };
 
-                var delta = Mathf.Clamp((float)info.Value / statData.Cost, 0f, 1f);
-                EventHolder<StatsChangeInfo>.NotifyListeners(new(statType, _statLevels[statType], delta));
-
-                _walletService.TryGetCurrency<StrengthPointsDeposite>(statData.Cost);
-            }
-            else
-            {
-                var delta = Mathf.Clamp((float)info.Value / statData.Cost, 0f, 1f);
-                EventHolder<StatsChangeInfo>.NotifyListeners(new(statType, _statLevels[statType], delta));
-            }
+            StatPointsHandler(statType, info.Value, eventCallback, walletCallback);
         }
 
         [EventHolder]
         private void DexterityPointsChange(DexterityPointsChangeInfo info)
         {
             var statType = StatType.Dexterity;
-            var statData = GetData(statType);
-            if (statData.Cost <= info.Value)
-            {
-                _statLevels[statType]++;
-                SaveData();
+            Action<float> eventCallback = (float delta) => {
+                EventHolder<DexterityChangeInfo>.NotifyListeners(new(_statLevels[statType], delta));
+            };
+            Action<uint> walletCallback = (uint cost) => {
+                _walletService.TryGetCurrency<DexterityPointsDeposite>(cost);
+            };
 
-                var delta = Mathf.Clamp((float)info.Value / statData.Cost, 0f, 1f);
-                EventHolder<StatsChangeInfo>.NotifyListeners(new(statType, _statLevels[statType], delta));
-
-                _walletService.TryGetCurrency<DexterityPointsDeposite>(statData.Cost);
-            }
-            else
-            {
-                var delta = Mathf.Clamp((float)info.Value / statData.Cost, 0f, 1f);
-                EventHolder<StatsChangeInfo>.NotifyListeners(new(statType, _statLevels[statType], delta));
-            }
+            StatPointsHandler(statType, info.Value, eventCallback, walletCallback);
         }
 
         [EventHolder]
         private void EndurancePointsChange(EndurancePointsChangeInfo info)
         {
             var statType = StatType.Endurance;
-            var statData = GetData(statType);
-            if (statData.Cost <= info.Value)
-            {
-                _statLevels[statType]++;
-                SaveData();
+            Action<float> eventCallback = (float delta) => {
+                EventHolder<EnduranceChangeInfo>.NotifyListeners(new(_statLevels[statType], delta));
+            };
+            Action<uint> walletCallback = (uint cost) => {
+                _walletService.TryGetCurrency<EndurancePointsDeposite>(cost);
+            };
 
-                var delta = Mathf.Clamp((float)info.Value / statData.Cost, 0f, 1f);
-                EventHolder<StatsChangeInfo>.NotifyListeners(new(statType, _statLevels[statType], delta));
-
-                _walletService.TryGetCurrency<EndurancePointsDeposite>(statData.Cost);
-            }
-            else
-            {
-                var delta = Mathf.Clamp((float)info.Value / statData.Cost, 0f, 1f);
-                EventHolder<StatsChangeInfo>.NotifyListeners(new(statType, _statLevels[statType], delta));
-            }
+            StatPointsHandler(statType, info.Value, eventCallback, walletCallback);
         }
         #endregion
 
@@ -123,6 +98,28 @@ namespace Gameplay.Managers
             _statUpgradeTables[StatType.Strength] = db.GetTable<StatsUpgradeData>("StrengthStatsUpgrade") as StatsUpgrade;
             _statUpgradeTables[StatType.Dexterity] = db.GetTable<StatsUpgradeData>("DexterityStatsUpgrade") as StatsUpgrade;
             _statUpgradeTables[StatType.Endurance] = db.GetTable<StatsUpgradeData>("EnduranceStatsUpgrade") as StatsUpgrade;
+        }
+
+        private void StatPointsHandler(StatType type, uint value, Action<float> eventCallback, Action<uint> walletCallback)
+        {
+            var cost = GetData(type).Cost;
+            if (cost <= value)
+            {
+                _statLevels[type]++;
+                SaveData();
+
+                eventCallback.Invoke(CreateDelta(value, cost));
+                walletCallback.Invoke(cost);
+            }
+            else
+            {
+                eventCallback.Invoke(CreateDelta(value, cost));
+            }
+        }
+
+        private float CreateDelta(uint current, uint max)
+        {
+            return Mathf.Clamp((float)current / max, 0f, 1f);
         }
         #endregion
 

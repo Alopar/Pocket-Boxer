@@ -3,7 +3,6 @@ using UnityEngine.Events;
 using Gameplay;
 using Services.TutorialSystem;
 using PointerType = Gameplay.PointerType;
-using Gameplay.Managers;
 
 namespace EventHolder
 {
@@ -190,15 +189,37 @@ namespace EventHolder
     #endregion
 
     #region STATS
-    public class StatsChangeInfo
+    public class StrengthChangeInfo
     {
-        public StatType Type { get; private set; }
         public uint Level { get; private set; }
         public float Delta { get; private set; }
 
-        public StatsChangeInfo(StatType type, uint level, float delta)
+        public StrengthChangeInfo(uint level, float delta)
         {
-            Type = type;
+            Level = level;
+            Delta = delta;
+        }
+    }
+
+    public class DexterityChangeInfo
+    {
+        public uint Level { get; private set; }
+        public float Delta { get; private set; }
+
+        public DexterityChangeInfo(uint level, float delta)
+        {
+            Level = level;
+            Delta = delta;
+        }
+    }
+
+    public class EnduranceChangeInfo
+    {
+        public uint Level { get; private set; }
+        public float Delta { get; private set; }
+
+        public EnduranceChangeInfo(uint level, float delta)
+        {
             Level = level;
             Delta = delta;
         }

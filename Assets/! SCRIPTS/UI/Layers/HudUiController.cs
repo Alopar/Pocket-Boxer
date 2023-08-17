@@ -7,7 +7,6 @@ using Services.ScreenSystem;
 
 namespace Gameplay
 {
-    //TODO: create number formatter method
     public class HudUiController : AbstractScreenController
     {
         #region FIELDS INSPECTOR
@@ -37,25 +36,40 @@ namespace Gameplay
         [EventHolder]
         private void MoneyChange(MoneyChangeInfo info)
         {
-            var money = info.Value;
-            //_moneyText.text = money < 1000 ? money.ToString() : money < 1000000 ? $"{(float)money / 1000}K" : $"{(float)money / 1000000}ÊÊ";
-            _moneyText.text = money.ToString();
+            _moneyText.text = info.Value.ToString();
         }
 
         [EventHolder]
         private void DiamondChange(DiamondChangeInfo info)
         {
-            var money = info.Value;
-            //_diamondText.text = money < 1000 ? money.ToString() : money < 1000000 ? $"{(float)money / 1000}K" : $"{(float)money / 1000000}ÊÊ";
-            _diamondText.text = money.ToString();
+            _diamondText.text = info.Value.ToString();
         }
 
         [EventHolder]
         private void ExperiencePointsChange(ExperiencePointsChangeInfo info)
         {
-            var value = info.Value;
-            //_diamondText.text = money < 1000 ? money.ToString() : money < 1000000 ? $"{(float)money / 1000}K" : $"{(float)money / 1000000}ÊÊ";
-            _experienceText.text = value.ToString();
+            _experienceText.text = info.Value.ToString();
+        }
+
+        [EventHolder]
+        private void StrengthChange(StrengthChangeInfo info)
+        {
+            _strengthText.text = info.Level.ToString();
+            _strengthFiller.fillAmount = info.Delta;
+        }
+
+        [EventHolder]
+        private void DexterityChange(DexterityChangeInfo info)
+        {
+            _dexterityText.text = info.Level.ToString();
+            _dexterityFiller.fillAmount = info.Delta;
+        }
+
+        [EventHolder]
+        private void EnduranceChange(EnduranceChangeInfo info)
+        {
+            _enduranceText.text = info.Level.ToString();
+            _enduranceFiller.fillAmount = info.Delta;
         }
 
         [EventHolder]
@@ -65,27 +79,6 @@ namespace Gameplay
 
             var delta = (float)info.Occupied / info.Capacity;
             _energyFiller.fillAmount = delta;
-        }
-
-        [EventHolder]
-        //TODO: fix only one call
-        private void StatsChange(StatsChangeInfo info)
-        {
-            switch (info.Type)
-            {
-                case StatType.Strength:
-                    _strengthText.text = info.Level.ToString();
-                    _strengthFiller.fillAmount = info.Delta;
-                    break;
-                case StatType.Dexterity:
-                    _dexterityText.text = info.Level.ToString();
-                    _dexterityFiller.fillAmount = info.Delta;
-                    break;
-                case StatType.Endurance:
-                    _enduranceText.text = info.Level.ToString();
-                    _enduranceFiller.fillAmount = info.Delta;
-                    break;
-            }
         }
         #endregion
 
@@ -107,6 +100,15 @@ namespace Gameplay
             var digitCount = (int)Math.Log10(Math.Abs(maxValue)) + 1;
             var format = "{0:d" + digitCount + "}";
             return $"{string.Format(format, currentValue)}/{maxValue}";
+        }
+
+        private string ConvertNumberToText(uint number)
+        {
+            if (number < 1000) return number.ToString();
+            if (number < 10000) return $"{((float)number / 1000):f2}K";
+            if (number < 100000) return $"{((float)number / 1000):f1}K";
+            if (number < 1000000) return $"{((float)number / 1000):f0}K";
+            return $"{(float)number / 1000000:f2}M";
         }
         #endregion
     }

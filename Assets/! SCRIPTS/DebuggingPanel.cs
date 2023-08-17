@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using Gameplay.Managers;
 using EventHolder;
 using Services.TutorialSystem;
 using Utility.DependencyInjection;
-using Gameplay.Managers;
 
 namespace Gameplay
 {
@@ -39,7 +39,7 @@ namespace Gameplay
 #if UNITY_EDITOR
         private void AddMoney()
         {
-            DependencyContainer.Get<IWalletService>().SetCurrency<MoneyDeposite>(100000);
+            DependencyContainer.Get<IWalletService>().SetCurrency<MoneyDeposite>(10000);
         }
 
         private void AddDiamond()
@@ -49,22 +49,22 @@ namespace Gameplay
 
         private void AddExperiencePoints()
         {
-            DependencyContainer.Get<IWalletService>().SetCurrency<ExperiencePointsDeposite>(100);
+            DependencyContainer.Get<IWalletService>().SetCurrency<ExperiencePointsDeposite>(1000);
         }
 
         private void AddStrengthPoints()
         {
-            DependencyContainer.Get<IWalletService>().SetCurrency<StrengthPointsDeposite>(10);
+            DependencyContainer.Get<IWalletService>().SetCurrency<StrengthPointsDeposite>(100);
         }
 
         private void AddDexterityPoints()
         {
-            DependencyContainer.Get<IWalletService>().SetCurrency<DexterityPointsDeposite>(10);
+            DependencyContainer.Get<IWalletService>().SetCurrency<DexterityPointsDeposite>(100);
         }
 
         private void AddEndurancePoints()
         {
-            DependencyContainer.Get<IWalletService>().SetCurrency<EndurancePointsDeposite>(10);
+            DependencyContainer.Get<IWalletService>().SetCurrency<EndurancePointsDeposite>(100);
         }
 #endif
         #endregion
