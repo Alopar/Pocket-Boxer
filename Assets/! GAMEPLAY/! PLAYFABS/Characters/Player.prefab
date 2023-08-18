@@ -629,7 +629,6 @@ MonoBehaviour:
   _magnetDistance: 2
   _magnetSpeed: 8
   _pathPrecision: 6
-  _pathMagnitude: 1.3
   _pathCurve:
     serializedVersion: 2
     m_Curve:

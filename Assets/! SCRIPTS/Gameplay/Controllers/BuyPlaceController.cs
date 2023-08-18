@@ -1,16 +1,13 @@
 using System;
 using UnityEngine;
-using Manager;
 using DG.Tweening;
 using Services.SaveSystem;
-using Services.ServiceLocator;
-using EventHolder;
-using Services.TutorialSystem;
+using Utility.DependencyInjection;
 
 namespace Gameplay
 {
     [SelectionBase]
-    public class ConstructionYardController : MonoBehaviour, IInvestable
+    public class BuyPlaceController : MonoBehaviour, IInvestable
     {
         #region FIELDS INSPECTOR
         [SerializeField] private string _id;
@@ -21,13 +18,12 @@ namespace Gameplay
         [SerializeField] private Transform _informers;
 
         [Space(10)]
-        [SerializeField] private GameObject _building;
+        [SerializeField] private GameObject _equipment;
         #endregion
 
         #region FIELDS PRIVATE
-        private ISaveService _saveService;
-
-        private Collider _collider;
+        [Inject] private ISaveService _saveService;
+        [Find] private Collider _collider;
 
         private int _invested;
         private bool _available;
@@ -39,7 +35,7 @@ namespace Gameplay
         #endregion
 
         #region UNITY CALLBACKS
-        private void Awake()
+        private void Start()
         {
             Init();
         }
@@ -48,58 +44,51 @@ namespace Gameplay
         #region METHODS PRIVATE
         private void Init()
         {
-            ResolveDependency();
-            //LoadProgress();
+            LoadProgress();
 
             if (_constructed)
             {
                 TurnOff();
-                ShowBuilding();
+                ShowEquipment();
                 return;
             }
 
             if (_available)
             {
                 TurnOn();
-                HideBuilding();
+                HideEquipment();
                 DOVirtual.DelayedCall(0.1f, () => { Invest(0); });
                 return;
             }
 
             TurnOff();
-            HideBuilding();
+            HideEquipment();
         }
 
-        private void ResolveDependency()
+        private void LoadProgress()
         {
-            _saveService = ServiceLocator.GetService<ISaveService>();
-            _collider = GetComponent<Collider>();
+            var loadData = _saveService.Load<SimulatorSaveData>();
+            var simulator = loadData.Simulators.Find(e => e.ID == _id);
+
+            _invested = simulator.Invested;
+            _available = simulator.Available;
+            _constructed = simulator.Constructed;
         }
 
-        //private void LoadProgress()
-        //{
-        //    var loadData = _saveService.Load<BuildingSaveData>();
-        //    var building = loadData.Buildings.Find(e => e.ID == _id);
+        private void SaveProgress()
+        {
+            var saveData = _saveService.Load<SimulatorSaveData>();
+            var simulator = saveData.Simulators.Find(e => e.ID == _id);
+            saveData.Simulators.Remove(simulator);
 
-        //    _invested = building.Invested;
-        //    _available = building.Available;
-        //    _constructed = building.Constructed;
-        //}
+            simulator.Invested = _invested;
+            simulator.Available = _available;
+            simulator.Constructed = _constructed;
 
-        //private void SaveProgress()
-        //{
-        //    var saveData = _saveService.Load<BuildingSaveData>();
-        //    var building = saveData.Buildings.Find(e => e.ID == _id);
-        //    saveData.Buildings.Remove(building);
+            saveData.Simulators.Add(simulator);
 
-        //    building.Invested = _invested;
-        //    building.Available = _available;
-        //    building.Constructed = _constructed;
-
-        //    saveData.Buildings.Add(building);
-
-        //    _saveService.Save(saveData);
-        //}
+            _saveService.Save(saveData);
+        }
 
         private void TurnOn()
         {
@@ -113,14 +102,14 @@ namespace Gameplay
             _informers.gameObject.SetActive(false);
         }
 
-        private void ShowBuilding()
+        private void ShowEquipment()
         {
-            _building.SetActive(true);
+            _equipment.SetActive(true);
         }
 
-        private void HideBuilding()
+        private void HideEquipment()
         {
-            _building.SetActive(false);
+            _equipment.SetActive(false);
         }
         #endregion
 
@@ -132,10 +121,10 @@ namespace Gameplay
             if (_constructed)
             {
                 TurnOff();
-                ShowBuilding();
+                ShowEquipment();
             }
 
-            //SaveProgress();
+            SaveProgress();
             OnInvest?.Invoke(_invested, (int)_cost);
         }
         #endregion

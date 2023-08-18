@@ -13,6 +13,7 @@ namespace Services.SaveSystem
         [SerializeField] private CurrencySaveData _currencyData;
         [SerializeField] private TutorialSaveData _tutorialData;
         [SerializeField] private StatsSaveData _statsData;
+        [SerializeField] private SimulatorSaveData _simulatorData;
         #endregion
 
         #region FIELDS PRIVATE

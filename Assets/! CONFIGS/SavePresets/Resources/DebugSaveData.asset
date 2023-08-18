@@ -25,3 +25,13 @@ MonoBehaviour:
     StrengthLevel: 3
     DexterityLevel: 2
     EnduranceLevel: 1
+  _simulatorData:
+    Simulators:
+    - ID: EQ01
+      Invested: 0
+      Available: 1
+      Constructed: 1
+    - ID: EQ02
+      Invested: 50
+      Available: 1
+      Constructed: 0
