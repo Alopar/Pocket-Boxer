@@ -16,7 +16,6 @@ namespace Gameplay
 
         [Space(10)]
         [SerializeField, Range(0, 10)] private int _pathPrecision;
-        [SerializeField, Range(0, 10)] private float _pathMagnitude;
         [SerializeField] private AnimationCurve _pathCurve;
 
         [Space(10)]

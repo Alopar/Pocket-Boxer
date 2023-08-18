@@ -5,6 +5,11 @@ namespace Gameplay
 {
     public class PlayerFactory
     {
+        #region FIELDS PRIVATE
+        [Inject] private ComponentDependencyResolver _componentResolver;
+        #endregion
+
+        #region METHODS PUBLIC
         public PlayerController Create(PlayerController prefab)
         {
             var tempAction = prefab.gameObject.activeSelf;
@@ -14,7 +19,7 @@ namespace Gameplay
             var children = player.GetComponentsInChildren<MonoBehaviour>(true);
             foreach (var child in children)
             {
-                MonoInjector.Inject(child);
+                _componentResolver.Resolve(child);
                 DependencyContainer.Inject(child);
             }
 
@@ -23,5 +28,6 @@ namespace Gameplay
 
             return player;
         }
+        #endregion
     }
 }

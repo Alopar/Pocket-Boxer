@@ -14,7 +14,8 @@ namespace Gameplay
         #endregion
 
         #region FIELDS PRIVATE
-        [MonoInject] private Collider _collider;
+        [Find] private Collider _collider;
+        [Find] private FloatComponent _floatComponent;
 
         private bool _isAttactable;
         private uint _cost;
@@ -29,11 +30,13 @@ namespace Gameplay
         private void PhysicsOn()
         {
             _collider.enabled = true;
+            _floatComponent.TurnOn();
         }
 
         private void PhysicsOff()
         {
             _collider.enabled = false;
+            _floatComponent.TurnOff();
         }
 
         private void AttractableOn()

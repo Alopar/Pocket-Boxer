@@ -1,12 +1,11 @@
 using System.Reflection;
 using UnityEngine;
-using Utility.DependencyInjection;
 
-namespace Gameplay
+namespace Utility.DependencyInjection
 {
-    public static class MonoInjector
+    public class ComponentDependencyResolver
     {
-        public static object Inject(Component dependant)
+        public object Resolve(Component dependant)
         {
             var flags = BindingFlags.DeclaredOnly
                 | BindingFlags.Instance
@@ -19,7 +18,7 @@ namespace Gameplay
                 var fields = type.GetFields(flags);
                 foreach (var field in fields)
                 {
-                    var attibute = field.GetCustomAttribute<MonoInjectAttribute>(false);
+                    var attibute = field.GetCustomAttribute<FindAttribute>(false);
                     if (attibute is null) continue;
 
                     var component = dependant.GetComponent(field.FieldType);

@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using UnityEngine;
-using Utility.MonoPool;
+using Utility.DependencyInjection;
 using DG.Tweening;
 using NaughtyAttributes;
 using Random = UnityEngine.Random;
@@ -23,6 +23,10 @@ namespace Gameplay
         [SerializeField, Range(0, 3)] private int _numJumps;
         [SerializeField, Range(0, 5)] private float _jumpPower;
         [SerializeField, Range(0, 3)] private float _jumpDuration;
+        #endregion
+
+        #region FIELDS PRIVATE
+        [Inject] private TokenFactory _tokenFactory;
         #endregion
 
         #region METHODS PUBLIC
@@ -70,12 +74,10 @@ namespace Gameplay
         {
             for (int i = 0; i < number; i++)
             {
-                //TODO: implement factory
-                var token = MonoPool.Instantiate(prefab);
-                MonoInjector.Inject(token);
-                token.Init(cost);
-
+                var token = _tokenFactory.Create(prefab);
                 token.transform.position = spawnPosition;
+                token.Init(cost);
+                
                 var direction = Random.insideUnitCircle.normalized * Random.Range(_randomDistance.x, _randomDistance.y);
                 var jumpPosition = spawnPosition + new Vector3(direction.x, spawnPosition.y, direction.y);
                 token.transform.DOJump(jumpPosition, _jumpPower, _numJumps, _jumpDuration);

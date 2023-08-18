@@ -10,7 +10,7 @@ namespace Gameplay
     {
         #region FIELDS PRIVATE
         [Inject] private IWalletService _walletService;
-        [MonoInject] private MagnetComponent _magnetComponent;
+        [Find] private MagnetComponent _magnetComponent;
         #endregion
 
         #region UNITY CALLBACKS

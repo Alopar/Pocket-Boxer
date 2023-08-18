@@ -20,8 +20,8 @@ namespace Gameplay
         #endregion
 
         #region FIELDS PRIVATE
-        [MonoInject] protected Collider _collider;
-        [MonoInject] protected NavMeshAgent _navMeshAgent;
+        [Find] protected Collider _collider;
+        [Find] protected NavMeshAgent _navMeshAgent;
 
         protected Camera _camera;
         protected float _currentMoveSpeed;

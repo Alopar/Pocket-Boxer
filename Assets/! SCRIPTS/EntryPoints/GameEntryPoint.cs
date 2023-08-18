@@ -38,6 +38,8 @@ namespace Manager
 
         private static void RegisterDependencyContext()
         {
+            DependencyContainer.Bind<ComponentDependencyResolver>().AsSingle();
+
             var startDataPreset = Resources.Load<SaveDataPreset>(GameSettings.StartSaveDataPresetPath);
             var debugDataPreset = Resources.Load<SaveDataPreset>(GameSettings.DebugSaveDataPresetPath);
             DependencyContainer.Bind<SaveDataPreset>("start").FromInstance(startDataPreset);

@@ -19,7 +19,7 @@ namespace Gameplay
         #endregion
 
         #region FIELDS PRIVATE
-        [MonoInject] private CargoComponent _cargo;
+        [Find] private CargoComponent _cargo;
 
         [Inject] private IWalletService _wallet;
 
