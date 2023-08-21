@@ -16,37 +16,37 @@ PrefabInstance:
     - target: {fileID: 4822231427247359152, guid: a335a81420726f444b9cfc74eb2771d2,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -15.36
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4822231427247359152, guid: a335a81420726f444b9cfc74eb2771d2,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.114
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4822231427247359152, guid: a335a81420726f444b9cfc74eb2771d2,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 12.24
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4822231427247359152, guid: a335a81420726f444b9cfc74eb2771d2,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.8923994
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4822231427247359152, guid: a335a81420726f444b9cfc74eb2771d2,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.0990456
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4822231427247359152, guid: a335a81420726f444b9cfc74eb2771d2,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.36964318
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4822231427247359152, guid: a335a81420726f444b9cfc74eb2771d2,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.23911777
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4822231427247359152, guid: a335a81420726f444b9cfc74eb2771d2,
         type: 3}
@@ -56,17 +56,17 @@ PrefabInstance:
     - target: {fileID: 4822231427247359152, guid: a335a81420726f444b9cfc74eb2771d2,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 45
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4822231427247359152, guid: a335a81420726f444b9cfc74eb2771d2,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -30
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5307440774114024970, guid: a335a81420726f444b9cfc74eb2771d2,
         type: 3}
       propertyPath: m_Name
-      value: bike.01 Variant
+      value: bike3
       objectReference: {fileID: 0}
     - target: {fileID: 5955778732002263007, guid: a335a81420726f444b9cfc74eb2771d2,
         type: 3}

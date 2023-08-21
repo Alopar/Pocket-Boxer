@@ -19,8 +19,6 @@ namespace Gameplay
         #endregion
 
         #region FIELDS PRIVATE
-        [Find] private CargoComponent _cargo;
-
         [Inject] private IWalletService _wallet;
 
         private float _inputDelay = 0f;
