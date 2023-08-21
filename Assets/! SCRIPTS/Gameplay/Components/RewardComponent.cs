@@ -48,25 +48,6 @@ namespace Gameplay
 
             TokenStream(prefab, _spawnPoint.position, _spawnDelay, number, cost);
         }
-
-        //TODO: delete test code
-        [Button("DROP STRENGTH TOKEN")]
-        public void DropStrengthToken()
-        {
-            GiveOutReward(CurrencyType.StrengthPoints, 10, 3);
-        }
-
-        [Button("DROP DEXTERITY TOKEN")]
-        public void DropDexterityToken()
-        {
-            GiveOutReward(CurrencyType.DexterityPoints, 10, 3);
-        }
-
-        [Button("DROP ENDURANCE TOKEN")]
-        public void DropEnduranceToken()
-        {
-            GiveOutReward(CurrencyType.EndurancePoints, 10, 3);
-        }
         #endregion
 
         #region COROUTINES

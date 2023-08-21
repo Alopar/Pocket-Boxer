@@ -80,12 +80,12 @@ namespace Gameplay
 
         private void OnTriggerEnter(Collider other)
         {
-            //UpgraderInteract(other.gameObject, true);
+            SimulatorInteract(other.gameObject, true);
         }
 
         private void OnTriggerExit(Collider other)
         {
-            //UpgraderInteract(other.gameObject, false);
+            SimulatorInteract(other.gameObject, false);
         }
 
         private void OnTriggerStay(Collider other)
@@ -144,20 +144,21 @@ namespace Gameplay
             EntityInteraction(entity, action);
         }
 
-        //private void UpgraderInteract(GameObject entity, bool isEnter)
-        //{
-        //    Action<Upgrader> action = (Upgrader armory) => {
-        //        if (isEnter)
-        //        {
-        //            EventHolder<ShowScreenInfo>.NotifyListeners(new(ScreenType.Upgrade));
-        //        }
-        //        else
-        //        {
-        //            EventHolder<CloseScreenInfo>.NotifyListeners(new(ScreenType.Upgrade));
-        //        }
-        //    };
-        //    EntityInteraction(entity, action);
-        //}
+        private void SimulatorInteract(GameObject entity, bool isEnter)
+        {
+            Action<SimulatorController> simulator = (SimulatorController simulator) =>
+            {
+                if (isEnter)
+                {
+                    EventHolder<ShowSimulatorButtonInfo>.NotifyListeners(new(simulator));
+                }
+                else
+                {
+                    EventHolder<CloseSimulatorButtonInfo>.NotifyListeners(new());
+                }
+            };
+            EntityInteraction(entity, simulator);
+        }
         #endregion
     }
 }

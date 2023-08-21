@@ -331,6 +331,31 @@ namespace EventHolder
             ScreenType = screenType;
         }
     }
+
+    public class ShowSimulatorButtonInfo
+    {
+        public SimulatorController Simulator { get; private set; }
+
+        public ShowSimulatorButtonInfo(SimulatorController simulator)
+        {
+            Simulator = simulator;
+        }
+    }
+
+    public class CloseSimulatorButtonInfo
+    {
+
+    }
+
+    public class StartTrainInfo
+    {
+        public SimulatorController Simulator { get; private set; }
+
+        public StartTrainInfo(SimulatorController simulator)
+        {
+            Simulator = simulator;
+        }
+    }
     #endregion
 
     #region TUTORIAL
