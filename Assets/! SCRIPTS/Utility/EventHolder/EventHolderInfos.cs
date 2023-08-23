@@ -356,6 +356,11 @@ namespace EventHolder
             Simulator = simulator;
         }
     }
+
+    public class EndTrainInfo
+    {
+
+    }
     #endregion
 
     #region TUTORIAL

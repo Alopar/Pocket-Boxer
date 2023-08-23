@@ -16,6 +16,13 @@ namespace Gameplay
             _currentSimulator = info.Simulator;
             ShowScreen();
         }
+
+        [EventHolder]
+        private void CloseScreen(CloseScreenInfo info)
+        {
+            if (info.ScreenType != ScreenType.Simulator) return;
+            CloseScreen();
+        }
         #endregion
 
         #region UNITY CALLBACKS

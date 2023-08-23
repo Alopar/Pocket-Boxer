@@ -48,6 +48,18 @@ namespace Gameplay
                 _bufferCharacterAnimation = CharacterAnimation.Run;
             }
         }
+
+        [EventHolder]
+        private void StartTrain(StartTrainInfo info)
+        {
+            _view.gameObject.SetActive(false);
+        }
+
+        [EventHolder]
+        private void EndTrain(EndTrainInfo info)
+        {
+            _view.gameObject.SetActive(true);
+        }
         #endregion
 
         #region UNITY CALLBACKS
