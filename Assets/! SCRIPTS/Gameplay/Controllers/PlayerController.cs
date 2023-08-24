@@ -19,6 +19,8 @@ namespace Gameplay
         #endregion
 
         #region FIELDS PRIVATE
+        [Find] private WalletComponent _walletComponent;
+
         [Inject] private IWalletService _wallet;
 
         private float _inputDelay = 0f;
@@ -50,15 +52,19 @@ namespace Gameplay
         }
 
         [EventHolder]
-        private void StartTrain(StartTrainInfo info)
+        private void HidePlayer(HidePlayerInfo info)
         {
+            _walletComponent.enabled = false;
             _view.gameObject.SetActive(false);
+            _informers.gameObject.SetActive(false);
         }
 
         [EventHolder]
-        private void EndTrain(EndTrainInfo info)
+        private void ShowPlayer(ShowPlayerInfo info)
         {
+            _walletComponent.enabled = true;
             _view.gameObject.SetActive(true);
+            _informers.gameObject.SetActive(true);
         }
         #endregion
 
@@ -162,11 +168,11 @@ namespace Gameplay
             {
                 if (isEnter)
                 {
-                    EventHolder<ShowSimulatorButtonInfo>.NotifyListeners(new(simulator));
+                    EventHolder<ShowEquipmentScreenInfo>.NotifyListeners(new(simulator));
                 }
                 else
                 {
-                    EventHolder<CloseSimulatorButtonInfo>.NotifyListeners(new());
+                    EventHolder<CloseEquipmentSceenInfo>.NotifyListeners(new());
                 }
             };
             EntityInteraction(entity, simulator);

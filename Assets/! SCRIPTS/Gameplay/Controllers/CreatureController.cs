@@ -12,6 +12,7 @@ namespace Gameplay
         #region FIELDS INSPECTOR
         [Header("BASE SETTINGS:")]
         [SerializeField] protected Transform _view;
+        [SerializeField] protected Transform _informers;
         [SerializeField, Range(0, 50)] protected float _moveSpeed = 2f;
 
         [Space(10)]

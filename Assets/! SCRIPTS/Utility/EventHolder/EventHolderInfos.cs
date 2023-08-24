@@ -186,6 +186,16 @@ namespace EventHolder
             Occupied = occupied;
         }
     }
+
+    public class HidePlayerInfo
+    {
+        // N/A
+    }
+
+    public class ShowPlayerInfo
+    {
+        // N/A
+    }
     #endregion
 
     #region STATS
@@ -332,34 +342,19 @@ namespace EventHolder
         }
     }
 
-    public class ShowSimulatorButtonInfo
+    public class ShowEquipmentScreenInfo
     {
-        public SimulatorController Simulator { get; private set; }
+        public IEquipment Equipment { get; private set; }
 
-        public ShowSimulatorButtonInfo(SimulatorController simulator)
+        public ShowEquipmentScreenInfo(IEquipment equipment)
         {
-            Simulator = simulator;
+            Equipment = equipment;
         }
     }
 
-    public class CloseSimulatorButtonInfo
+    public class CloseEquipmentSceenInfo
     {
-
-    }
-
-    public class StartTrainInfo
-    {
-        public SimulatorController Simulator { get; private set; }
-
-        public StartTrainInfo(SimulatorController simulator)
-        {
-            Simulator = simulator;
-        }
-    }
-
-    public class EndTrainInfo
-    {
-
+        // N/A
     }
     #endregion
 

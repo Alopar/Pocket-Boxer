@@ -261,6 +261,16 @@ PrefabInstance:
       objectReference: {fileID: 5985595875305960171}
     - target: {fileID: -8645864510416166096, guid: 681a3ed497f504345ad90f09b2b8b2cc,
         type: 3}
+      propertyPath: _maxTokens
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -8645864510416166096, guid: 681a3ed497f504345ad90f09b2b8b2cc,
+        type: 3}
+      propertyPath: _costTokens
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8645864510416166096, guid: 681a3ed497f504345ad90f09b2b8b2cc,
+        type: 3}
       propertyPath: _currencyType
       value: 5
       objectReference: {fileID: 0}
@@ -268,6 +278,16 @@ PrefabInstance:
         type: 3}
       propertyPath: _trainDuration
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8645864510416166096, guid: 681a3ed497f504345ad90f09b2b8b2cc,
+        type: 3}
+      propertyPath: _usageDuration
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -8645864510416166096, guid: 681a3ed497f504345ad90f09b2b8b2cc,
+        type: 3}
+      propertyPath: _progressForUsage
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 529650474098502659, guid: 681a3ed497f504345ad90f09b2b8b2cc,
         type: 3}
