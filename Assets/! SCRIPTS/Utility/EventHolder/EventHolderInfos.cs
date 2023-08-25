@@ -39,6 +39,16 @@ namespace EventHolder
             Enable = enable;
         }
     }
+
+    public class InputSwipeInfo
+    {
+        public Vector2 Direction { get; private set; }
+
+        public InputSwipeInfo(Vector2 direction)
+        {
+            Direction = direction;
+        }
+    }
     #endregion
 
     #region CAMERA

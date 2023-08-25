@@ -21,6 +21,10 @@ namespace Gameplay
         [SerializeField] private GameObject _strengthIcon;
         [SerializeField] private GameObject _dexterityIcon;
         [SerializeField] private GameObject _enduranceIcon;
+
+        [Space(10)]
+        [SerializeField] private GameObject _tapContainer;
+        [SerializeField] private GameObject _swipeContainer;
         #endregion
 
         #region FIELDS PRIVATE
@@ -49,6 +53,12 @@ namespace Gameplay
         private void CloseEquipmentSceen(CloseEquipmentSceenInfo info)
         {
             CloseScreen();
+        }
+
+        [EventHolder]
+        private void InputSwipe(InputSwipeInfo info)
+        {
+            _equipment.AddProgress(5f);
         }
 
         private void TimerChangeHandler(float value)
@@ -98,10 +108,30 @@ namespace Gameplay
         {
             _simulatorContainer.SetActive(true);
 
+            ShowInputTools();
+            ShowCurrencyIcon();
+        }
+
+        private void ShowInputTools()
+        {
+            _tapContainer.SetActive(false);
+            _swipeContainer.SetActive(false);
+            switch (_equipment.InputType)
+            {
+                case InputType.Tap:
+                    _tapContainer.SetActive(true);
+                    break;
+                case InputType.Swipe:
+                    _swipeContainer.SetActive(true);
+                    break;
+            }
+        }
+
+        private void ShowCurrencyIcon()
+        {
             _strengthIcon.SetActive(false);
             _dexterityIcon.SetActive(false);
             _enduranceIcon.SetActive(false);
-
             switch (_equipment.CurrencyType)
             {
                 case CurrencyType.StrengthPoints:
@@ -153,7 +183,7 @@ namespace Gameplay
             EventHolder<InputControlInfo>.NotifyListeners(new(true));
         }
 
-        public void TapTap()
+        public void Tap()
         {
             _equipment.AddProgress(5f);
         }

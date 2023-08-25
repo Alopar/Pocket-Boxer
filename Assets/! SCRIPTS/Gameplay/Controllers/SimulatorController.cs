@@ -7,26 +7,6 @@ using Utility.DependencyInjection;
 
 namespace Gameplay
 {
-    public enum EquipmentType
-    {
-        Simulator,
-        Relaxer
-    }
-
-    public interface IEquipment
-    {
-        public EquipmentType Type { get; }
-        public CurrencyType CurrencyType { get; }
-
-        public event Action<float> OnTimerChange;
-        public event Action<float> OnProgressChange;
-        public event Action OnExploitationEnd;
-
-        public void AddProgress(float progress);
-        public void TurnOn();
-        public void TurnOff();
-    }
-
     public class SimulatorController : MonoBehaviour, IEquipment
     {
         #region FIELDS INSPECTOR
@@ -34,6 +14,7 @@ namespace Gameplay
         [SerializeField] private EquipmentType _type;
 
         [Space(10)]
+        [SerializeField] private InputType _inputType;
         [SerializeField, Range(0, 60)] private float _usageDuration;
         [SerializeField, Range(0, 100)] private float _progressForUsage;
 
@@ -55,6 +36,7 @@ namespace Gameplay
 
         #region PROPERTIES
         public EquipmentType Type => _type;
+        public InputType InputType => _inputType;
         public CurrencyType CurrencyType => _currencyType;
         #endregion
 
