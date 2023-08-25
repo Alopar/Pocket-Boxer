@@ -17,6 +17,7 @@ namespace Gameplay
         [SerializeField] private InputType _inputType;
         [SerializeField, Range(0, 60)] private float _usageDuration;
         [SerializeField, Range(0, 100)] private float _progressForUsage;
+        [SerializeField, Range(0, 100)] private uint _energyCost;
 
         [Space(10)]
         [SerializeField] private CurrencyType _currencyType;
@@ -32,12 +33,14 @@ namespace Gameplay
 
         private float _progress;
         private int _tokenCounter;
+        private BatteryComponent _userBattery;
         #endregion
 
         #region PROPERTIES
         public EquipmentType Type => _type;
         public InputType InputType => _inputType;
         public CurrencyType CurrencyType => _currencyType;
+        public uint EnergyCost => _energyCost;
         #endregion
 
         #region EVENTS
@@ -61,7 +64,7 @@ namespace Gameplay
         {
             _progress = 0;
             _tokenCounter = 0;
-
+            _userBattery?.TryGetEnergy(_energyCost);
             StartCoroutine(Exploitation(_usageDuration));
 
             _camera.Priority = 10;
@@ -89,6 +92,11 @@ namespace Gameplay
             {
                 OnExploitationEnd?.Invoke();
             }
+        }
+
+        public void SetUserBattety(BatteryComponent battery)
+        {
+            _userBattery = battery;
         }
         #endregion
 

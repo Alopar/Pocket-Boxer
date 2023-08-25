@@ -20,6 +20,7 @@ namespace Gameplay
 
         #region FIELDS PRIVATE
         [Find] private WalletComponent _walletComponent;
+        [Find] private BatteryComponent _batteryComponent;
 
         [Inject] private IWalletService _wallet;
 
@@ -116,6 +117,8 @@ namespace Gameplay
         protected override void Init()
         {
             base.Init();
+            _batteryComponent.Init();
+
             PlaceAgentInStartPosition();
         }
 
@@ -166,12 +169,16 @@ namespace Gameplay
         {
             Action<SimulatorController> simulator = (SimulatorController simulator) =>
             {
+                if (simulator.EnergyCost > _batteryComponent.Occupied) return;
+
                 if (isEnter)
                 {
+                    simulator.SetUserBattety(_batteryComponent);
                     EventHolder<ShowEquipmentScreenInfo>.NotifyListeners(new(simulator));
                 }
                 else
                 {
+                    simulator.SetUserBattety(null);
                     EventHolder<CloseEquipmentSceenInfo>.NotifyListeners(new());
                 }
             };

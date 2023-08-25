@@ -7,6 +7,7 @@ namespace Gameplay
         public EquipmentType Type { get; }
         public InputType InputType { get; }
         public CurrencyType CurrencyType { get; }
+        public uint EnergyCost { get; }
 
         public event Action<float> OnTimerChange;
         public event Action<float> OnProgressChange;
