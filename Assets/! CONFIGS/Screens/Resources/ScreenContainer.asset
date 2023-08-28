@@ -18,4 +18,5 @@ MonoBehaviour:
   - {fileID: 8589953728725289142, guid: 594b76fb1861e3c47b68961e3e3dec50, type: 3}
   - {fileID: 2810016170709701170, guid: 1d6e7dd9adaac4646ba80e39a09be2c6, type: 3}
   - {fileID: 7403310229245894286, guid: f7099c7ec36d703459d60956c410acb8, type: 3}
+  - {fileID: 871383594975808000, guid: 1eaa4720a42075f4d87e1e0e743f42ad, type: 3}
   _monitoringPrefab: {fileID: 11496292, guid: 0abab5bb77339e4428787a870eb31bd3, type: 3}

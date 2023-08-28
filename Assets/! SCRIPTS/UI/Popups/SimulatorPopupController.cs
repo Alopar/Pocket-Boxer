@@ -6,11 +6,10 @@ using Services.ScreenSystem;
 
 namespace Gameplay
 {
-    public class EquipmentUiController : AbstractScreenController
+    public class SimulatorPopupController : AbstractScreenController
     {
         #region FIELDS INSPECTOR
         [SerializeField] private GameObject _activateButton;
-        [SerializeField] private TextMeshProUGUI _activateButtonText;
 
         [Space(10)]
         [SerializeField] private GameObject _simulatorContainer;
@@ -28,37 +27,36 @@ namespace Gameplay
         #endregion
 
         #region FIELDS PRIVATE
-        private IEquipment _equipment;
+        private SimulatorController _simulator;
         #endregion
 
         #region HANDLERS
         [EventHolder]
-        private void ShowEquipmentScreen(ShowEquipmentScreenInfo info)
+        private void ShowScreen(ShowScreenInfo info)
         {
-            _equipment = info.Equipment;
-            switch (_equipment.Type)
-            {
-                case EquipmentType.Simulator:
-                    _activateButtonText.text = "TRAIN";
-                    break;
-                case EquipmentType.Relaxer:
-                    _activateButtonText.text = "SLEEP";
-                    break;
-            }
+            if (info.ScreenType != ScreenType.Simulator) return;
 
             ShowScreen();
+            EventHolder<ScreenOpenedInfo>.NotifyListeners(new(ScreenType.Simulator));
         }
 
         [EventHolder]
-        private void CloseEquipmentSceen(CloseEquipmentSceenInfo info)
+        private void CloseScreen(CloseScreenInfo info)
         {
+            if (info.ScreenType != ScreenType.Simulator) return;
             CloseScreen();
+        }
+
+        [EventHolder]
+        private void SimulatorChangeFocus(SimulatorChangeFocusInfo info)
+        {
+            _simulator = info.Simulator;
         }
 
         [EventHolder]
         private void InputSwipe(InputSwipeInfo info)
         {
-            _equipment.AddProgress(5f);
+            _simulator.AddProgress(5f);
         }
 
         private void TimerChangeHandler(float value)
@@ -100,12 +98,18 @@ namespace Gameplay
         protected override void ShowScreen()
         {
             base.ShowScreen();
+            ShowActivateButton();
+        }
+
+        private void ShowActivateButton()
+        {
             _activateButton.SetActive(true);
             _simulatorContainer.SetActive(false);
         }
 
         private void ShowSimulatorContainer()
         {
+            _activateButton.SetActive(false);
             _simulatorContainer.SetActive(true);
 
             ShowInputTools();
@@ -116,7 +120,7 @@ namespace Gameplay
         {
             _tapContainer.SetActive(false);
             _swipeContainer.SetActive(false);
-            switch (_equipment.InputType)
+            switch (_simulator.InputType)
             {
                 case InputType.Tap:
                     _tapContainer.SetActive(true);
@@ -132,7 +136,7 @@ namespace Gameplay
             _strengthIcon.SetActive(false);
             _dexterityIcon.SetActive(false);
             _enduranceIcon.SetActive(false);
-            switch (_equipment.CurrencyType)
+            switch (_simulator.CurrencyType)
             {
                 case CurrencyType.StrengthPoints:
                     _strengthIcon.SetActive(true);
@@ -150,21 +154,12 @@ namespace Gameplay
         #region METHODS PUBLIC
         public void ActivateButton()
         {
-            _activateButton.SetActive(false);
+            ShowSimulatorContainer();
 
-            switch (_equipment.Type)
-            {
-                case EquipmentType.Simulator:
-                    ShowSimulatorContainer();
-                    break;
-                case EquipmentType.Relaxer:
-                    break;
-            }
-
-            _equipment.TurnOn();
-            _equipment.OnTimerChange += TimerChangeHandler;
-            _equipment.OnProgressChange += ProgressChangeHandler;
-            _equipment.OnExploitationEnd += ExploitationEndHandler;
+            _simulator.TurnOn();
+            _simulator.OnTimerChange += TimerChangeHandler;
+            _simulator.OnProgressChange += ProgressChangeHandler;
+            _simulator.OnExploitationEnd += ExploitationEndHandler;
 
             EventHolder<HidePlayerInfo>.NotifyListeners(new());
             EventHolder<InputControlInfo>.NotifyListeners(new(false));
@@ -174,10 +169,10 @@ namespace Gameplay
         {
             CloseScreen();
 
-            _equipment.TurnOff();
-            _equipment.OnTimerChange -= TimerChangeHandler;
-            _equipment.OnProgressChange -= ProgressChangeHandler;
-            _equipment.OnExploitationEnd -= ExploitationEndHandler;
+            _simulator.TurnOff();
+            _simulator.OnTimerChange -= TimerChangeHandler;
+            _simulator.OnProgressChange -= ProgressChangeHandler;
+            _simulator.OnExploitationEnd -= ExploitationEndHandler;
 
             EventHolder<ShowPlayerInfo>.NotifyListeners(new());
             EventHolder<InputControlInfo>.NotifyListeners(new(true));
@@ -185,7 +180,7 @@ namespace Gameplay
 
         public void Tap()
         {
-            _equipment.AddProgress(5f);
+            _simulator.AddProgress(5f);
         }
         #endregion
     }

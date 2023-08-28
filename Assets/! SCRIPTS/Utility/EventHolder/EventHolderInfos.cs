@@ -266,6 +266,26 @@ namespace EventHolder
             Number = number;
         }
     }
+
+    public class SimulatorChangeFocusInfo
+    {
+        public SimulatorController Simulator { get; private set; }
+
+        public SimulatorChangeFocusInfo(SimulatorController simulator)
+        {
+            Simulator = simulator;
+        }
+    }
+
+    public class RelaxerChangeFocusInfo
+    {
+        public RelaxerController Relaxer { get; private set; }
+
+        public RelaxerChangeFocusInfo(RelaxerController relaxer)
+        {
+            Relaxer = relaxer;
+        }
+    }
     #endregion
 
     #region CINEMA
@@ -350,21 +370,6 @@ namespace EventHolder
         {
             ScreenType = screenType;
         }
-    }
-
-    public class ShowEquipmentScreenInfo
-    {
-        public IEquipment Equipment { get; private set; }
-
-        public ShowEquipmentScreenInfo(IEquipment equipment)
-        {
-            Equipment = equipment;
-        }
-    }
-
-    public class CloseEquipmentSceenInfo
-    {
-        // N/A
     }
     #endregion
 

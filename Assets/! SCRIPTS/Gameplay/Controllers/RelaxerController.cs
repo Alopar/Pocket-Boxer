@@ -2,42 +2,26 @@ using System;
 using System.Collections;
 using UnityEngine;
 using Cinemachine;
-using Utility.DependencyInjection;
 
 namespace Gameplay
 {
-    public class SimulatorController : MonoBehaviour
+    public class RelaxerController : MonoBehaviour
     {
         #region FIELDS INSPECTOR
         [SerializeField] private string _id;
 
         [Space(10)]
-        [SerializeField] private InputType _inputType;
-        [SerializeField, Range(0, 60)] private float _usageDuration;
-        [SerializeField, Range(0, 100)] private float _progressForUsage;
-        [SerializeField, Range(0, 100)] private uint _energyCost;
-
-        [Space(10)]
-        [SerializeField] private CurrencyType _currencyType;
-        [SerializeField] private int _maxTokens;
-        [SerializeField] private uint _costTokens;
+        [SerializeField, Range(0, 60)] private float _duration;
+        [SerializeField, Range(0, 1000)] private uint _energy;
 
         [Space(10)]
         [SerializeField] private CinemachineVirtualCamera _camera;
         #endregion
 
         #region FIELDS PRIVATE
-        [Find] private RewardComponent _rewardComponent;
-
         private float _progress;
-        private int _tokenCounter;
+        private int _energonCounter = 0;
         private BatteryComponent _userBattery;
-        #endregion
-
-        #region PROPERTIES
-        public InputType InputType => _inputType;
-        public CurrencyType CurrencyType => _currencyType;
-        public uint EnergyCost => _energyCost;
         #endregion
 
         #region EVENTS
@@ -57,9 +41,8 @@ namespace Gameplay
         public void TurnOn()
         {
             _progress = 0;
-            _tokenCounter = 0;
-            _userBattery?.TryGetEnergy(_energyCost);
-            StartCoroutine(Exploitation(_usageDuration));
+            _energonCounter = 0;
+            StartCoroutine(Exploitation(_duration));
 
             _camera.Priority = 10;
         }
@@ -76,10 +59,10 @@ namespace Gameplay
             _progress = Mathf.Clamp(_progress, 0, 100f);
             OnProgressChange?.Invoke(_progress / 100f);
 
-            if(_progress >= NextProgressPoint(_maxTokens, _tokenCounter))
+            if(_progress >= NextProgressPoint(100, _energonCounter))
             {
-                _tokenCounter++;
-                _rewardComponent.GiveOutReward(_currencyType, _costTokens, 1);
+                _energonCounter++;
+                _userBattery.TrySetEnergy(_energy / 100);
             }
 
             if(_progress == 100f)
@@ -104,7 +87,7 @@ namespace Gameplay
                 OnTimerChange?.Invoke(timer);
 
                 var delta = Time.deltaTime / duration;
-                AddProgress(_progressForUsage * delta);
+                AddProgress(100f * delta);
 
                 yield return null;
             }

@@ -1,8 +1,6 @@
 using System;
 using UnityEngine;
-using Manager;
 using EventHolder;
-using Services.Database;
 using Utility.DependencyInjection;
 
 namespace Gameplay
@@ -19,19 +17,16 @@ namespace Gameplay
         #endregion
 
         #region FIELDS PRIVATE
-        [Find] private WalletComponent _walletComponent;
-        [Find] private BatteryComponent _batteryComponent;
-
         [Inject] private IWalletService _wallet;
 
-        private float _inputDelay = 0f;
+        [Find] private WalletComponent _walletComponent;
+        [Find] private BatteryComponent _batteryComponent;
         #endregion
 
         #region HANDLERS
         [EventHolder]
         private void Input(InputInfo info)
         {
-            _inputDelay = 0.1f;
             var direction = _camera.transform.TransformDirection(info.Direction);
             direction.y = 0;
             direction.Normalize();
@@ -86,24 +81,15 @@ namespace Gameplay
             SubscribeService.UnsubscribeListener(this);
         }
 
-        protected override void Start()
-        {
-            base.Start();
-        }
-
-        protected override void LateUpdate()
-        {
-            base.LateUpdate();
-            UpdateTimers();
-        }
-
         private void OnTriggerEnter(Collider other)
         {
+            RelaxerInteract(other.gameObject, true);
             SimulatorInteract(other.gameObject, true);
         }
 
         private void OnTriggerExit(Collider other)
         {
+            RelaxerInteract(other.gameObject, false);
             SimulatorInteract(other.gameObject, false);
         }
 
@@ -125,11 +111,6 @@ namespace Gameplay
         private void PlaceAgentInStartPosition()
         {
             _navMeshAgent.Warp(transform.position);
-        }
-
-        private void UpdateTimers()
-        {
-            _inputDelay -= Time.deltaTime;
         }
 
         private void MovePlayer(float speed)
@@ -174,15 +155,37 @@ namespace Gameplay
                 if (isEnter)
                 {
                     simulator.SetUserBattety(_batteryComponent);
-                    EventHolder<ShowEquipmentScreenInfo>.NotifyListeners(new(simulator));
+                    EventHolder<SimulatorChangeFocusInfo>.NotifyListeners(new(simulator));
+                    EventHolder<ShowScreenInfo>.NotifyListeners(new(ScreenType.Simulator));
                 }
                 else
                 {
                     simulator.SetUserBattety(null);
-                    EventHolder<CloseEquipmentSceenInfo>.NotifyListeners(new());
+                    EventHolder<CloseScreenInfo>.NotifyListeners(new(ScreenType.Simulator));
                 }
             };
             EntityInteraction(entity, simulator);
+        }
+
+        private void RelaxerInteract(GameObject entity, bool isEnter)
+        {
+            Action<RelaxerController> relaxer = (RelaxerController relaxer) =>
+            {
+                if (_batteryComponent.IsFull) return;
+
+                if (isEnter)
+                {
+                    relaxer.SetUserBattety(_batteryComponent);
+                    EventHolder<RelaxerChangeFocusInfo>.NotifyListeners(new(relaxer));
+                    EventHolder<ShowScreenInfo>.NotifyListeners(new(ScreenType.Relaxer));
+                }
+                else
+                {
+                    relaxer.SetUserBattety(null);
+                    EventHolder<CloseScreenInfo>.NotifyListeners(new(ScreenType.Relaxer));
+                }
+            };
+            EntityInteraction(entity, relaxer);
         }
         #endregion
     }

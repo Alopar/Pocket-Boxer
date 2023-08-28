@@ -49,7 +49,6 @@ namespace Gameplay
 
         public bool TrySetEnergy(uint value)
         {
-            value = (uint)(value * (_capacity * 0.01));
             ChangeOccupiedByValue((int)value);
             if (_occupied == _capacity) return false;
             return true;
