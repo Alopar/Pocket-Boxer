@@ -7,7 +7,7 @@ using Services.ScreenSystem;
 
 namespace Gameplay
 {
-    public class HudUiController : AbstractScreenController
+    public class HUDLayer : AbstractScreen
     {
         #region FIELDS INSPECTOR
         [Space(10)]

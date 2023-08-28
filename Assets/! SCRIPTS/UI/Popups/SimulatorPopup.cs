@@ -6,7 +6,7 @@ using Services.ScreenSystem;
 
 namespace Gameplay
 {
-    public class SimulatorPopupController : AbstractScreenController
+    public class SimulatorPopup : AbstractScreen
     {
         #region FIELDS INSPECTOR
         [SerializeField] private GameObject _activateButton;

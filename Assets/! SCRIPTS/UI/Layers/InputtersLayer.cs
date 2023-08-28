@@ -5,7 +5,7 @@ using Services.TutorialSystem;
 
 namespace Gameplay
 {
-    public class InputtersUiController : AbstractScreenController
+    public class InputtersLayer : AbstractScreen
     {
         #region FIELDS INSPECTOR
         [Space(10)]

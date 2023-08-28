@@ -6,7 +6,7 @@ using Services.ScreenSystem;
 
 namespace Gameplay
 {
-    public class RelaxerPopupController : AbstractScreenController
+    public class RelaxerPopup : AbstractScreen
     {
         #region FIELDS INSPECTOR
         [SerializeField] private GameObject _activateButton;

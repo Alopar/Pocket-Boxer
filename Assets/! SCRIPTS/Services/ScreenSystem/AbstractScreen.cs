@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Services.ScreenSystem
 {
-    public abstract class AbstractScreenController : MonoBehaviour
+    public abstract class AbstractScreen : MonoBehaviour
     {
         #region FIELDS INSPECTOR
         [SerializeField] protected Canvas _canvas;
