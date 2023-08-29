@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-namespace Utility
+namespace Tools
 {
     [RequireComponent(typeof(ParticleSystem))]
     public class AutoDestructShuriken : MonoBehaviour

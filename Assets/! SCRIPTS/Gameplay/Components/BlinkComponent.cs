@@ -6,7 +6,7 @@ using NaughtyAttributes;
 
 namespace Gameplay
 {
-    public class Blinker : MonoBehaviour
+    public class BlinkComponent : MonoBehaviour
     {
         #region FIELDS INSPECTOR
         [SerializeField, Range(0, 10)] private float _duration;

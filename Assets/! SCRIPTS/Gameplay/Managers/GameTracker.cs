@@ -1,31 +1,27 @@
 using System;
-using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using EventHolder;
 
-namespace Gameplay.Managers
+namespace Utility
 {
-    [DefaultExecutionOrder(-5)]
-    public class GameManager : MonoBehaviour
+    public class GameTracker
     {
         #region FIELDS PRIVATE
+        private const float LEVEL_DURATION = 10f;
         private const string LEVEL_COUNTER = "LEVEL-COUNTER";
         private const string LAST_LOCATION_NUMBER = "LAST-LOCATION-NUMBER";
-
-        private static GameManager _instance;
         #endregion
 
-        #region PROPERTIES
-        public static GameManager Instance => _instance;
+        #region CONSTRUCTORS
+        public GameTracker()
+        {
+            //LevelTimer(LEVEL_DURATION);
+            SubscribeService.SubscribeListener(this);
+        }
         #endregion
 
         #region HANDLERS
-        private void SceneLoadedHandler(Scene scene, LoadSceneMode loadSceneMode)
-        {
-
-        }
-
         [EventHolder]
         private void LevelStart(LevelStartInfo info)
         {
@@ -39,43 +35,7 @@ namespace Gameplay.Managers
         }
         #endregion
 
-        #region UNITY CALLBACKS
-        private void Awake()
-        {
-            if (_instance == null)
-            {
-                _instance = this;
-            }
-            else
-            {
-                Destroy(this);
-            }
-        }
-
-        private void OnEnable()
-        {
-            SubscribeService.SubscribeListener(this);
-            SceneManager.sceneLoaded += SceneLoadedHandler;
-        }
-
-        private void OnDisable()
-        {
-            SubscribeService.UnsubscribeListener(this);
-            SceneManager.sceneLoaded -= SceneLoadedHandler;
-        }
-
-        private void Start()
-        {
-            Init();
-        }
-        #endregion
-
         #region METHODS PRIVATE
-        private void Init()
-        {
-            StartCoroutine(LevelTracker());
-        }
-
         private void SendLocationStartInfo(int index)
         {
             var currentLocationNumber = index;
@@ -101,7 +61,7 @@ namespace Gameplay.Managers
         #endregion
 
         #region COROUTINES
-        IEnumerator LevelTracker()
+        private async void LevelTimer(float delay)
         {
             var levelCounter = 1;
             if (PlayerPrefs.HasKey(LEVEL_COUNTER))
@@ -111,13 +71,15 @@ namespace Gameplay.Managers
             
             while (true)
             {
+                Debug.Log(levelCounter);
                 //HoopslyIntegration.RaiseLevelStartEvent(levelCounter.ToString());
 
-                yield return new WaitForSeconds(60f);
+                await Task.Delay((int)(delay * 1000f));
 
                 //HoopslyIntegration.RaiseLevelFinishedEvent(levelCounter.ToString(), LevelFinishedResult.win);
 
                 levelCounter++;
+                
                 PlayerPrefs.SetInt(LEVEL_COUNTER, levelCounter);
                 PlayerPrefs.Save();
             }

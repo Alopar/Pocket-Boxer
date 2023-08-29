@@ -10,6 +10,7 @@ using Services.TutorialSystem;
 using Utility.GameSettings;
 using Utility.DependencyInjection;
 using DG.Tweening;
+using Utility;
 
 namespace Manager
 {
@@ -49,6 +50,7 @@ namespace Manager
             DependencyContainer.Bind<IDatabaseService>().To<ScriptableObjectDatabase>().AsSingle();
             DependencyContainer.Bind<IAudioService>().To<AudioSystem>().AsSingle();
             DependencyContainer.Bind<IWalletService>().To<Wallet>().AsSingle();
+            DependencyContainer.Bind<GameTracker>().AsSingle().NonLazy();
 
             var screenContainer = Resources.Load<ScreenContainer>(GameSettings.ScreenContainerPath);
             DependencyContainer.Bind<ScreenContainer>().FromInstance(screenContainer);

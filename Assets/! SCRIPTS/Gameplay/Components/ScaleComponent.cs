@@ -4,7 +4,7 @@ using NaughtyAttributes;
 
 namespace Gameplay
 {
-    public class Scaler : MonoBehaviour
+    public class ScaleComponent : MonoBehaviour
     {
         #region FIELDS INSPECTOR
         [SerializeField] private Transform _view;

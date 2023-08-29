@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Utility
+namespace Tools
 {
     public class DrawGizmos : MonoBehaviour
     {

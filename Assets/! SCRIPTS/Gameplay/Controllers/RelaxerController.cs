@@ -5,6 +5,7 @@ using Cinemachine;
 
 namespace Gameplay
 {
+    [SelectionBase]
     public class RelaxerController : MonoBehaviour
     {
         #region FIELDS INSPECTOR

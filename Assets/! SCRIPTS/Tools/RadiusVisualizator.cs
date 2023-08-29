@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Gameplay
+namespace Tools
 {
     [RequireComponent(typeof(LineRenderer))]
     public class RadiusVisualizator : MonoBehaviour

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.AI;
-using Utility;
+using Tools;
 using Utility.DependencyInjection;
 
 namespace Gameplay
