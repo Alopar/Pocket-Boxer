@@ -1,7 +1,7 @@
-using System;
-using System.Threading.Tasks;
 using UnityEngine;
 using EventHolder;
+using DG.Tweening;
+using PP = UnityEngine.PlayerPrefs;
 
 namespace Utility
 {
@@ -11,12 +11,14 @@ namespace Utility
         private const float LEVEL_DURATION = 10f;
         private const string LEVEL_COUNTER = "LEVEL-COUNTER";
         private const string LAST_LOCATION_NUMBER = "LAST-LOCATION-NUMBER";
+
+        private int _levelCounter;
         #endregion
 
         #region CONSTRUCTORS
         public GameTracker()
         {
-            //LevelTimer(LEVEL_DURATION);
+            StartLevelTracker(LEVEL_DURATION);
             SubscribeService.SubscribeListener(this);
         }
         #endregion
@@ -61,28 +63,24 @@ namespace Utility
         #endregion
 
         #region COROUTINES
-        private async void LevelTimer(float delay)
+        private void StartLevelTracker(float delay)
         {
-            var levelCounter = 1;
-            if (PlayerPrefs.HasKey(LEVEL_COUNTER))
-            {
-                levelCounter = PlayerPrefs.GetInt(LEVEL_COUNTER);
-            }
-            
-            while (true)
-            {
-                Debug.Log(levelCounter);
+            _levelCounter = PP.HasKey(LEVEL_COUNTER) ? PP.GetInt(LEVEL_COUNTER) : 1;
+
+            var before = new TweenCallback(() => {
+                Debug.Log(_levelCounter);
                 //HoopslyIntegration.RaiseLevelStartEvent(levelCounter.ToString());
+            });
 
-                await Task.Delay((int)(delay * 1000f));
-
+            var after = new TweenCallback(() => {
                 //HoopslyIntegration.RaiseLevelFinishedEvent(levelCounter.ToString(), LevelFinishedResult.win);
 
-                levelCounter++;
-                
-                PlayerPrefs.SetInt(LEVEL_COUNTER, levelCounter);
-                PlayerPrefs.Save();
-            }
+                _levelCounter++;
+                PP.SetInt(LEVEL_COUNTER, _levelCounter);
+                PP.Save();
+            });
+
+            DOVirtual.DelayedCall(delay, before).OnComplete(after).SetLoops(-1);
         }
         #endregion
     }
