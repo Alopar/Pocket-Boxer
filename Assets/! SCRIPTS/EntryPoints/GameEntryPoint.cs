@@ -10,7 +10,6 @@ using Services.TutorialSystem;
 using Utility.GameSettings;
 using Utility.DependencyInjection;
 using DG.Tweening;
-using Utility;
 
 namespace Manager
 {
@@ -26,15 +25,6 @@ namespace Manager
             var json = Resources.Load<TextAsset>(GAME_SETTINGS_NAME);
             var data = JsonUtility.FromJson<GameSettingsData>(json.text);
             GameSettings.Init(data);
-        }
-
-        private static void InitializeSystems()
-        {
-            var prefab = Resources.Load("SYSTEMS");
-            var systems = GameObject.Instantiate(prefab);
-            systems.name = "===== SYSTEMS =====";
-
-            Object.DontDestroyOnLoad(systems);
         }
 
         private static void RegisterDependencyContext()
@@ -61,6 +51,15 @@ namespace Manager
             DependencyContainer.Bind<TutorialSystem>().AsSingle().NonLazy();
 
             DependencyContainer.Bind<StatsManager>().AsSingle().NonLazy();
+        }
+
+        private static void InitializeSystems()
+        {
+            var prefab = Resources.Load("SYSTEMS");
+            var systems = GameObject.Instantiate(prefab);
+            systems.name = "===== SYSTEMS =====";
+
+            Object.DontDestroyOnLoad(systems);
         }
 
         private static void InitializeOtherSystems()
