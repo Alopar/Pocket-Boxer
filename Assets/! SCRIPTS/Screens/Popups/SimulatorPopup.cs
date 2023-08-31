@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using EventHolder;
+using Services.SignalSystem;
 using Services.ScreenSystem;
 
 namespace Gameplay
@@ -31,29 +31,29 @@ namespace Gameplay
         #endregion
 
         #region HANDLERS
-        [EventHolder]
+        [Subscribe]
         private void ShowScreen(ShowScreenInfo info)
         {
             if (info.ScreenType != ScreenType.Simulator) return;
 
             ShowScreen();
-            EventHolder<ScreenOpenedInfo>.NotifyListeners(new(ScreenType.Simulator));
+            SignalSystem<ScreenOpenedInfo>.Send(new(ScreenType.Simulator));
         }
 
-        [EventHolder]
+        [Subscribe]
         private void CloseScreen(CloseScreenInfo info)
         {
             if (info.ScreenType != ScreenType.Simulator) return;
             CloseScreen();
         }
 
-        [EventHolder]
+        [Subscribe]
         private void SimulatorChangeFocus(SimulatorChangeFocusInfo info)
         {
             _simulator = info.Simulator;
         }
 
-        [EventHolder]
+        [Subscribe]
         private void InputSwipe(InputSwipeInfo info)
         {
             _simulator.AddProgress(5f);
@@ -81,16 +81,6 @@ namespace Gameplay
         private void Start()
         {
             HideScreen();
-        }
-
-        private void OnEnable()
-        {
-            SubscribeService.SubscribeListener(this);
-        }
-
-        private void OnDisable()
-        {
-            SubscribeService.UnsubscribeListener(this);
         }
         #endregion
 
@@ -161,8 +151,8 @@ namespace Gameplay
             _simulator.OnProgressChange += ProgressChangeHandler;
             _simulator.OnExploitationEnd += ExploitationEndHandler;
 
-            EventHolder<HidePlayerInfo>.NotifyListeners(new());
-            EventHolder<InputControlInfo>.NotifyListeners(new(false));
+            SignalSystem<HidePlayerInfo>.Send(new());
+            SignalSystem<InputControlInfo>.Send(new(false));
         }
 
         public void BreakButton()
@@ -174,8 +164,8 @@ namespace Gameplay
             _simulator.OnProgressChange -= ProgressChangeHandler;
             _simulator.OnExploitationEnd -= ExploitationEndHandler;
 
-            EventHolder<ShowPlayerInfo>.NotifyListeners(new());
-            EventHolder<InputControlInfo>.NotifyListeners(new(true));
+            SignalSystem<ShowPlayerInfo>.Send(new());
+            SignalSystem<InputControlInfo>.Send(new(true));
         }
 
         public void Tap()

@@ -1,5 +1,5 @@
 using UnityEngine;
-using EventHolder;
+using Services.SignalSystem;
 using Services.ScreenSystem;
 using Services.TutorialSystem;
 
@@ -19,7 +19,8 @@ namespace Gameplay
         #endregion
 
         #region HANDLERS
-        private void h_InputControl(InputControlInfo info)
+        [Subscribe]
+        private void InputControl(InputControlInfo info)
         {
             _joystick.OnPointerUp(null);
             if (info.Enable)
@@ -34,11 +35,6 @@ namespace Gameplay
         #endregion
 
         #region UNITY CALLBACKS
-        private void Awake()
-        {
-            EventHolder<InputControlInfo>.AddListener(h_InputControl, true);
-        }
-
         private void Start()
         {
             _canvas.worldCamera = Camera.main;
@@ -67,9 +63,8 @@ namespace Gameplay
 
             if (_joystick.Direction == Vector2.zero && !pointerDown && !pointerUp) return;
 
-            EventHolder<InputInfo>.NotifyListeners(new InputInfo(direction, pointerDown, pointerUp, distance, isDeathZone));
-
-            EventHolder<GameplayEventInfo>.NotifyListeners(new(GameplayEvent.JoysticInput));
+            SignalSystem<InputInfo>.Send(new InputInfo(direction, pointerDown, pointerUp, distance, isDeathZone));
+            SignalSystem<GameplayEventInfo>.Send(new(GameplayEvent.JoysticInput));
         }
         #endregion
     }

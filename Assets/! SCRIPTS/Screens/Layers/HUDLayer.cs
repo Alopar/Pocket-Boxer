@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using EventHolder;
+using Services.SignalSystem;
 using Services.ScreenSystem;
 
 namespace Gameplay
@@ -33,64 +33,52 @@ namespace Gameplay
         #endregion
 
         #region HANDLERS
-        [EventHolder]
+        [Subscribe]
         private void MoneyChange(MoneyChangeInfo info)
         {
             _moneyText.text = info.Value.ToString();
         }
 
-        [EventHolder]
+        [Subscribe]
         private void DiamondChange(DiamondChangeInfo info)
         {
             _diamondText.text = info.Value.ToString();
         }
 
-        [EventHolder]
+        [Subscribe]
         private void ExperiencePointsChange(ExperiencePointsChangeInfo info)
         {
             _experienceText.text = info.Value.ToString();
         }
 
-        [EventHolder]
+        [Subscribe]
         private void StrengthChange(StrengthChangeInfo info)
         {
             _strengthText.text = info.Level.ToString();
             _strengthFiller.fillAmount = info.Delta;
         }
 
-        [EventHolder]
+        [Subscribe]
         private void DexterityChange(DexterityChangeInfo info)
         {
             _dexterityText.text = info.Level.ToString();
             _dexterityFiller.fillAmount = info.Delta;
         }
 
-        [EventHolder]
+        [Subscribe]
         private void EnduranceChange(EnduranceChangeInfo info)
         {
             _enduranceText.text = info.Level.ToString();
             _enduranceFiller.fillAmount = info.Delta;
         }
 
-        [EventHolder]
+        [Subscribe]
         private void BatteryOccupied(BatteryOccupiedInfo info)
         {
             _energyText.text = CreateTextLabel(info.Occupied, info.Capacity);
 
             var delta = (float)info.Occupied / info.Capacity;
             _energyFiller.fillAmount = delta;
-        }
-        #endregion
-
-        #region UNITY CALLBACKS
-        private void OnEnable()
-        {
-            SubscribeService.SubscribeListener(this);
-        }
-
-        private void OnDisable()
-        {
-            SubscribeService.UnsubscribeListener(this);
         }
         #endregion
 

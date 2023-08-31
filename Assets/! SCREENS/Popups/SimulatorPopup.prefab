@@ -48,7 +48,6 @@ MonoBehaviour:
   _canvas: {fileID: 5756966962579354486}
   _content: {fileID: 6389631548151599414}
   _activateButton: {fileID: 5182349307127539264}
-  _activateButtonText: {fileID: 7479054932929439508}
   _simulatorContainer: {fileID: 5610501031941409092}
   _timerText: {fileID: 2854805719237070830}
   _progressFiller: {fileID: 6292093485954359433}

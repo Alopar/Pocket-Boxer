@@ -1,5 +1,5 @@
 using UnityEngine;
-using EventHolder;
+using Services.SignalSystem;
 
 namespace Gameplay
 {
@@ -105,7 +105,7 @@ namespace Gameplay
                 {
                     direction = _swipeDelta.y > 0 ? Vector2.up : Vector2.down;
                 }
-                EventHolder<InputSwipeInfo>.NotifyListeners(new(direction));
+                SignalSystem<InputSwipeInfo>.Send(new(direction));
 
                 ResetSwipe();
             }

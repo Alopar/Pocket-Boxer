@@ -2,24 +2,24 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace EventHolder
+namespace Services.SignalSystem
 {
-    public static class EventHolder<T> where T : class
+    public static class SignalSystem<T> where T : class
     {
         #region FIELDS PRIVATE
         private static readonly List<Action<T>> _listeners = new List<Action<T>>();
 
-        private static T _currentInfo;
+        private static T _currentSignal;
         #endregion
 
         #region METHODS PUBLIC
-        public static void NotifyListeners(T info)
+        public static void Send(T signal)
         {
-            _currentInfo = info;
+            _currentSignal = signal;
             var currentListeners = _listeners.ToList();
             foreach (var listener in currentListeners)
             {
-                listener?.Invoke(info);
+                listener?.Invoke(signal);
             }
         }
 
@@ -27,9 +27,9 @@ namespace EventHolder
         {
             _listeners.Add(listener);
 
-            if (instantNotify && _currentInfo != null)
+            if (instantNotify && _currentSignal != null)
             {
-                listener?.Invoke(_currentInfo);
+                listener?.Invoke(_currentSignal);
             }
         }
 

@@ -1,9 +1,9 @@
 using System;
 using System.Reflection;
 
-namespace EventHolder
+namespace Services.SignalSystem
 {
-    public static class SubscribeService
+    public class Subscriber : ISubscribeService
     {
         #region FIELDS PRIVATE
         private const string SUBSCRIBE_METHOD_NAME = "AddListener";
@@ -11,7 +11,7 @@ namespace EventHolder
         #endregion
 
         #region METHODS PRIVATE
-        private static void ProcessingObject(object listener, bool isSubscribe)
+        private void ProcessingObject(object listener, bool isSubscribe)
         {
             var type = listener.GetType();
 
@@ -27,7 +27,7 @@ namespace EventHolder
                 var attibutes = method.GetCustomAttributes(false);
                 foreach (Attribute attibute in attibutes)
                 {
-                    if (!(attibute is EventHolderAttribute eventHolderAttribute)) continue;
+                    if (!(attibute is SubscribeAttribute eventHolderAttribute)) continue;
 
                     var parameters = method.GetParameters();
                     if (parameters.Length == 0) continue;
@@ -36,7 +36,7 @@ namespace EventHolder
                     var delagateType = CreateGenericType(typeof(Action<>), parameter.ParameterType);
                     var delegat = method.CreateDelegate(delagateType, listener);
 
-                    var eventHolder = CreateGenericType(typeof(EventHolder<>), parameter.ParameterType);
+                    var eventHolder = CreateGenericType(typeof(SignalSystem<>), parameter.ParameterType);
 
                     object[] methodParameters;
                     MethodInfo eventHolderMethod;
@@ -56,7 +56,7 @@ namespace EventHolder
             }
         }
 
-        private static Type CreateGenericType(Type type, Type parameterType)
+        private Type CreateGenericType(Type type, Type parameterType)
         {
             var typeArgs = new Type[1] { parameterType };
             var generic = type.MakeGenericType(typeArgs);
@@ -70,7 +70,7 @@ namespace EventHolder
         /// Subscribe a listener for all events by attribute
         /// </summary>
         /// <param name="listener"></param>
-        public static void SubscribeListener(object listener)
+        public void Subscribe(object listener)
         {
             ProcessingObject(listener, true);
         }
@@ -79,7 +79,7 @@ namespace EventHolder
         /// Unsubscribe a listener for all events by attribute
         /// </summary>
         /// <param name="listener"></param>
-        public static void UnsubscribeListener(object listener)
+        public void Unsubscribe(object listener)
         {
             ProcessingObject(listener, false);
         }

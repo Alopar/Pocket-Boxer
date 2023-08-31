@@ -1,4 +1,4 @@
-using EventHolder;
+using Services.SignalSystem;
 using Services.SaveSystem;
 
 namespace Gameplay
@@ -10,7 +10,7 @@ namespace Gameplay
         {
             var saveData = saveService.Load<CurrencySaveData>();
             _amount = (uint)saveData.Money;
-            EventHolder<MoneyChangeInfo>.NotifyListeners(new MoneyChangeInfo(_amount));
+            SignalSystem<MoneyChangeInfo>.Send(new MoneyChangeInfo(_amount));
         }
         #endregion
 
@@ -30,7 +30,7 @@ namespace Gameplay
             {
                 _amount -= value;
                 SaveData();
-                EventHolder<MoneyChangeInfo>.NotifyListeners(new MoneyChangeInfo(_amount));
+                SignalSystem<MoneyChangeInfo>.Send(new MoneyChangeInfo(_amount));
 
                 return true;
             }
@@ -42,7 +42,7 @@ namespace Gameplay
         {
             _amount += value;
             SaveData();
-            EventHolder<MoneyChangeInfo>.NotifyListeners(new MoneyChangeInfo(_amount));
+            SignalSystem<MoneyChangeInfo>.Send(new MoneyChangeInfo(_amount));
         }
         #endregion
     }

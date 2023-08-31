@@ -4,7 +4,7 @@ using Gameplay;
 using Services.TutorialSystem;
 using PointerType = Gameplay.PointerType;
 
-namespace EventHolder
+namespace Services.SignalSystem
 {
     #region INPUT
     public class InputInfo

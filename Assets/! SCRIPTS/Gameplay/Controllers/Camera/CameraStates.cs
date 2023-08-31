@@ -1,5 +1,5 @@
 using UnityEngine;
-using EventHolder;
+using Services.SignalSystem;
 using EntityState;
 using DG.Tweening;
 
@@ -24,13 +24,13 @@ namespace Gameplay
                 _entity._playerCamera.Priority = 0;
                 _entity._observingCamera.Priority = 0;
 
-                EventHolder<CinemaFinishInfo>.AddListener(h_CinemaFinish, true);
+                SignalSystem<CinemaFinishInfo>.AddListener(h_CinemaFinish, true);
             }
 
             public override void Exit()
             {
                 base.Exit();
-                EventHolder<CinemaFinishInfo>.RemoveListener(h_CinemaFinish);
+                SignalSystem<CinemaFinishInfo>.RemoveListener(h_CinemaFinish);
             }
             #endregion
         }
@@ -116,19 +116,19 @@ namespace Gameplay
                 _entity._observingCamera.Priority = 0;
 
                 _entity._transmitter.CommonUpdate += h_Update;
-                EventHolder<InputInfo>.AddListener(h_Input, false);
-                EventHolder<CinemaStartInfo>.AddListener(h_CinemaStart, false);
-                EventHolder<CameraLookAtInfo>.AddListener(h_CameraLookAt, false);
-                EventHolder<CameraLookPlayerInfo>.AddListener(h_CameraLookPlayer, false);
+                SignalSystem<InputInfo>.AddListener(h_Input, false);
+                SignalSystem<CinemaStartInfo>.AddListener(h_CinemaStart, false);
+                SignalSystem<CameraLookAtInfo>.AddListener(h_CameraLookAt, false);
+                SignalSystem<CameraLookPlayerInfo>.AddListener(h_CameraLookPlayer, false);
             }
 
             public override void Exit()
             {   
                 _entity._transmitter.CommonUpdate -= h_Update;
-                EventHolder<InputInfo>.RemoveListener(h_Input);
-                EventHolder<CinemaStartInfo>.RemoveListener(h_CinemaStart);
-                EventHolder<CameraLookAtInfo>.RemoveListener(h_CameraLookAt);
-                EventHolder<CameraLookPlayerInfo>.RemoveListener(h_CameraLookPlayer);
+                SignalSystem<InputInfo>.RemoveListener(h_Input);
+                SignalSystem<CinemaStartInfo>.RemoveListener(h_CinemaStart);
+                SignalSystem<CameraLookAtInfo>.RemoveListener(h_CameraLookAt);
+                SignalSystem<CameraLookPlayerInfo>.RemoveListener(h_CameraLookPlayer);
             }
             #endregion
         }

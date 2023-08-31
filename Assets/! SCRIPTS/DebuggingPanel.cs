@@ -3,20 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using Gameplay.Managers;
-using EventHolder;
+using Services.SignalSystem;
 using Services.TutorialSystem;
 using Utility.DependencyInjection;
 
 namespace Gameplay
 {
-    public class DebuggingPanel : MonoBehaviour
+    public class DebuggingPanel : MonoBehaviour, IActivatable
     {
         #region FIELDS PRIVATE
+        [Inject] private ISubscribeService _signals;
+
         private TutorialStep _tutorialStep;
         #endregion
 
         #region HANDLERS
-        [EventHolder]
+        [Subscribe]
         private void TutorialStep(TutorialStepInfo info)
         {
             _tutorialStep = info.TutorialStep;
@@ -26,12 +28,12 @@ namespace Gameplay
         #region UNITY CALLBACKS
         private void OnEnable()
         {
-            SubscribeService.SubscribeListener(this);
+            _signals?.Subscribe(this);
         }
 
         private void OnDisable()
         {
-            SubscribeService.UnsubscribeListener(this);
+            _signals?.Unsubscribe(this);
         }
         #endregion
 
@@ -67,6 +69,13 @@ namespace Gameplay
             DependencyContainer.Get<IWalletService>().SetCurrency<EndurancePointsDeposite>(100);
         }
 #endif
+        #endregion
+
+        #region METHODS PUBLIC
+        public void Activate()
+        {
+            OnEnable();
+        }
         #endregion
 
         #region INSPECTOR INFORMATIONS

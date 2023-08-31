@@ -1,4 +1,4 @@
-using EventHolder;
+using Services.SignalSystem;
 using Services.SaveSystem;
 
 namespace Gameplay
@@ -10,7 +10,7 @@ namespace Gameplay
         {
             var saveData = saveService.Load<CurrencySaveData>();
             _amount = (uint)saveData.Diamond;
-            EventHolder<DiamondChangeInfo>.NotifyListeners(new DiamondChangeInfo(_amount));
+            SignalSystem<DiamondChangeInfo>.Send(new DiamondChangeInfo(_amount));
         }
         #endregion
 
@@ -30,7 +30,7 @@ namespace Gameplay
             {
                 _amount -= value;
                 SaveData();
-                EventHolder<DiamondChangeInfo>.NotifyListeners(new DiamondChangeInfo(_amount));
+                SignalSystem<DiamondChangeInfo>.Send(new DiamondChangeInfo(_amount));
 
                 return true;
             }
@@ -42,7 +42,7 @@ namespace Gameplay
         {
             _amount += value;
             SaveData();
-            EventHolder<DiamondChangeInfo>.NotifyListeners(new DiamondChangeInfo(_amount));
+            SignalSystem<DiamondChangeInfo>.Send(new DiamondChangeInfo(_amount));
         }
         #endregion
     }

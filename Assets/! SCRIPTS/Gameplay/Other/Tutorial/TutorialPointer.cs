@@ -1,5 +1,5 @@
 using UnityEngine;
-using EventHolder;
+using Services.SignalSystem;
 
 namespace Gameplay
 {
@@ -35,12 +35,12 @@ namespace Gameplay
 
         private void OnEnable()
         {
-            EventHolder<TutorialObservingInfo>.AddListener(h_TutorialObserving, true);
+            SignalSystem<TutorialObservingInfo>.AddListener(h_TutorialObserving, true);
         }
 
         private void OnDisable()
         {
-            EventHolder<TutorialObservingInfo>.RemoveListener(h_TutorialObserving);
+            SignalSystem<TutorialObservingInfo>.RemoveListener(h_TutorialObserving);
         }
 
         private void LateUpdate()

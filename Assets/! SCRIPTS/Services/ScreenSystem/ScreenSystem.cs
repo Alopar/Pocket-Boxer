@@ -7,6 +7,7 @@ namespace Services.ScreenSystem
     public class ScreenSystem
     {
         #region FIELDS PRIVATE
+        [Inject] private ScreenFactory _factory;
         [Inject] private ScreenContainer _container;
         #endregion
 
@@ -30,7 +31,9 @@ namespace Services.ScreenSystem
             var holder = new GameObject("======== UI ========");
             foreach (var prefab in _container.ScreenPrefabs)
             {
-                GameObject.Instantiate(prefab, holder.transform).name = prefab.name;
+                var screen = _factory.Create(prefab);
+                screen.transform.parent = holder.transform;
+                screen.name = prefab.name;
             }
 #if DEBUG
             GameObject.Instantiate(_container.MonitoringPrefab, holder.transform).name = _container.MonitoringPrefab.name;

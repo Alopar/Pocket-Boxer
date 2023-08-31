@@ -1,4 +1,5 @@
-using EventHolder;
+using Services.SignalSystem;
+using Utility.DependencyInjection;
 using DG.Tweening;
 using PP = UnityEngine.PlayerPrefs;
 
@@ -10,24 +11,26 @@ namespace Gameplay
         private const float LEVEL_DURATION = 60f;
         private const string LEVEL_COUNTER = "LEVEL-COUNTER";
         private const string LAST_LOCATION_NUMBER = "LAST-LOCATION-NUMBER";
+
+        [Inject] private ISubscribeService _signals;
         #endregion
 
         #region CONSTRUCTORS
         public GameTracker()
         {
+            _signals.Subscribe(this);
             StartLevelTracker(LEVEL_DURATION);
-            SubscribeService.SubscribeListener(this);
         }
         #endregion
 
         #region HANDLERS
-        [EventHolder]
+        [Subscribe]
         private void LevelStart(LevelStartInfo info)
         {
             SendLocationStartInfo(info.Number);
         }
 
-        [EventHolder]
+        [Subscribe]
         private void LevelEnd(LevelEndInfo info)
         {
             SendLocationEndInfo(info.Number);

@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-using EventHolder;
+using Services.SignalSystem;
 using Utility.DependencyInjection;
 
 namespace Gameplay
@@ -18,13 +18,14 @@ namespace Gameplay
 
         #region FIELDS PRIVATE
         [Inject] private IWalletService _wallet;
+        [Inject] private ISubscribeService _subscribeService;
 
         [Find] private WalletComponent _walletComponent;
         [Find] private BatteryComponent _batteryComponent;
         #endregion
 
         #region HANDLERS
-        [EventHolder]
+        [Subscribe]
         private void Input(InputInfo info)
         {
             var direction = _camera.transform.TransformDirection(info.Direction);
@@ -47,7 +48,7 @@ namespace Gameplay
             }
         }
 
-        [EventHolder]
+        [Subscribe]
         private void HidePlayer(HidePlayerInfo info)
         {
             _walletComponent.enabled = false;
@@ -55,7 +56,7 @@ namespace Gameplay
             _informers.gameObject.SetActive(false);
         }
 
-        [EventHolder]
+        [Subscribe]
         private void ShowPlayer(ShowPlayerInfo info)
         {
             _walletComponent.enabled = true;
@@ -73,12 +74,12 @@ namespace Gameplay
 
         private void OnEnable()
         {
-            SubscribeService.SubscribeListener(this);
+            _subscribeService.Subscribe(this);
         }
 
         private void OnDisable()
         {
-            SubscribeService.UnsubscribeListener(this);
+            _subscribeService.Unsubscribe(this);
         }
 
         private void OnTriggerEnter(Collider other)
@@ -155,13 +156,13 @@ namespace Gameplay
                 if (isEnter)
                 {
                     simulator.SetUserBattety(_batteryComponent);
-                    EventHolder<SimulatorChangeFocusInfo>.NotifyListeners(new(simulator));
-                    EventHolder<ShowScreenInfo>.NotifyListeners(new(ScreenType.Simulator));
+                    SignalSystem<SimulatorChangeFocusInfo>.Send(new(simulator));
+                    SignalSystem<ShowScreenInfo>.Send(new(ScreenType.Simulator));
                 }
                 else
                 {
                     simulator.SetUserBattety(null);
-                    EventHolder<CloseScreenInfo>.NotifyListeners(new(ScreenType.Simulator));
+                    SignalSystem<CloseScreenInfo>.Send(new(ScreenType.Simulator));
                 }
             };
             EntityInteraction(entity, simulator);
@@ -176,13 +177,13 @@ namespace Gameplay
                 if (isEnter)
                 {
                     relaxer.SetUserBattety(_batteryComponent);
-                    EventHolder<RelaxerChangeFocusInfo>.NotifyListeners(new(relaxer));
-                    EventHolder<ShowScreenInfo>.NotifyListeners(new(ScreenType.Relaxer));
+                    SignalSystem<RelaxerChangeFocusInfo>.Send(new(relaxer));
+                    SignalSystem<ShowScreenInfo>.Send(new(ScreenType.Relaxer));
                 }
                 else
                 {
                     relaxer.SetUserBattety(null);
-                    EventHolder<CloseScreenInfo>.NotifyListeners(new(ScreenType.Relaxer));
+                    SignalSystem<CloseScreenInfo>.Send(new(ScreenType.Relaxer));
                 }
             };
             EntityInteraction(entity, relaxer);

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using DG.Tweening;
 using Gameplay;
 using Gameplay.Managers;
 using Services.Database;
@@ -9,7 +10,8 @@ using Services.ScreenSystem;
 using Services.TutorialSystem;
 using Utility.GameSettings;
 using Utility.DependencyInjection;
-using DG.Tweening;
+using Container = Utility.DependencyInjection.DependencyContainer;
+using Services.SignalSystem;
 
 namespace Manager
 {
@@ -29,28 +31,30 @@ namespace Manager
 
         private static void RegisterDependencyContext()
         {
-            DependencyContainer.Bind<ComponentDependencyResolver>().AsSingle();
+            Container.Bind<ComponentDependencyResolver>().AsSingle();
+            Container.Bind<ISubscribeService>().To<Subscriber>().AsSingle();
 
             var startDataPreset = Resources.Load<SaveDataPreset>(GameSettings.StartSaveDataPresetPath);
             var debugDataPreset = Resources.Load<SaveDataPreset>(GameSettings.DebugSaveDataPresetPath);
-            DependencyContainer.Bind<SaveDataPreset>("start").FromInstance(startDataPreset);
-            DependencyContainer.Bind<SaveDataPreset>("debug").FromInstance(debugDataPreset);
-            DependencyContainer.Bind<ISaveService>().To<PlayerPrefSaveSystem>().AsSingle();
+            Container.Bind<SaveDataPreset>("start").FromInstance(startDataPreset);
+            Container.Bind<SaveDataPreset>("debug").FromInstance(debugDataPreset);
+            Container.Bind<ISaveService>().To<PlayerPrefSaveSystem>().AsSingle();
 
-            DependencyContainer.Bind<IDatabaseService>().To<ScriptableObjectDatabase>().AsSingle();
-            DependencyContainer.Bind<IAudioService>().To<AudioSystem>().AsSingle();
-            DependencyContainer.Bind<IWalletService>().To<Wallet>().AsSingle();
-            DependencyContainer.Bind<GameTracker>().AsSingle().NonLazy();
+            Container.Bind<IDatabaseService>().To<ScriptableObjectDatabase>().AsSingle();
+            Container.Bind<IAudioService>().To<AudioSystem>().AsSingle();
+            Container.Bind<IWalletService>().To<Wallet>().AsSingle();
+            Container.Bind<GameTracker>().AsSingle().NonLazy();
 
             var screenContainer = Resources.Load<ScreenContainer>(GameSettings.ScreenContainerPath);
-            DependencyContainer.Bind<ScreenContainer>().FromInstance(screenContainer);
-            DependencyContainer.Bind<ScreenSystem>().AsSingle().NonLazy();
+            Container.Bind<ScreenContainer>().FromInstance(screenContainer);
+            Container.Bind<ScreenFactory>();
+            Container.Bind<ScreenSystem>().AsSingle().NonLazy();
 
             var tutorialSequence = Resources.Load<TutorialSequence>(GameSettings.TutorialSequencePath);
-            DependencyContainer.Bind<TutorialSequence>().FromInstance(tutorialSequence);
-            DependencyContainer.Bind<TutorialSystem>().AsSingle().NonLazy();
+            Container.Bind<TutorialSequence>().FromInstance(tutorialSequence);
+            Container.Bind<TutorialSystem>().AsSingle().NonLazy();
 
-            DependencyContainer.Bind<StatsManager>().AsSingle().NonLazy();
+            Container.Bind<StatsManager>().AsSingle().NonLazy();
         }
 
         private static void InitializeSystems()

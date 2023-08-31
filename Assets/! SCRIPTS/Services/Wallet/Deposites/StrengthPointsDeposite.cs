@@ -1,4 +1,4 @@
-using EventHolder;
+using Services.SignalSystem;
 using Services.SaveSystem;
 
 namespace Gameplay
@@ -10,7 +10,7 @@ namespace Gameplay
         {
             var saveData = saveService.Load<CurrencySaveData>();
             _amount = (uint)saveData.StrengthPoints;
-            EventHolder<StrengthPointsChangeInfo>.NotifyListeners(new(_amount));
+            SignalSystem<StrengthPointsChangeInfo>.Send(new(_amount));
         }
         #endregion
 
@@ -30,7 +30,7 @@ namespace Gameplay
             {
                 _amount -= value;
                 SaveData();
-                EventHolder<StrengthPointsChangeInfo>.NotifyListeners(new(_amount));
+                SignalSystem<StrengthPointsChangeInfo>.Send(new(_amount));
 
                 return true;
             }
@@ -42,7 +42,7 @@ namespace Gameplay
         {
             _amount += value;
             SaveData();
-            EventHolder<StrengthPointsChangeInfo>.NotifyListeners(new(_amount));
+            SignalSystem<StrengthPointsChangeInfo>.Send(new(_amount));
         }
         #endregion
     }

@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
-using EventHolder;
+using Services.SignalSystem;
 using UnityEngine.Events;
 using Manager;
 
@@ -41,12 +41,12 @@ namespace Gameplay
 
         public void TurnOn()
         {
-            EventHolder<CinemaStartInfo>.AddListener(h_CinemaStart, false);
+            SignalSystem<CinemaStartInfo>.AddListener(h_CinemaStart, false);
         }
 
         public void TurnOff()
         {
-            EventHolder<CinemaStartInfo>.RemoveListener(h_CinemaStart);
+            SignalSystem<CinemaStartInfo>.RemoveListener(h_CinemaStart);
         }
         #endregion
 
@@ -55,7 +55,7 @@ namespace Gameplay
         {
             yield return new WaitForSeconds(0.1f);
 
-            EventHolder<InputControlInfo>.NotifyListeners(new InputControlInfo(false));
+            SignalSystem<InputControlInfo>.Send(new InputControlInfo(false));
 
             for (int i = 0; i < sequence.Steps.Count; i++)
             {
@@ -70,10 +70,10 @@ namespace Gameplay
                         step.Camera.Priority = 99;
                         break;
                     case CinemaStepType.Movement:
-                        EventHolder<CinemaActorMoveInfo>.NotifyListeners(new(step.Actor, step.Point));
+                        SignalSystem<CinemaActorMoveInfo>.Send(new(step.Actor, step.Point));
                         break;
                     case CinemaStepType.Emotion:
-                        EventHolder<CinemaActorEmotionInfo>.NotifyListeners(new(step.Actor, step.Emotion));
+                        SignalSystem<CinemaActorEmotionInfo>.Send(new(step.Actor, step.Emotion));
                         break;
                 }
 
@@ -83,8 +83,8 @@ namespace Gameplay
             callback?.Invoke();
 
             _virtualCameras.ForEach(e => e.Priority = 0);
-            EventHolder<CinemaFinishInfo>.NotifyListeners(new());
-            EventHolder<InputControlInfo>.NotifyListeners(new InputControlInfo(true));
+            SignalSystem<CinemaFinishInfo>.Send(new());
+            SignalSystem<InputControlInfo>.Send(new InputControlInfo(true));
         }
         #endregion
     }

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using EventHolder;
+using Services.SignalSystem;
 using Services.ScreenSystem;
 
 namespace Gameplay
@@ -20,13 +20,13 @@ namespace Gameplay
         #endregion
 
         #region HANDLERS
-        [EventHolder]
+        [Subscribe]
         private void PlayerSpawn(PlayerSpawnInfo info)
         {
             _player = info.PlayerController;
         }
 
-        [EventHolder]
+        [Subscribe]
         private void TrackTarget(TrackTargetInfo info)
         {
             if (_targetPointers.ContainsKey(info.Target)) return;
@@ -37,7 +37,7 @@ namespace Gameplay
             _targetPointers.Add(info.Target, pointer);
         }
 
-        [EventHolder]
+        [Subscribe]
         private void UntrackTarget(UntrackTargetInfo info)
         {
             if (!_targetPointers.ContainsKey(info.Target)) return;
@@ -52,16 +52,6 @@ namespace Gameplay
         #endregion
 
         #region UNITY CALLBACKS
-        private void OnEnable()
-        {
-            SubscribeService.SubscribeListener(this);
-        }
-
-        private void OnDisable()
-        {
-            SubscribeService.UnsubscribeListener(this);
-        }
-
         private void Start()
         {
             FindCamera();

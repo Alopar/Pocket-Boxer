@@ -1,4 +1,6 @@
 using UnityEngine;
+using Services.SignalSystem;
+using Utility.DependencyInjection;
 
 namespace Services.ScreenSystem
 {
@@ -7,6 +9,22 @@ namespace Services.ScreenSystem
         #region FIELDS INSPECTOR
         [SerializeField] protected Canvas _canvas;
         [SerializeField] protected GameObject _content;
+        #endregion
+
+        #region FIELDS PRIVATE
+        [Inject] protected ISubscribeService _subscribeService;
+        #endregion
+
+        #region UNITY CALLBACKS
+        protected virtual void OnEnable()
+        {
+            _subscribeService.Subscribe(this);
+        }
+
+        protected virtual void OnDisable()
+        {
+            _subscribeService.Unsubscribe(this);
+        }
         #endregion
 
         #region METHODS PRIVATE

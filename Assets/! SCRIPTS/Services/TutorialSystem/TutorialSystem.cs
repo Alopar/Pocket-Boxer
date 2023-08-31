@@ -1,4 +1,4 @@
-using EventHolder;
+using Services.SignalSystem;
 using Services.SaveSystem;
 using Utility.DependencyInjection;
 
@@ -32,7 +32,7 @@ namespace Services.TutorialSystem
 
             SaveData();
             StepActions(_currentStep);
-            EventHolder<TutorialStepInfo>.NotifyListeners(new(_currentStep));
+            SignalSystem<TutorialStepInfo>.Send(new(_currentStep));
         }
         #endregion
 
@@ -40,8 +40,8 @@ namespace Services.TutorialSystem
         private void Init()
         {
             LoadData();
-            EventHolder<GameplayEventInfo>.AddListener(GameplayEvent, false);
-            EventHolder<TutorialStepInfo>.NotifyListeners(new(_currentStep));
+            SignalSystem<GameplayEventInfo>.AddListener(GameplayEvent, false);
+            SignalSystem<TutorialStepInfo>.Send(new(_currentStep));
         }
 
         private void LoadData()

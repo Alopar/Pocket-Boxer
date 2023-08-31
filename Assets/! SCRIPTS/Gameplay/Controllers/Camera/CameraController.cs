@@ -1,12 +1,14 @@
 using UnityEngine;
 using Cinemachine;
 using EntityState;
-using EventHolder;
+using Services.SignalSystem;
+using Utility.DependencyInjection;
 using DG.Tweening;
 
 namespace Gameplay
 {
-    public partial class CameraController : EntityMonoBehavior
+
+    public partial class CameraController : EntityMonoBehavior, IActivatable
     {
         #region FIELDS INSPECTOR
         [Header("INPUT SETTINGS:")]
@@ -23,6 +25,8 @@ namespace Gameplay
         #endregion
 
         #region FIELDS PRIVATE
+        [Inject] private ISubscribeService _signals;
+
         private PlayerController _player;
         private CinemachineVirtualCamera _currentCamera;
         private CinemachineCameraOffset _cameraOffset;
@@ -32,14 +36,14 @@ namespace Gameplay
         #endregion
 
         #region HANDLERS
-        [EventHolder]
+        [Subscribe]
         private void PlayerSpawn(PlayerSpawnInfo info)
         {
             SetPlayer(info.PlayerController);
             ChangeState(new FollowCameraState());
         }
 
-        [EventHolder]
+        [Subscribe]
         private void CameraChangeFOV(CameraChangeFOVInfo info)
         {
             var currentFOV = _playerCamera.m_Lens.FieldOfView;
@@ -55,12 +59,12 @@ namespace Gameplay
 
         private void OnEnable()
         {
-            SubscribeService.SubscribeListener(this);
+            _signals?.Subscribe(this);
         }
 
         private void OnDisable()
         {
-            SubscribeService.UnsubscribeListener(this);
+            _signals?.Unsubscribe(this);
         }
         #endregion
 
@@ -91,6 +95,13 @@ namespace Gameplay
             }
 
             _playerCamera.Follow = _player.transform;
+        }
+        #endregion
+
+        #region METHODS PUBLIC
+        public void Activate()
+        {
+            OnEnable();
         }
         #endregion
     }

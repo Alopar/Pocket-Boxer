@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 using Utility.DependencyInjection;
 
 namespace Gameplay
@@ -45,6 +46,11 @@ namespace Gameplay
                 {
                     _componentResolver.Resolve(child);
                     DependencyContainer.Inject(child);
+                }
+
+                if(go.TryGetComponent<IActivatable>(out var component))
+                {
+                    component.Activate();
                 }
             }
         }

@@ -1,5 +1,5 @@
-using EventHolder;
 using UnityEngine;
+using Services.SignalSystem;
 using Utility.DependencyInjection;
 
 namespace Gameplay
@@ -28,7 +28,7 @@ namespace Gameplay
             player.transform.position = transform.position;
             player.transform.rotation = transform.rotation;
 
-            EventHolder<PlayerSpawnInfo>.NotifyListeners(new PlayerSpawnInfo(player));
+            SignalSystem<PlayerSpawnInfo>.Send(new PlayerSpawnInfo(player));
         }
         #endregion
     }

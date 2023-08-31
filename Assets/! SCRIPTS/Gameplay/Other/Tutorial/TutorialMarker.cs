@@ -1,5 +1,5 @@
 using UnityEngine;
-using EventHolder;
+using Services.SignalSystem;
 using Services.TutorialSystem;
 
 namespace Gameplay
@@ -23,7 +23,7 @@ namespace Gameplay
                 _view.SetActive(true);
                 if (_inUI) return;
 
-                EventHolder<TutorialObservingInfo>.NotifyListeners(new(gameObject));
+                SignalSystem<TutorialObservingInfo>.Send(new(gameObject));
                 return;
             }
 
@@ -39,12 +39,12 @@ namespace Gameplay
 
         private void OnEnable()
         {
-            EventHolder<TutorialStepInfo>.AddListener(h_TutorialStep, true);
+            SignalSystem<TutorialStepInfo>.AddListener(h_TutorialStep, true);
         }
 
         private void OnDisable()
         {
-            EventHolder<TutorialStepInfo>.RemoveListener(h_TutorialStep);
+            SignalSystem<TutorialStepInfo>.RemoveListener(h_TutorialStep);
         }
         #endregion
 

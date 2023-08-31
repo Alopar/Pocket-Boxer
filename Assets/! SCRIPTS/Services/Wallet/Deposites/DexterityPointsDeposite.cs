@@ -1,4 +1,4 @@
-using EventHolder;
+using Services.SignalSystem;
 using Services.SaveSystem;
 
 namespace Gameplay
@@ -10,7 +10,7 @@ namespace Gameplay
         {
             var saveData = saveService.Load<CurrencySaveData>();
             _amount = (uint)saveData.DexterityPoints;
-            EventHolder<DexterityPointsChangeInfo>.NotifyListeners(new(_amount));
+            SignalSystem<DexterityPointsChangeInfo>.Send(new(_amount));
         }
         #endregion
 
@@ -30,7 +30,7 @@ namespace Gameplay
             {
                 _amount -= value;
                 SaveData();
-                EventHolder<DexterityPointsChangeInfo>.NotifyListeners(new(_amount));
+                SignalSystem<DexterityPointsChangeInfo>.Send(new(_amount));
 
                 return true;
             }
@@ -42,7 +42,7 @@ namespace Gameplay
         {
             _amount += value;
             SaveData();
-            EventHolder<DexterityPointsChangeInfo>.NotifyListeners(new(_amount));
+            SignalSystem<DexterityPointsChangeInfo>.Send(new(_amount));
         }
         #endregion
     }

@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-using EventHolder;
+using Services.SignalSystem;
 
 namespace Gameplay
 {
@@ -23,14 +23,14 @@ namespace Gameplay
         private void ChangeCapacityByValue(int value)
         {
             _capacity += value;
-            EventHolder<BatteryOccupiedInfo>.NotifyListeners(new(_capacity, _occupied));
+            SignalSystem<BatteryOccupiedInfo>.Send(new(_capacity, _occupied));
         }
 
         private void ChangeOccupiedByValue(int value)
         {
             _occupied += value;
             _occupied = Math.Clamp(_occupied, 0, _capacity);
-            EventHolder<BatteryOccupiedInfo>.NotifyListeners(new(_capacity, _occupied));
+            SignalSystem<BatteryOccupiedInfo>.Send(new(_capacity, _occupied));
         }
         #endregion
 
@@ -57,7 +57,7 @@ namespace Gameplay
         public void SetCapacity(int value)
         {
             _capacity = value;
-            EventHolder<BatteryOccupiedInfo>.NotifyListeners(new(_capacity, _occupied));
+            SignalSystem<BatteryOccupiedInfo>.Send(new(_capacity, _occupied));
         }
         #endregion
     }

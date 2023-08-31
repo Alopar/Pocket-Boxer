@@ -1,5 +1,5 @@
 using UnityEngine;
-using EventHolder;
+using Services.SignalSystem;
 using Services.ScreenSystem;
 using Services.TutorialSystem;
 
@@ -13,7 +13,8 @@ namespace Gameplay
         #endregion
 
         #region HANDLERS
-        private void h_TutorialStep(TutorialStepInfo info)
+        [Subscribe]
+        private void TutorialStep(TutorialStepInfo info)
         {
             if (info.TutorialStep == _tutorialStep)
             {
@@ -30,16 +31,6 @@ namespace Gameplay
         private void Awake()
         {
             HideScreen();
-        }
-
-        private void OnEnable()
-        {
-            EventHolder<TutorialStepInfo>.AddListener(h_TutorialStep, true);
-        }
-
-        private void OnDisable()
-        {
-            EventHolder<TutorialStepInfo>.RemoveListener(h_TutorialStep);
         }
         #endregion
     }

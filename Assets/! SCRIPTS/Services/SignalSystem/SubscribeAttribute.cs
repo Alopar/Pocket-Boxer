@@ -1,19 +1,19 @@
 using System;
 
-namespace EventHolder
+namespace Services.SignalSystem
 {
     [AttributeUsage(AttributeTargets.Method)]
-    public class EventHolderAttribute : Attribute
+    public class SubscribeAttribute : Attribute
     {
         private readonly bool _instantNotify = true;
         public bool InstantNotify => _instantNotify;
 
-        public EventHolderAttribute()
+        public SubscribeAttribute()
         {
 
         }
 
-        public EventHolderAttribute(bool instantNotify)
+        public SubscribeAttribute(bool instantNotify)
         {
             _instantNotify = instantNotify;
         }
