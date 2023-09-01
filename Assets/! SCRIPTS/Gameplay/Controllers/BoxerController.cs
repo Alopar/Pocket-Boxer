@@ -5,6 +5,7 @@ namespace Gameplay
     public class BoxerController : MonoBehaviour
     {
         #region FIELDS INSPECTOR
+        [SerializeField] private Animator _animator;
         #endregion
 
         #region FIELDS PRIVATE
