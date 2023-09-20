@@ -341,11 +341,11 @@ MonoBehaviour:
     Key: Assets/! DATABASE
     Ordinal: 27
     Priority: 0
-    IconType: 2180
+    IconType: 2110
     SmallIcon: {fileID: 0}
     LargeIcon: {fileID: 0}
     IsIconRecursive: 0
-    BackgroundType: 130
+    BackgroundType: 160
     BackgroundTexture: {fileID: 0}
     IsBackgroundRecursive: 0
     IsHidden: 0
