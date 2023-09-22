@@ -8,16 +8,6 @@ namespace Gameplay
 {
     public class DebuggingPanel : MonoBehaviour, IActivatable
     {
-        #region FIELDS INSPECTOR
-        [SerializeField] private Vector3 pos;
-        [SerializeField] private AnimationCurve curve;
-        [Space(10)]
-        [SerializeField, Range(0, 10)] private int dam;
-
-        [Header("!!!")]
-        [SerializeField, Range(0, 10)] private int ram;
-        #endregion
-
         #region FIELDS PRIVATE
         [Inject] private ISubscribeService _signals;
 

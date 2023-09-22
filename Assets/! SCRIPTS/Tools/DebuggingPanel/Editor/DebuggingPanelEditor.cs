@@ -1,6 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine.UIElements;
 using UnityEditor.UIElements;
+using UnityEngine;
 
 namespace Gameplay
 {
@@ -14,14 +15,18 @@ namespace Gameplay
             var root = new VisualElement();
             uxml.CloneTree(root);
 
-            var foldout = new Foldout()
+            if (!Application.isPlaying)
             {
-                text = "Base inspector",
-                viewDataKey = "DebuggingPanel-BaseInspector-Foldout",
-            };
+                var playModePanel = root.Q<VisualElement>("play-mode-panel");
+                playModePanel.style.display = DisplayStyle.None;
 
-            InspectorElement.FillDefaultInspector(foldout, serializedObject, this);
-            root.Add(foldout);
+                return root;
+            }
+            else
+            {
+                var editorModePanel = root.Q<VisualElement>("editor-mode-panel");
+                editorModePanel.style.display = DisplayStyle.None;
+            }
 
             return root;
         }
