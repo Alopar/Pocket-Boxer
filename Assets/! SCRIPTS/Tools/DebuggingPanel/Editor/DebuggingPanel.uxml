@@ -3,13 +3,10 @@
         <ui:HelpBox text="This tools show only play mode!" message-type="Info" name="the-uxml-help-box" style="-unity-font-style: bold; padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px;" />
     </ui:VisualElement>
     <ui:VisualElement name="play-mode-panel" style="flex-grow: 1; flex-direction: column; display: flex; height: 354px;">
-        <ui:Foldout text="Currency" name="currecy-foldout">
-            <ui:EnumField label="Type" type="Gameplay.CurrencyType, Assembly-CSharp" name="currency-type-field" style="flex-shrink: 1; flex-grow: 1; width: auto;" />
-            <ui:VisualElement name="amount-panel" style="flex-grow: 1; flex-direction: row;">
-                <ui:SliderInt picking-mode="Ignore" value="500" high-value="1000" name="currency-amount-slider" style="width: 50%;" />
-                <ui:IntegerField value="42" name="currency-amount-field" style="flex-shrink: 1; flex-grow: 1; width: 50%;" />
-            </ui:VisualElement>
-            <ui:Button text="ADD CURRENCY" parse-escape-sequences="true" display-tooltip-when-elided="true" name="currency-add-button" style="flex-shrink: 1; flex-grow: 1;" />
+        <ui:Foldout text="Currency" name="currecy-foldout" view-data-key="DebuggingPanel__currecy-foldout">
+            <ui:EnumField label="Type" type="Gameplay.CurrencyType, Assembly-CSharp" name="currency-type-field" view-data-key="DebuggingPanel__currency-type-field" binding-path="_currencyType" />
+            <ui:SliderInt value="500" high-value="10000" name="currency-amount-slider" binding-path="_currencyAmount" view-data-key="DebuggingPanel__currency-amount-slider" label="Value" show-input-field="true" style="width: auto; flex-direction: row;" />
+            <ui:Button text="ADD CURRENCY" name="currency-add-button" parse-escape-sequences="true" display-tooltip-when-elided="true" style="flex-shrink: 1; flex-grow: 1;" />
         </ui:Foldout>
         <ui:Foldout text="Foldout" />
     </ui:VisualElement>

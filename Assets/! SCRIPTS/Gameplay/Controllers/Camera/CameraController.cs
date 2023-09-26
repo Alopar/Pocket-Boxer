@@ -57,7 +57,7 @@ namespace Gameplay
             Init();
         }
 
-        private void OnEnable()
+        public void OnEnable()
         {
             _signals?.Subscribe(this);
         }
@@ -95,13 +95,6 @@ namespace Gameplay
             }
 
             _playerCamera.Follow = _player.transform;
-        }
-        #endregion
-
-        #region METHODS PUBLIC
-        public void Activate()
-        {
-            OnEnable();
         }
         #endregion
     }

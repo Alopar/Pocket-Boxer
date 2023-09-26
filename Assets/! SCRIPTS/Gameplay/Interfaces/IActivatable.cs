@@ -2,6 +2,6 @@
 {
     public interface IActivatable
     {
-        public void Activate();
+        public void OnEnable();
     }
 }

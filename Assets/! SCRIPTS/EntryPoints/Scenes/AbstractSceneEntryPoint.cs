@@ -44,7 +44,7 @@ namespace Gameplay
 
                 if(go.TryGetComponent<IActivatable>(out var component))
                 {
-                    component.Activate();
+                    component.OnEnable();
                 }
             }
         }
