@@ -1,0 +1,407 @@
+using UnityEngine;
+using UnityEngine.Events;
+using Gameplay;
+using Services.TutorialSystem;
+using PointerType = Gameplay.PointerType;
+
+namespace Services.SignalSystem.Signals
+{
+    #region INPUT
+    public readonly struct InputDirection : ISignal
+    {
+        public readonly Vector2 Direction;
+        public readonly bool PointerDown;
+        public readonly bool PointerUp;
+        public readonly bool IsDeathZone;
+        public readonly float Distance;
+
+        public InputDirection(Vector2 direction, bool pointerDown, bool pointerUp, float distance, bool isDeathZone)
+        {
+            Direction = direction;
+            PointerDown = pointerDown;
+            PointerUp = pointerUp;
+            IsDeathZone = isDeathZone;
+            Distance = distance;
+        }
+
+        public override string ToString()
+        {
+            return $"Down: {PointerDown}, Up: {PointerUp}, Activated: {IsDeathZone}";
+        }
+    }
+
+    public readonly struct InputEnable : ISignal
+    {
+        public readonly bool Enable;
+
+        public InputEnable(bool enable)
+        {
+            Enable = enable;
+        }
+    }
+
+    public readonly struct InputSwipe : ISignal
+    {
+        public readonly Vector2 Direction;
+
+        public InputSwipe(Vector2 direction)
+        {
+            Direction = direction;
+        }
+    }
+    #endregion
+
+    #region CAMERA
+    public readonly struct CameraOffset : ISignal
+    {
+        public readonly Vector3 Offset;
+
+        public CameraOffset(Vector3 offset)
+        {
+            Offset = offset;
+        }
+    }
+
+    public readonly struct CameraLookAt : ISignal
+    {
+        public readonly Transform LookAtPoint;
+
+        public CameraLookAt(Transform lookAtPoint)
+        {
+            LookAtPoint = lookAtPoint;
+        }
+    }
+
+    public readonly struct CameraLookPlayer : ISignal
+    {
+        // N/A
+    }
+
+    public readonly struct CameraChangeFOV : ISignal
+    {
+        public readonly float FOV;
+
+        public CameraChangeFOV(float fov)
+        {
+            FOV = fov;
+        }
+    }
+    #endregion
+
+    #region POINTERS
+    public readonly struct TrackTarget : ISignal
+    {
+        public readonly Transform Target;
+        public readonly PointerType PointerType;
+
+        public TrackTarget(Transform target, PointerType pointerType)
+        {
+            Target = target;
+            PointerType = pointerType;
+        }
+    }
+
+    public readonly struct UntrackTarget : ISignal
+    {
+        public readonly Transform Target;
+
+        public UntrackTarget(Transform target)
+        {
+            Target = target;
+        }
+    }
+    #endregion
+
+    #region RESOURCES
+    public readonly struct MoneyChange : ISignal
+    {
+        public readonly uint Value;
+
+        public MoneyChange(uint value)
+        {
+            Value = value;
+        }
+    }
+
+    public readonly struct DiamondChange : ISignal
+    {
+        public readonly uint Value;
+
+        public DiamondChange(uint value)
+        {
+            Value = value;
+        }
+    }
+
+    public readonly struct ExperiencePointsChange : ISignal
+    {
+        public readonly uint Value;
+
+        public ExperiencePointsChange(uint value)
+        {
+            Value = value;
+        }
+    }
+
+    public readonly struct StrengthPointsChange : ISignal
+    {
+        public readonly uint Value;
+
+        public StrengthPointsChange(uint value)
+        {
+            Value = value;
+        }
+    }
+
+    public readonly struct DexterityPointsChange : ISignal
+    {
+        public readonly uint Value;
+
+        public DexterityPointsChange(uint value)
+        {
+            Value = value;
+        }
+    }
+
+    public readonly struct EndurancePointsChange : ISignal
+    {
+        public readonly uint Value;
+
+        public EndurancePointsChange(uint value)
+        {
+            Value = value;
+        }
+    }
+    #endregion
+
+    #region PLAYER
+    public readonly struct PlayerSpawn : ISignal
+    {
+        public readonly PlayerController PlayerController;
+
+        public PlayerSpawn(PlayerController playerController)
+        {
+            PlayerController = playerController;
+        }
+    }
+
+    public readonly struct BatteryOccupied : ISignal
+    {
+        public readonly int Capacity;
+        public readonly int Occupied;
+
+        public BatteryOccupied(int capacity, int occupied)
+        {
+            Capacity = capacity;
+            Occupied = occupied;
+        }
+    }
+
+    public readonly struct HidePlayer : ISignal
+    {
+        // N/A
+    }
+
+    public readonly struct ShowPlayer : ISignal
+    {
+        // N/A
+    }
+    #endregion
+
+    #region STATS
+    public readonly struct StrengthChange : ISignal
+    {
+        public readonly uint Level;
+        public readonly float Delta;
+
+        public StrengthChange(uint level, float delta)
+        {
+            Level = level;
+            Delta = delta;
+        }
+    }
+
+    public readonly struct DexterityChange : ISignal
+    {
+        public readonly uint Level;
+        public readonly float Delta;
+
+        public DexterityChange(uint level, float delta)
+        {
+            Level = level;
+            Delta = delta;
+        }
+    }
+
+    public readonly struct EnduranceChange : ISignal
+    {
+        public readonly uint Level;
+        public readonly float Delta;
+
+        public EnduranceChange(uint level, float delta)
+        {
+            Level = level;
+            Delta = delta;
+        }
+    }
+    #endregion
+
+    #region LEVEL
+    public readonly struct LevelStart : ISignal
+    {
+        public readonly int Number;
+
+        public LevelStart(int number)
+        {
+            Number = number;
+        }
+    }
+
+    public readonly struct LevelEnd : ISignal
+    {
+        public readonly int Number;
+
+        public LevelEnd(int number)
+        {
+            Number = number;
+        }
+    }
+
+    public readonly struct SimulatorChangeFocus : ISignal
+    {
+        public readonly SimulatorController Simulator;
+
+        public SimulatorChangeFocus(SimulatorController simulator)
+        {
+            Simulator = simulator;
+        }
+    }
+
+    public readonly struct RelaxerChangeFocus : ISignal
+    {
+        public readonly RelaxerController Relaxer;
+
+        public RelaxerChangeFocus(RelaxerController relaxer)
+        {
+            Relaxer = relaxer;
+        }
+    }
+    #endregion
+
+    #region CINEMA
+    public readonly struct CinemaStart : ISignal
+    {
+        public readonly string ID;
+        public readonly UnityAction Callback;
+
+        public CinemaStart(string iD, UnityAction callback)
+        {
+            ID = iD;
+            Callback = callback;
+        }
+    }
+
+    public readonly struct CinemaFinish : ISignal
+    {
+        // N/A
+    }
+
+    public readonly struct CinemaActorMove : ISignal
+    {
+        public readonly ActorComponent Actor;
+        public readonly Transform TargetPoint;
+
+        public CinemaActorMove(ActorComponent actor, Transform targetPoint)
+        {
+            Actor = actor;
+            TargetPoint = targetPoint;
+        }
+    }
+
+    public readonly struct CinemaActorEmotion : ISignal
+    {
+        public readonly ActorComponent Actor;
+        public readonly string EmotionName;
+
+        public CinemaActorEmotion(ActorComponent actor, string emotionName)
+        {
+            Actor = actor;
+            EmotionName = emotionName;
+        }
+    }
+    #endregion
+
+    #region SCREENS
+    public readonly struct ShowScreen : ISignal
+    {
+        public readonly ScreenType ScreenType;
+
+        public ShowScreen(ScreenType screenType)
+        {
+            ScreenType = screenType;
+        }
+    }
+
+    public readonly struct CloseScreen : ISignal
+    {
+        public readonly ScreenType ScreenType;
+
+        public CloseScreen(ScreenType screenType)
+        {
+            ScreenType = screenType;
+        }
+    }
+
+    public readonly struct ScreenOpened : ISignal
+    {
+        public readonly ScreenType ScreenType;
+
+        public ScreenOpened(ScreenType screenType)
+        {
+            ScreenType = screenType;
+        }
+    }
+
+    public readonly struct ScreenClosed : ISignal
+    {
+        public readonly ScreenType ScreenType;
+
+        public ScreenClosed(ScreenType screenType)
+        {
+            ScreenType = screenType;
+        }
+    }
+    #endregion
+
+    #region TUTORIAL
+    public readonly struct GameplayEventChange : ISignal
+    {
+        public readonly GameplayEvent GameplayEvent;
+
+        public GameplayEventChange(GameplayEvent gameplayEvent)
+        {
+            GameplayEvent = gameplayEvent;
+        }
+    }
+
+    public readonly struct TutorialStepChange : ISignal
+    {
+        public readonly TutorialStep TutorialStep;
+
+        public TutorialStepChange(TutorialStep tutorialStep)
+        {
+            TutorialStep = tutorialStep;
+        }
+    }
+
+    public readonly struct TutorialObserving : ISignal
+    {
+        public readonly GameObject GameObject;
+
+        public TutorialObserving(GameObject gameObject)
+        {
+            GameObject = gameObject;
+        }
+    }
+    #endregion
+}

@@ -1,5 +1,7 @@
 using UnityEngine;
 using Services.SignalSystem;
+using Services.SignalSystem.Signals;
+using Utility.DependencyInjection;
 
 namespace Gameplay
 {
@@ -8,9 +10,10 @@ namespace Gameplay
         #region FIELDS PRIVATE
         private const float DEAD_ZONE = 80f;
 
+        [Inject] private ISignalService _signalService;
+
         private Vector2 _tapPosition;
         private Vector2 _swipeDelta;
-
         private bool _isMobile;
         private bool _isSwiping;
         #endregion
@@ -105,7 +108,8 @@ namespace Gameplay
                 {
                     direction = _swipeDelta.y > 0 ? Vector2.up : Vector2.down;
                 }
-                SignalSystem<InputSwipeInfo>.Send(new(direction));
+
+                _signalService.Send<InputSwipe>(new(direction));
 
                 ResetSwipe();
             }

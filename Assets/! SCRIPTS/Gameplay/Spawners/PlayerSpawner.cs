@@ -1,6 +1,7 @@
 using UnityEngine;
 using Services.SignalSystem;
 using Utility.DependencyInjection;
+using Services.SignalSystem.Signals;
 
 namespace Gameplay
 {
@@ -11,6 +12,7 @@ namespace Gameplay
         #endregion
 
         #region FIELDS PRIVATE
+        [Inject] private ISignalService _signalService;
         [Inject] private PlayerFactory _playerFactory;
         #endregion
 
@@ -28,7 +30,7 @@ namespace Gameplay
             player.transform.position = transform.position;
             player.transform.rotation = transform.rotation;
 
-            SignalSystem<PlayerSpawnInfo>.Send(new PlayerSpawnInfo(player));
+            _signalService.Send<PlayerSpawn>(new(player));
         }
         #endregion
     }

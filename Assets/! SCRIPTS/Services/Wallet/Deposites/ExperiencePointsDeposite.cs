@@ -1,16 +1,17 @@
 using Services.SignalSystem;
 using Services.SaveSystem;
+using Services.SignalSystem.Signals;
 
 namespace Gameplay
 {
     public class ExperiencePointsDeposite : AbstractCurrencyDeposit
     {
         #region CONSTRUCTORS
-        public ExperiencePointsDeposite(ISaveService saveService) : base(saveService)
+        public ExperiencePointsDeposite(ISaveService saveService, ISignalService signalService) : base(saveService, signalService)
         {
             var saveData = saveService.Load<CurrencySaveData>();
             _amount = (uint)saveData.ExperiencePoints;
-            SignalSystem<ExperiencePointsChangeInfo>.Send(new(_amount));
+            _signalService.Send<ExperiencePointsChange>(new(_amount));
         }
         #endregion
 
@@ -30,7 +31,7 @@ namespace Gameplay
             {
                 _amount -= value;
                 SaveData();
-                SignalSystem<ExperiencePointsChangeInfo>.Send(new(_amount));
+                _signalService.Send<ExperiencePointsChange>(new(_amount));
 
                 return true;
             }
@@ -42,7 +43,7 @@ namespace Gameplay
         {
             _amount += value;
             SaveData();
-            SignalSystem<ExperiencePointsChangeInfo>.Send(new(_amount));
+            _signalService.Send<ExperiencePointsChange>(new(_amount));
         }
         #endregion
     }

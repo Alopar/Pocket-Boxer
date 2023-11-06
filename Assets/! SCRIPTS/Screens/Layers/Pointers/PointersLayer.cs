@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Services.SignalSystem;
+using Services.SignalSystem.Signals;
 using Services.ScreenSystem;
 
 namespace Gameplay
@@ -21,13 +22,13 @@ namespace Gameplay
 
         #region HANDLERS
         [Subscribe]
-        private void PlayerSpawn(PlayerSpawnInfo info)
+        private void PlayerSpawn(PlayerSpawn info)
         {
             _player = info.PlayerController;
         }
 
         [Subscribe]
-        private void TrackTarget(TrackTargetInfo info)
+        private void TrackTarget(TrackTarget info)
         {
             if (_targetPointers.ContainsKey(info.Target)) return;
 
@@ -38,7 +39,7 @@ namespace Gameplay
         }
 
         [Subscribe]
-        private void UntrackTarget(UntrackTargetInfo info)
+        private void UntrackTarget(UntrackTarget info)
         {
             if (!_targetPointers.ContainsKey(info.Target)) return;
 

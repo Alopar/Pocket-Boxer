@@ -1,4 +1,5 @@
 using Services.SignalSystem;
+using Services.SignalSystem.Signals;
 using Services.SaveSystem;
 using Utility.DependencyInjection;
 
@@ -7,6 +8,7 @@ namespace Services.TutorialSystem
     public class TutorialSystem
     {
         #region FIELDS PRIVATE
+        [Inject] private ISignalService _signalService;
         [Inject] private ISaveService _saveService;
         [Inject] private TutorialSequence _sequence;
         
@@ -21,7 +23,7 @@ namespace Services.TutorialSystem
         #endregion
 
         #region HANDLERS
-        private void GameplayEvent(GameplayEventInfo info)
+        private void GameplayEvent(GameplayEventChange info)
         {
             if (_currentStep == TutorialStep.EndTutorial) return;
 
@@ -32,7 +34,7 @@ namespace Services.TutorialSystem
 
             SaveData();
             StepActions(_currentStep);
-            SignalSystem<TutorialStepInfo>.Send(new(_currentStep));
+            _signalService.Send<TutorialStepChange>(new(_currentStep));
         }
         #endregion
 
@@ -40,8 +42,8 @@ namespace Services.TutorialSystem
         private void Init()
         {
             LoadData();
-            SignalSystem<GameplayEventInfo>.AddListener(GameplayEvent, false);
-            SignalSystem<TutorialStepInfo>.Send(new(_currentStep));
+            _signalService.AddListener<GameplayEventChange>(GameplayEvent, false);
+            _signalService.Send<TutorialStepChange>(new(_currentStep));
         }
 
         private void LoadData()

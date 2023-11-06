@@ -1,5 +1,6 @@
 using UnityEngine;
 using Services.SignalSystem;
+using Services.SignalSystem.Signals;
 using Utility.DependencyInjection;
 
 namespace Gameplay
@@ -16,7 +17,8 @@ namespace Gameplay
 
         protected override void InitiateScene()
         {
-            SignalSystem<ShowScreenInfo>.Send(new(ScreenType.GymHUD));
+            //TODO:
+            DependencyContainer.Get<ISignalService>().Send<ShowScreen>(new(ScreenType.GymHUD));
         }
         #endregion
     }

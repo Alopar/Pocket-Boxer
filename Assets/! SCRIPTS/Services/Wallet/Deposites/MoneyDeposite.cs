@@ -1,16 +1,17 @@
 using Services.SignalSystem;
 using Services.SaveSystem;
+using Services.SignalSystem.Signals;
 
 namespace Gameplay
 {
     public class MoneyDeposite : AbstractCurrencyDeposit
     {
         #region CONSTRUCTORS
-        public MoneyDeposite(ISaveService saveService) : base(saveService)
+        public MoneyDeposite(ISaveService saveService, ISignalService signalService) : base(saveService, signalService)
         {
             var saveData = saveService.Load<CurrencySaveData>();
             _amount = (uint)saveData.Money;
-            SignalSystem<MoneyChangeInfo>.Send(new MoneyChangeInfo(_amount));
+            _signalService.Send<MoneyChange>(new (_amount));
         }
         #endregion
 
@@ -30,7 +31,7 @@ namespace Gameplay
             {
                 _amount -= value;
                 SaveData();
-                SignalSystem<MoneyChangeInfo>.Send(new MoneyChangeInfo(_amount));
+                _signalService.Send<MoneyChange>(new(_amount));
 
                 return true;
             }
@@ -42,7 +43,7 @@ namespace Gameplay
         {
             _amount += value;
             SaveData();
-            SignalSystem<MoneyChangeInfo>.Send(new MoneyChangeInfo(_amount));
+            _signalService.Send<MoneyChange>(new(_amount));
         }
         #endregion
     }

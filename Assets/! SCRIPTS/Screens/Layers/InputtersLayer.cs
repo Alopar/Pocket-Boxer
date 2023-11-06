@@ -1,7 +1,9 @@
 using UnityEngine;
 using Services.SignalSystem;
+using Services.SignalSystem.Signals;
 using Services.ScreenSystem;
 using Services.TutorialSystem;
+
 
 namespace Gameplay
 {
@@ -20,7 +22,7 @@ namespace Gameplay
 
         #region HANDLERS
         [Subscribe]
-        private void InputControl(InputControlInfo info)
+        private void InputControl(InputEnable info)
         {
             _joystick.OnPointerUp(null);
             if (info.Enable)
@@ -63,8 +65,8 @@ namespace Gameplay
 
             if (_joystick.Direction == Vector2.zero && !pointerDown && !pointerUp) return;
 
-            SignalSystem<InputInfo>.Send(new InputInfo(direction, pointerDown, pointerUp, distance, isDeathZone));
-            SignalSystem<GameplayEventInfo>.Send(new(GameplayEvent.JoysticInput));
+            _signalService.Send<InputDirection>(new(direction, pointerDown, pointerUp, distance, isDeathZone));
+            _signalService.Send<GameplayEventChange>(new(GameplayEvent.JoysticInput));
         }
         #endregion
     }

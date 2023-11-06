@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Services.SignalSystem;
+using Services.SignalSystem.Signals;
 using Services.ScreenSystem;
 
 namespace Gameplay
@@ -23,23 +24,23 @@ namespace Gameplay
 
         #region HANDLERS
         [Subscribe]
-        private void ShowScreen(ShowScreenInfo info)
+        private void ShowScreen(ShowScreen info)
         {
             if (info.ScreenType != ScreenType.Relaxer) return;
 
             ShowScreen();
-            SignalSystem<ScreenOpenedInfo>.Send(new(ScreenType.Relaxer));
+            _signalService.Send<ScreenOpened>(new(ScreenType.Relaxer));
         }
 
         [Subscribe]
-        private void CloseScreen(CloseScreenInfo info)
+        private void CloseScreen(CloseScreen info)
         {
             if (info.ScreenType != ScreenType.Relaxer) return;
             CloseScreen();
         }
 
         [Subscribe]
-        private void RelaxerChangeFocus(RelaxerChangeFocusInfo info)
+        private void RelaxerChangeFocus(RelaxerChangeFocus info)
         {
             _relaxer = info.Relaxer;
         }
@@ -99,8 +100,8 @@ namespace Gameplay
             _relaxer.OnProgressChange += ProgressChangeHandler;
             _relaxer.OnExploitationEnd += ExploitationEndHandler;
 
-            SignalSystem<HidePlayerInfo>.Send(new());
-            SignalSystem<InputControlInfo>.Send(new(false));
+            _signalService.Send<HidePlayer>(new());
+            _signalService.Send<InputEnable>(new(false));
         }
 
         public void BreakButton()
@@ -112,8 +113,8 @@ namespace Gameplay
             _relaxer.OnProgressChange -= ProgressChangeHandler;
             _relaxer.OnExploitationEnd -= ExploitationEndHandler;
 
-            SignalSystem<ShowPlayerInfo>.Send(new());
-            SignalSystem<InputControlInfo>.Send(new(true));
+            _signalService.Send<ShowPlayer>(new());
+            _signalService.Send<InputEnable>(new(true));
         }
         #endregion
     }

@@ -1,5 +1,6 @@
 using UnityEngine;
 using Services.SignalSystem;
+using Services.SignalSystem.Signals;
 using Services.ScreenSystem;
 using Services.TutorialSystem;
 
@@ -14,7 +15,7 @@ namespace Gameplay
 
         #region HANDLERS
         [Subscribe]
-        private void TutorialStep(TutorialStepInfo info)
+        private void TutorialStep(TutorialStepChange info)
         {
             if (info.TutorialStep == _tutorialStep)
             {

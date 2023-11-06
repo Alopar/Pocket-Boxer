@@ -1,8 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using Services.SignalSystem;
 using Services.ScreenSystem;
+using Services.SignalSystem;
+using Services.SignalSystem.Signals;
 
 namespace Gameplay
 {
@@ -32,29 +33,29 @@ namespace Gameplay
 
         #region HANDLERS
         [Subscribe]
-        private void ShowScreen(ShowScreenInfo info)
+        private void ShowScreen(ShowScreen info)
         {
             if (info.ScreenType != ScreenType.Simulator) return;
 
             ShowScreen();
-            SignalSystem<ScreenOpenedInfo>.Send(new(ScreenType.Simulator));
+            _signalService.Send<ScreenOpened>(new(ScreenType.Simulator));
         }
 
         [Subscribe]
-        private void CloseScreen(CloseScreenInfo info)
+        private void CloseScreen(CloseScreen info)
         {
             if (info.ScreenType != ScreenType.Simulator) return;
             CloseScreen();
         }
 
         [Subscribe]
-        private void SimulatorChangeFocus(SimulatorChangeFocusInfo info)
+        private void SimulatorChangeFocus(SimulatorChangeFocus info)
         {
             _simulator = info.Simulator;
         }
 
         [Subscribe]
-        private void InputSwipe(InputSwipeInfo info)
+        private void InputSwipe(InputSwipe signal)
         {
             _simulator.AddProgress(5f);
         }
@@ -151,8 +152,8 @@ namespace Gameplay
             _simulator.OnProgressChange += ProgressChangeHandler;
             _simulator.OnExploitationEnd += ExploitationEndHandler;
 
-            SignalSystem<HidePlayerInfo>.Send(new());
-            SignalSystem<InputControlInfo>.Send(new(false));
+            _signalService.Send<HidePlayer>(new());
+            _signalService.Send<InputEnable>(new(false));
         }
 
         public void BreakButton()
@@ -164,8 +165,8 @@ namespace Gameplay
             _simulator.OnProgressChange -= ProgressChangeHandler;
             _simulator.OnExploitationEnd -= ExploitationEndHandler;
 
-            SignalSystem<ShowPlayerInfo>.Send(new());
-            SignalSystem<InputControlInfo>.Send(new(true));
+            _signalService.Send<ShowPlayer>(new());
+            _signalService.Send<InputEnable>(new(true));
         }
 
         public void Tap()

@@ -12,18 +12,18 @@ namespace Services.ScreenSystem
         #endregion
 
         #region FIELDS PRIVATE
-        [Inject] protected ISubscribeService _subscribeService;
+        [Inject] protected ISignalService _signalService;
         #endregion
 
         #region UNITY CALLBACKS
         protected virtual void OnEnable()
         {
-            _subscribeService.Subscribe(this);
+            _signalService.Subscribe(this);
         }
 
         protected virtual void OnDisable()
         {
-            _subscribeService.Unsubscribe(this);
+            _signalService.Unsubscribe(this);
         }
         #endregion
 

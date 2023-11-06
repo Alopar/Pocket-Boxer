@@ -1,4 +1,5 @@
 using Services.SignalSystem;
+using Services.SignalSystem.Signals;
 using Utility.DependencyInjection;
 using DG.Tweening;
 using PP = UnityEngine.PlayerPrefs;
@@ -12,7 +13,7 @@ namespace Gameplay
         private const string LEVEL_COUNTER = "LEVEL-COUNTER";
         private const string LAST_LOCATION_NUMBER = "LAST-LOCATION-NUMBER";
 
-        [Inject] private ISubscribeService _signals;
+        [Inject] private ISignalService _signals;
         #endregion
 
         #region CONSTRUCTORS
@@ -25,13 +26,13 @@ namespace Gameplay
 
         #region HANDLERS
         [Subscribe]
-        private void LevelStart(LevelStartInfo info)
+        private void LevelStart(LevelStart info)
         {
             SendLocationStartInfo(info.Number);
         }
 
         [Subscribe]
-        private void LevelEnd(LevelEndInfo info)
+        private void LevelEnd(LevelEnd info)
         {
             SendLocationEndInfo(info.Number);
         }

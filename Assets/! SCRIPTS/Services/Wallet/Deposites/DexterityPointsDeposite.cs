@@ -1,16 +1,17 @@
 using Services.SignalSystem;
 using Services.SaveSystem;
+using Services.SignalSystem.Signals;
 
 namespace Gameplay
 {
     public class DexterityPointsDeposite : AbstractCurrencyDeposit
     {
         #region CONSTRUCTORS
-        public DexterityPointsDeposite(ISaveService saveService) : base(saveService)
+        public DexterityPointsDeposite(ISaveService saveService, ISignalService signalService) : base(saveService, signalService)
         {
             var saveData = saveService.Load<CurrencySaveData>();
             _amount = (uint)saveData.DexterityPoints;
-            SignalSystem<DexterityPointsChangeInfo>.Send(new(_amount));
+            _signalService.Send<DexterityPointsChange>(new(_amount));
         }
         #endregion
 
@@ -30,7 +31,7 @@ namespace Gameplay
             {
                 _amount -= value;
                 SaveData();
-                SignalSystem<DexterityPointsChangeInfo>.Send(new(_amount));
+                _signalService.Send<DexterityPointsChange>(new(_amount));
 
                 return true;
             }
@@ -42,7 +43,7 @@ namespace Gameplay
         {
             _amount += value;
             SaveData();
-            SignalSystem<DexterityPointsChangeInfo>.Send(new(_amount));
+            _signalService.Send<DexterityPointsChange>(new(_amount));
         }
         #endregion
     }

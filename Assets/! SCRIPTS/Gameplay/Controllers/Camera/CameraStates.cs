@@ -1,7 +1,9 @@
 using UnityEngine;
-using Services.SignalSystem;
 using EntityState;
+using Services.SignalSystem;
+using Services.SignalSystem.Signals;
 using DG.Tweening;
+
 
 namespace Gameplay
 {
@@ -10,7 +12,8 @@ namespace Gameplay
         public class CinemaCameraState : EntityState<CameraController>
         {
             #region HANDLERS
-            private void h_CinemaFinish(CinemaFinishInfo info)
+            [Subscribe]
+            private void h_CinemaFinish(CinemaFinish info)
             {
                 _entity.ChangeState(new FollowCameraState());
             }
@@ -24,13 +27,13 @@ namespace Gameplay
                 _entity._playerCamera.Priority = 0;
                 _entity._observingCamera.Priority = 0;
 
-                SignalSystem<CinemaFinishInfo>.AddListener(h_CinemaFinish, true);
+                _entity._signalsService.Subscribe(this);
             }
 
             public override void Exit()
             {
                 base.Exit();
-                SignalSystem<CinemaFinishInfo>.RemoveListener(h_CinemaFinish);
+                _entity._signalsService.Unsubscribe(this);
             }
             #endregion
         }
@@ -58,11 +61,13 @@ namespace Gameplay
             #endregion
 
             #region HANDLERS
-            private void h_Input(InputInfo info)
+            [Subscribe(false)]
+            private void h_Input(Services.SignalSystem.Signals.InputDirection info)
             {
                 _currentOffset = new Vector3(_entity._inputCameraOffset * info.Direction.x, _entity._inputCameraOffset * info.Direction.y, _entity._endOffset);
             }
 
+            [Subscribe(false)]
             private void h_Update(EntityState.UpdateType type)
             {
                 switch (type)
@@ -73,7 +78,8 @@ namespace Gameplay
                 }
             }
 
-            private void h_CameraLookAt(CameraLookAtInfo info)
+            [Subscribe(false)]
+            private void h_CameraLookAt(CameraLookAt info)
             {
                 _entity._currentCamera = _entity._observingCamera;
 
@@ -82,7 +88,8 @@ namespace Gameplay
                 _entity._observingCamera.Follow = info.LookAtPoint.transform;
             }
 
-            private void h_CameraLookPlayer(CameraLookPlayerInfo info)
+            [Subscribe(false)]
+            private void h_CameraLookPlayer(CameraLookPlayer info)
             {
                 _entity._currentCamera = _entity._playerCamera;
 
@@ -90,7 +97,8 @@ namespace Gameplay
                 _entity._observingCamera.Priority = 0;
             }
 
-            private void h_CinemaStart(CinemaStartInfo info)
+            [Subscribe(false)]
+            private void h_CinemaStart(CinemaStart info)
             {
                 _entity.ChangeState(new CinemaCameraState());
             }
@@ -116,19 +124,13 @@ namespace Gameplay
                 _entity._observingCamera.Priority = 0;
 
                 _entity._transmitter.CommonUpdate += h_Update;
-                SignalSystem<InputInfo>.AddListener(h_Input, false);
-                SignalSystem<CinemaStartInfo>.AddListener(h_CinemaStart, false);
-                SignalSystem<CameraLookAtInfo>.AddListener(h_CameraLookAt, false);
-                SignalSystem<CameraLookPlayerInfo>.AddListener(h_CameraLookPlayer, false);
+                _entity._signalsService.Subscribe(this);
             }
 
             public override void Exit()
             {   
                 _entity._transmitter.CommonUpdate -= h_Update;
-                SignalSystem<InputInfo>.RemoveListener(h_Input);
-                SignalSystem<CinemaStartInfo>.RemoveListener(h_CinemaStart);
-                SignalSystem<CameraLookAtInfo>.RemoveListener(h_CameraLookAt);
-                SignalSystem<CameraLookPlayerInfo>.RemoveListener(h_CameraLookPlayer);
+                _entity._signalsService.Unsubscribe(this);
             }
             #endregion
         }

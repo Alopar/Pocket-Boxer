@@ -1,16 +1,17 @@
 using Services.SignalSystem;
 using Services.SaveSystem;
+using Services.SignalSystem.Signals;
 
 namespace Gameplay
 {
     public class StrengthPointsDeposite : AbstractCurrencyDeposit
     {
         #region CONSTRUCTORS
-        public StrengthPointsDeposite(ISaveService saveService) : base(saveService)
+        public StrengthPointsDeposite(ISaveService saveService, ISignalService signalService) : base(saveService, signalService)
         {
             var saveData = saveService.Load<CurrencySaveData>();
             _amount = (uint)saveData.StrengthPoints;
-            SignalSystem<StrengthPointsChangeInfo>.Send(new(_amount));
+            _signalService.Send<StrengthPointsChange>(new(_amount));
         }
         #endregion
 
@@ -30,7 +31,7 @@ namespace Gameplay
             {
                 _amount -= value;
                 SaveData();
-                SignalSystem<StrengthPointsChangeInfo>.Send(new(_amount));
+                _signalService.Send<StrengthPointsChange>(new(_amount));
 
                 return true;
             }
@@ -42,7 +43,7 @@ namespace Gameplay
         {
             _amount += value;
             SaveData();
-            SignalSystem<StrengthPointsChangeInfo>.Send(new(_amount));
+            _signalService.Send<StrengthPointsChange>(new(_amount));
         }
         #endregion
     }

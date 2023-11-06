@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Services.SignalSystem;
+using Services.SignalSystem.Signals;
 using Services.ScreenSystem;
 
 namespace Gameplay
@@ -34,62 +35,62 @@ namespace Gameplay
 
         #region HANDLERS
         [Subscribe]
-        private void ShowScreen(ShowScreenInfo info)
+        private void ShowScreen(ShowScreen info)
         {
             if (info.ScreenType != ScreenType.GymHUD) return;
 
             ShowScreen();
-            SignalSystem<ScreenOpenedInfo>.Send(new(ScreenType.GymHUD));
+            _signalService.Send<ScreenOpened>(new(ScreenType.GymHUD));
         }
 
         [Subscribe]
-        private void CloseScreen(CloseScreenInfo info)
+        private void CloseScreen(CloseScreen info)
         {
             if (info.ScreenType != ScreenType.GymHUD) return;
             CloseScreen();
         }
 
         [Subscribe]
-        private void MoneyChange(MoneyChangeInfo info)
+        private void MoneyChange(MoneyChange info)
         {
             _moneyText.text = info.Value.ToString();
         }
 
         [Subscribe]
-        private void DiamondChange(DiamondChangeInfo info)
+        private void DiamondChange(DiamondChange info)
         {
             _diamondText.text = info.Value.ToString();
         }
 
         [Subscribe]
-        private void ExperiencePointsChange(ExperiencePointsChangeInfo info)
+        private void ExperiencePointsChange(ExperiencePointsChange info)
         {
             _experienceText.text = info.Value.ToString();
         }
 
         [Subscribe]
-        private void StrengthChange(StrengthChangeInfo info)
+        private void StrengthChange(StrengthChange info)
         {
             _strengthText.text = info.Level.ToString();
             _strengthFiller.fillAmount = info.Delta;
         }
 
         [Subscribe]
-        private void DexterityChange(DexterityChangeInfo info)
+        private void DexterityChange(DexterityChange info)
         {
             _dexterityText.text = info.Level.ToString();
             _dexterityFiller.fillAmount = info.Delta;
         }
 
         [Subscribe]
-        private void EnduranceChange(EnduranceChangeInfo info)
+        private void EnduranceChange(EnduranceChange info)
         {
             _enduranceText.text = info.Level.ToString();
             _enduranceFiller.fillAmount = info.Delta;
         }
 
         [Subscribe]
-        private void BatteryOccupied(BatteryOccupiedInfo info)
+        private void BatteryOccupied(BatteryOccupied info)
         {
             _energyText.text = CreateTextLabel(info.Occupied, info.Capacity);
 

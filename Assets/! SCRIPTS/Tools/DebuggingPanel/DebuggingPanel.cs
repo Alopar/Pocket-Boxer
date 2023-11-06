@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using Services.SignalSystem;
+using Services.SignalSystem.Signals;
 using Services.TutorialSystem;
 using Utility.DependencyInjection;
 
@@ -17,12 +18,12 @@ namespace Gameplay
 
         #region FIELDS PRIVATE
         [Inject] private IWalletService _wallet;
-        [Inject] private ISubscribeService _signals;
+        [Inject] private ISignalService _signals;
         #endregion
 
         #region HANDLERS
         [Subscribe]
-        private void TutorialStep(TutorialStepInfo info)
+        private void TutorialStep(TutorialStepChange info)
         {
             tutorialStep = info.TutorialStep;
         }

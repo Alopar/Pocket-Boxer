@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Services.SignalSystem;
+using Services.SignalSystem.Signals;
 using Services.ScreenSystem;
 
 namespace Gameplay
@@ -26,16 +27,16 @@ namespace Gameplay
 
         #region HANDLERS
         [Subscribe]
-        private void ShowScreen(ShowScreenInfo info)
+        private void ShowScreen(ShowScreen info)
         {
             if (info.ScreenType != ScreenType.ArenaHUD) return;
 
             ShowScreen();
-            SignalSystem<ScreenOpenedInfo>.Send(new(ScreenType.ArenaHUD));
+            _signalService.Send<ScreenOpened>(new(ScreenType.ArenaHUD));
         }
 
         [Subscribe]
-        private void CloseScreen(CloseScreenInfo info)
+        private void CloseScreen(CloseScreen info)
         {
             if (info.ScreenType != ScreenType.ArenaHUD) return;
             CloseScreen();

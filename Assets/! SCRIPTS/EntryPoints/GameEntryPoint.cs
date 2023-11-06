@@ -6,12 +6,12 @@ using Gameplay.Managers;
 using Services.Database;
 using Services.SaveSystem;
 using Services.AudioSystem;
+using Services.SignalSystem;
 using Services.ScreenSystem;
 using Services.TutorialSystem;
 using Utility.GameSettings;
 using Utility.DependencyInjection;
 using Container = Utility.DependencyInjection.DependencyContainer;
-using Services.SignalSystem;
 
 namespace Manager
 {
@@ -32,7 +32,8 @@ namespace Manager
         private static void RegisterDependencyContext()
         {
             Container.Bind<ComponentDependencyResolver>().AsSingle();
-            Container.Bind<ISubscribeService>().To<Subscriber>().AsSingle();
+
+            Container.Bind<ISignalService>().FromInstance(new SignalSystem(new EventBus()));
 
             var startDataPreset = Resources.Load<SaveDataPreset>(GameSettings.StartSaveDataPresetPath);
             var debugDataPreset = Resources.Load<SaveDataPreset>(GameSettings.DebugSaveDataPresetPath);

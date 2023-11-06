@@ -2,6 +2,7 @@ using UnityEngine;
 using Cinemachine;
 using EntityState;
 using Services.SignalSystem;
+using Services.SignalSystem.Signals;
 using Utility.DependencyInjection;
 using DG.Tweening;
 
@@ -25,7 +26,7 @@ namespace Gameplay
         #endregion
 
         #region FIELDS PRIVATE
-        [Inject] private ISubscribeService _signals;
+        [Inject] private ISignalService _signalsService;
 
         private PlayerController _player;
         private CinemachineVirtualCamera _currentCamera;
@@ -37,14 +38,14 @@ namespace Gameplay
 
         #region HANDLERS
         [Subscribe]
-        private void PlayerSpawn(PlayerSpawnInfo info)
+        private void PlayerSpawn(PlayerSpawn info)
         {
             SetPlayer(info.PlayerController);
             ChangeState(new FollowCameraState());
         }
 
         [Subscribe]
-        private void CameraChangeFOV(CameraChangeFOVInfo info)
+        private void CameraChangeFOV(CameraChangeFOV info)
         {
             var currentFOV = _playerCamera.m_Lens.FieldOfView;
             DOVirtual.Float(currentFOV, info.FOV, _observingTime, (v) => { SetCameraFOV(v); }).SetEase(Ease.OutCubic);
@@ -59,12 +60,12 @@ namespace Gameplay
 
         public void OnEnable()
         {
-            _signals?.Subscribe(this);
+            _signalsService?.Subscribe(this);
         }
 
         private void OnDisable()
         {
-            _signals?.Unsubscribe(this);
+            _signalsService?.Unsubscribe(this);
         }
         #endregion
 

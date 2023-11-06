@@ -1,6 +1,8 @@
 using System;
 using UnityEngine;
 using Services.SignalSystem;
+using Services.SignalSystem.Signals;
+using Utility.DependencyInjection;
 
 namespace Gameplay
 {
@@ -11,6 +13,8 @@ namespace Gameplay
         #endregion
 
         #region FIELDS PRIVATE
+        [Inject] private ISignalService _signalService;
+
         private int _occupied = 0;
         #endregion
 
@@ -23,14 +27,14 @@ namespace Gameplay
         private void ChangeCapacityByValue(int value)
         {
             _capacity += value;
-            SignalSystem<BatteryOccupiedInfo>.Send(new(_capacity, _occupied));
+            _signalService.Send<BatteryOccupied>(new(_capacity, _occupied));
         }
 
         private void ChangeOccupiedByValue(int value)
         {
             _occupied += value;
             _occupied = Math.Clamp(_occupied, 0, _capacity);
-            SignalSystem<BatteryOccupiedInfo>.Send(new(_capacity, _occupied));
+            _signalService.Send<BatteryOccupied>(new(_capacity, _occupied));
         }
         #endregion
 
@@ -57,7 +61,7 @@ namespace Gameplay
         public void SetCapacity(int value)
         {
             _capacity = value;
-            SignalSystem<BatteryOccupiedInfo>.Send(new(_capacity, _occupied));
+            _signalService.Send<BatteryOccupied>(new(_capacity, _occupied));
         }
         #endregion
     }

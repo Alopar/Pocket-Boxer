@@ -15,7 +15,8 @@ namespace Gameplay
 
         protected override void InitiateScene()
         {
-            SignalSystem<ShowScreenInfo>.Send(new(ScreenType.ArenaHUD));
+            //TODO:
+            //EventHolder<ShowScreenInfo>.Send(new(ScreenType.ArenaHUD));
         }
         #endregion
     }

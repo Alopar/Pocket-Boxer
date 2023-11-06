@@ -1,16 +1,17 @@
 using Services.SignalSystem;
 using Services.SaveSystem;
+using Services.SignalSystem.Signals;
 
 namespace Gameplay
 {
     public class EndurancePointsDeposite : AbstractCurrencyDeposit
     {
         #region CONSTRUCTORS
-        public EndurancePointsDeposite(ISaveService saveService) : base(saveService)
+        public EndurancePointsDeposite(ISaveService saveService, ISignalService signalService) : base(saveService, signalService)
         {
             var saveData = saveService.Load<CurrencySaveData>();
             _amount = (uint)saveData.EndurancePoints;
-            SignalSystem<EndurancePointsChangeInfo>.Send(new(_amount));
+            _signalService.Send<EndurancePointsChange>(new(_amount));
         }
         #endregion
 
@@ -30,7 +31,7 @@ namespace Gameplay
             {
                 _amount -= value;
                 SaveData();
-                SignalSystem<EndurancePointsChangeInfo>.Send(new(_amount));
+                _signalService.Send<EndurancePointsChange>(new(_amount));
 
                 return true;
             }
@@ -42,7 +43,7 @@ namespace Gameplay
         {
             _amount += value;
             SaveData();
-            SignalSystem<EndurancePointsChangeInfo>.Send(new(_amount));
+            _signalService.Send<EndurancePointsChange>(new(_amount));
         }
         #endregion
     }

@@ -1,6 +1,8 @@
 using UnityEngine;
 using Services.SignalSystem;
+using Services.SignalSystem.Signals;
 using Services.TutorialSystem;
+using Utility.DependencyInjection;
 
 namespace Gameplay
 {
@@ -15,15 +17,20 @@ namespace Gameplay
         [SerializeField] private bool _inUI;
         #endregion
 
+        #region FIELDS PRIVATE
+        [Inject] private ISignalService _signalService;
+        #endregion
+
         #region HANDLERS
-        private void h_TutorialStep(TutorialStepInfo info)
+        [Subscribe]
+        private void h_TutorialStep(TutorialStepChange info)
         {
             if(info.TutorialStep == _tutorialStep)
             {
                 _view.SetActive(true);
                 if (_inUI) return;
 
-                SignalSystem<TutorialObservingInfo>.Send(new(gameObject));
+                _signalService.Send<TutorialObserving>(new(gameObject));
                 return;
             }
 
@@ -39,12 +46,12 @@ namespace Gameplay
 
         private void OnEnable()
         {
-            SignalSystem<TutorialStepInfo>.AddListener(h_TutorialStep, true);
+            _signalService.Subscribe(this);
         }
 
         private void OnDisable()
         {
-            SignalSystem<TutorialStepInfo>.RemoveListener(h_TutorialStep);
+            _signalService.Unsubscribe(this);
         }
         #endregion
 

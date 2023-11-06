@@ -1,5 +1,7 @@
 using UnityEngine;
 using Services.SignalSystem;
+using Services.SignalSystem.Signals;
+using Utility.DependencyInjection;
 
 namespace Gameplay
 {
@@ -10,17 +12,21 @@ namespace Gameplay
         #endregion
 
         #region FIELDS PRIVATE
+        [Inject] private ISignalService _signalService;
+
         private Transform _tutorialTarget;
         #endregion
 
         #region HANDLERS
-        private void h_TutorialObserving(TutorialObservingInfo info)
+        [Subscribe]
+        private void h_TutorialObserving(TutorialObserving info)
         {
-            if(info == null)
-            {
-                _content.SetActive(false);
-                return;
-            }
+            // TODO:
+            //if(info == null)
+            //{
+            //    _content.SetActive(false);
+            //    return;
+            //}
 
             _tutorialTarget = info.GameObject.transform;
             _content.SetActive(true);
@@ -35,12 +41,12 @@ namespace Gameplay
 
         private void OnEnable()
         {
-            SignalSystem<TutorialObservingInfo>.AddListener(h_TutorialObserving, true);
+            _signalService.Subscribe(this);
         }
 
         private void OnDisable()
         {
-            SignalSystem<TutorialObservingInfo>.RemoveListener(h_TutorialObserving);
+            _signalService.Unsubscribe(this);
         }
 
         private void LateUpdate()
