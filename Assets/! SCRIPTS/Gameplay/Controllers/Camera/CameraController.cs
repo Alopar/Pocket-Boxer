@@ -1,15 +1,15 @@
 using UnityEngine;
 using Cinemachine;
-using EntityState;
+using Tools;
 using Services.SignalSystem;
 using Services.SignalSystem.Signals;
+using Utility.StateMachine;
 using Utility.DependencyInjection;
 using DG.Tweening;
 
 namespace Gameplay
 {
-
-    public partial class CameraController : EntityMonoBehavior, IActivatable
+    public partial class CameraController : MonoBehaviour, IDependant
     {
         #region FIELDS INSPECTOR
         [Header("INPUT SETTINGS:")]
@@ -28,10 +28,11 @@ namespace Gameplay
         #region FIELDS PRIVATE
         [Inject] private ISignalService _signalsService;
 
-        private PlayerController _player;
-        private CinemachineVirtualCamera _currentCamera;
-        private CinemachineCameraOffset _cameraOffset;
+        private StateMachine _stateMachine;
         private MonoBehaviorTransmitter _transmitter;
+
+        private PlayerController _player;
+        private CinemachineCameraOffset _cameraOffset;
 
         private Vector3 _currentFollowOffset;
         #endregion
@@ -41,7 +42,7 @@ namespace Gameplay
         private void PlayerSpawn(PlayerSpawn info)
         {
             SetPlayer(info.PlayerController);
-            ChangeState(new FollowCameraState());
+            _stateMachine.ChangeState<FollowCameraState>();
         }
 
         [Subscribe]
@@ -75,6 +76,13 @@ namespace Gameplay
             _currentFollowOffset = _playerCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset;
             _cameraOffset = _playerCamera.GetComponent<CinemachineCameraOffset>();
             _transmitter = gameObject.AddComponent<MonoBehaviorTransmitter>();
+
+            _stateMachine = new();
+            _stateMachine.Initialization(new() { 
+                new CinemaCameraState(this, _stateMachine),
+                new ObserverCameraState(this, _stateMachine),
+                new FollowCameraState(this, _stateMachine),
+            });
 
             SetCameraFOV(50f);
         }

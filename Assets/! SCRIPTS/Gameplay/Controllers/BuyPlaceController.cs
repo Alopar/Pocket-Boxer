@@ -7,7 +7,7 @@ using Utility.DependencyInjection;
 namespace Gameplay
 {
     [SelectionBase]
-    public class BuyPlaceController : MonoBehaviour, IInvestable
+    public class BuyPlaceController : MonoBehaviour, IInvestable, IDependant
     {
         #region FIELDS INSPECTOR
         [SerializeField] private string _id;

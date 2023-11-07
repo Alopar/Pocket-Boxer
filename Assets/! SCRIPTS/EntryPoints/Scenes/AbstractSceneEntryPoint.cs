@@ -1,5 +1,8 @@
+using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
 using Utility.DependencyInjection;
+using NaughtyAttributes;
 
 namespace Gameplay
 {
@@ -7,6 +10,10 @@ namespace Gameplay
     public abstract class AbstractSceneEntryPoint : MonoBehaviour
     {
         #region FIELDS INSPECTOR
+        [SerializeField] private List<MonoBehaviour> _dependants;
+        #endregion
+
+        #region FIELDS PRIVATE
         [Inject] private ComponentDependencyResolver _componentResolver;
         #endregion
 
@@ -15,11 +22,11 @@ namespace Gameplay
         {
             SelfResolver();
             RegisterDependencyContext();
+            ResolveDependency();
         }
 
         private void Start()
         {
-            ResolveDependency();
             InitiateScene();
         }
         #endregion
@@ -32,19 +39,13 @@ namespace Gameplay
 
         private void ResolveDependency()
         {
-            var objects = FindObjectsOfType<GameObject>();
-            foreach (var go in objects)
+            foreach (var dependant in _dependants)
             {
-                var children = go.GetComponentsInChildren<MonoBehaviour>(true);
+                var children = dependant.GetComponentsInChildren<MonoBehaviour>(true);
                 foreach (var child in children)
                 {
-                    _componentResolver.Resolve(child);
                     DependencyContainer.Inject(child);
-                }
-
-                if(go.TryGetComponent<IActivatable>(out var component))
-                {
-                    component.OnEnable();
+                    _componentResolver.Resolve(child);
                 }
             }
         }
@@ -52,6 +53,14 @@ namespace Gameplay
         protected abstract void RegisterDependencyContext();
 
         protected abstract void InitiateScene();
+        #endregion
+
+        #region METHODS PUBLIC
+        [Button("FIND DEPENDANTS")]
+        public void FindDependants()
+        {
+            _dependants = FindObjectsOfType<MonoBehaviour>().Where(e => e is IDependant).ToList();
+        }
         #endregion
     }
 }

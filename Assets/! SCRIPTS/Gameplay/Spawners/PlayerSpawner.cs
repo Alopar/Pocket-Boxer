@@ -1,11 +1,11 @@
 using UnityEngine;
 using Services.SignalSystem;
-using Utility.DependencyInjection;
 using Services.SignalSystem.Signals;
+using Utility.DependencyInjection;
 
 namespace Gameplay
 {
-    public class PlayerSpawner : MonoBehaviour
+    public class PlayerSpawner : MonoBehaviour, IDependant
     {
         #region FIELDS INSPECTOR
         [SerializeField] private PlayerController _playerPrefab;
