@@ -1,9 +1,11 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Services.InputSystem;
 using Services.ScreenSystem;
 using Services.SignalSystem;
 using Services.SignalSystem.Signals;
+using Utility.DependencyInjection;
 
 namespace Gameplay
 {
@@ -28,6 +30,8 @@ namespace Gameplay
         #endregion
 
         #region FIELDS PRIVATE
+        [Inject] private IInputService _inputService;
+
         private SimulatorController _simulator;
         #endregion
 
@@ -54,8 +58,7 @@ namespace Gameplay
             _simulator = info.Simulator;
         }
 
-        [Subscribe]
-        private void InputSwipe(InputSwipe signal)
+        private void InputSwipe(SwipeData data)
         {
             _simulator.AddProgress(5f);
         }
@@ -82,6 +85,18 @@ namespace Gameplay
         private void Start()
         {
             HideScreen();
+        }
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            _inputService.OnSwipe += InputSwipe;
+        }
+
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            _inputService.OnSwipe -= InputSwipe;
         }
         #endregion
 
@@ -111,12 +126,12 @@ namespace Gameplay
         {
             _tapContainer.SetActive(false);
             _swipeContainer.SetActive(false);
-            switch (_simulator.InputType)
+            switch (_simulator.SimulatorInputType)
             {
-                case InputType.Tap:
+                case SimulatorInputType.Tap:
                     _tapContainer.SetActive(true);
                     break;
-                case InputType.Swipe:
+                case SimulatorInputType.Swipe:
                     _swipeContainer.SetActive(true);
                     break;
             }
@@ -152,8 +167,8 @@ namespace Gameplay
             _simulator.OnProgressChange += ProgressChangeHandler;
             _simulator.OnExploitationEnd += ExploitationEndHandler;
 
+            _inputService.EnableInputs = InputType.Swipe | InputType.Tap;
             _signalService.Send<HidePlayer>(new());
-            _signalService.Send<InputEnable>(new(false));
         }
 
         public void BreakButton()
@@ -165,8 +180,8 @@ namespace Gameplay
             _simulator.OnProgressChange -= ProgressChangeHandler;
             _simulator.OnExploitationEnd -= ExploitationEndHandler;
 
+            _inputService.EnableInputs = InputType.Joystick;
             _signalService.Send<ShowPlayer>(new());
-            _signalService.Send<InputEnable>(new(true));
         }
 
         public void Tap()

@@ -1,9 +1,11 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Services.InputSystem;
 using Services.SignalSystem;
 using Services.SignalSystem.Signals;
 using Services.ScreenSystem;
+using Utility.DependencyInjection;
 
 namespace Gameplay
 {
@@ -19,6 +21,8 @@ namespace Gameplay
         #endregion
 
         #region FIELDS PRIVATE
+        [Inject] private IInputService _inputService;
+
         private RelaxerController _relaxer;
         #endregion
 
@@ -101,7 +105,7 @@ namespace Gameplay
             _relaxer.OnExploitationEnd += ExploitationEndHandler;
 
             _signalService.Send<HidePlayer>(new());
-            _signalService.Send<InputEnable>(new(false));
+            _inputService.EnableInputs = InputType.None;
         }
 
         public void BreakButton()
@@ -114,7 +118,7 @@ namespace Gameplay
             _relaxer.OnExploitationEnd -= ExploitationEndHandler;
 
             _signalService.Send<ShowPlayer>(new());
-            _signalService.Send<InputEnable>(new(true));
+            _inputService.EnableInputs = InputType.Joystick;
         }
         #endregion
     }

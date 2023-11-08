@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Services.InputSystem;
 using Services.SignalSystem;
 using Services.SignalSystem.Signals;
 using Utility.StateMachine;
@@ -18,12 +19,6 @@ namespace Gameplay
         #endregion
 
         #region HANDLERS
-        [Subscribe(false)]
-        private void InputDirection(InputDirection signal)
-        {
-            _currentOffset = new Vector3(_inputCameraOffset * signal.Direction.x, _inputCameraOffset * signal.Direction.y, _endOffset);
-        }
-
         [Subscribe(false)]
         private void CameraLookAt(CameraLookAt signal)
         {
@@ -54,6 +49,11 @@ namespace Gameplay
                     break;
             }
         }
+
+        private void InputJoystick(JoystickData data)
+        {
+            _currentOffset = new Vector3(_inputCameraOffset * data.Direction.x, _inputCameraOffset * data.Direction.y, _endOffset);
+        }
         #endregion
 
         #region METHODS PRIVATE
@@ -72,14 +72,18 @@ namespace Gameplay
         {
             _playerCamera.Priority = 10;
             _observingCamera.Priority = 0;
-
+            
             _transmitter.CommonUpdate += Update;
+            _inputService.OnJoystick += InputJoystick;
+
             _signalService.Subscribe(this);
         }
 
         public override void Exit()
         {
             _transmitter.CommonUpdate -= Update;
+            _inputService.OnJoystick -= InputJoystick;
+
             _signalService.Unsubscribe(this);
         }
         #endregion

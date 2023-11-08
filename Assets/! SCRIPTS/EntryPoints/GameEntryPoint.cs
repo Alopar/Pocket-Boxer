@@ -5,6 +5,7 @@ using Gameplay;
 using Gameplay.Managers;
 using Services.Database;
 using Services.SaveSystem;
+using Services.InputSystem;
 using Services.AudioSystem;
 using Services.SignalSystem;
 using Services.ScreenSystem;
@@ -38,6 +39,7 @@ namespace Manager
             BindSaveService();
 
             Container.Bind<IDatabaseService>().To<ScriptableObjectDatabase>().AsSingle();
+            Container.Bind<IInputService>().To<InputSystem>().AsSingle();
             Container.Bind<IAudioService>().To<AudioSystem>().AsSingle();
             Container.Bind<IWalletService>().To<Wallet>().AsSingle();
 

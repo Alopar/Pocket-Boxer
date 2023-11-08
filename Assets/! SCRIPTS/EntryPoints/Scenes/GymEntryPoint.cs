@@ -2,6 +2,7 @@ using UnityEngine;
 using Services.SignalSystem;
 using Services.SignalSystem.Signals;
 using Utility.DependencyInjection;
+using Services.InputSystem;
 
 namespace Gameplay
 {
@@ -19,6 +20,7 @@ namespace Gameplay
         {
             //TODO:
             DependencyContainer.Get<ISignalService>().Send<ShowScreen>(new(ScreenType.GymHUD));
+            DependencyContainer.Get<IInputService>().EnableInputs = InputType.Joystick;
         }
         #endregion
     }

@@ -1,6 +1,6 @@
 using UnityEngine;
 using Cinemachine;
-using Tools;
+using Services.InputSystem;
 using Services.SignalSystem;
 using Services.SignalSystem.Signals;
 using Utility.StateMachine;
@@ -27,6 +27,7 @@ namespace Gameplay
 
         #region FIELDS PRIVATE
         [Inject] private ISignalService _signalsService;
+        [Inject] private IInputService _inputService;
 
         private StateMachine _stateMachine;
         private MonoBehaviorTransmitter _transmitter;
@@ -77,14 +78,18 @@ namespace Gameplay
             _cameraOffset = _playerCamera.GetComponent<CinemachineCameraOffset>();
             _transmitter = gameObject.AddComponent<MonoBehaviorTransmitter>();
 
+            InitializeStateMachine();
+            SetCameraFOV(50f);
+        }
+
+        private void InitializeStateMachine()
+        {
             _stateMachine = new();
-            _stateMachine.Initialization(new() { 
+            _stateMachine.Initialization(new() {
                 new CinemaCameraState(this, _stateMachine),
                 new ObserverCameraState(this, _stateMachine),
                 new FollowCameraState(this, _stateMachine),
             });
-
-            SetCameraFOV(50f);
         }
 
         private void SetCameraFOV(float value)

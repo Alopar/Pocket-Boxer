@@ -6,6 +6,7 @@ using Utility.DependencyInjection;
 
 namespace Gameplay
 {
+
     [SelectionBase]
     public class SimulatorController : MonoBehaviour
     {
@@ -13,7 +14,7 @@ namespace Gameplay
         [SerializeField] private string _id;
 
         [Space(10)]
-        [SerializeField] private InputType _inputType;
+        [SerializeField] private SimulatorInputType _simulatorInputType;
         [SerializeField, Range(0, 60)] private float _usageDuration;
         [SerializeField, Range(0, 100)] private float _progressForUsage;
         [SerializeField, Range(0, 100)] private uint _energyCost;
@@ -36,7 +37,7 @@ namespace Gameplay
         #endregion
 
         #region PROPERTIES
-        public InputType InputType => _inputType;
+        public SimulatorInputType SimulatorInputType => _simulatorInputType;
         public CurrencyType CurrencyType => _currencyType;
         public uint EnergyCost => _energyCost;
         #endregion

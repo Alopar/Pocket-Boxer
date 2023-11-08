@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Services.InputSystem;
 using Services.SignalSystem;
 using Services.SignalSystem.Signals;
 using Utility.DependencyInjection;
@@ -19,6 +20,7 @@ namespace Gameplay
 
         #region FIELDS PRIVATE
         [Inject] private IWalletService _wallet;
+        [Inject] private IInputService _inputService;
         [Inject] private ISignalService _signalService;
 
         [Find] private WalletComponent _walletComponent;
@@ -26,29 +28,6 @@ namespace Gameplay
         #endregion
 
         #region HANDLERS
-        [Subscribe]
-        private void Input(InputDirection info)
-        {
-            var direction = _camera.transform.TransformDirection(info.Direction);
-            direction.y = 0;
-            direction.Normalize();
-
-            RotatePlayer(direction);
-
-            var speedDelta = Mathf.Clamp(info.Distance, 1f, info.Distance);
-            var currentSpeed = _currentMoveSpeed * speedDelta;
-            if (direction == Vector3.zero)
-            {
-                MovePlayer(0f);
-                _bufferCharacterAnimation = CharacterAnimation.Idle;
-            }
-            else
-            {
-                MovePlayer(currentSpeed);
-                _bufferCharacterAnimation = CharacterAnimation.Run;
-            }
-        }
-
         [Subscribe]
         private void HidePlayer(HidePlayer info)
         {
@@ -64,6 +43,28 @@ namespace Gameplay
             _view.gameObject.SetActive(true);
             _informers.gameObject.SetActive(true);
         }
+
+        private void InputJoystick(JoystickData data)
+        {
+            var direction = _camera.transform.TransformDirection(data.Direction);
+            direction.y = 0;
+            direction.Normalize();
+
+            RotatePlayer(direction);
+
+            var speedDelta = Mathf.Clamp(data.Distance, 1f, data.Distance);
+            var currentSpeed = _currentMoveSpeed * speedDelta;
+            if (direction == Vector3.zero)
+            {
+                MovePlayer(0f);
+                _bufferCharacterAnimation = CharacterAnimation.Idle;
+            }
+            else
+            {
+                MovePlayer(currentSpeed);
+                _bufferCharacterAnimation = CharacterAnimation.Run;
+            }
+        }
         #endregion
 
         #region UNITY CALLBACKS
@@ -76,11 +77,13 @@ namespace Gameplay
         private void OnEnable()
         {
             _signalService.Subscribe(this);
+            _inputService.OnJoystick += InputJoystick;
         }
 
         private void OnDisable()
         {
             _signalService.Unsubscribe(this);
+            _inputService.OnJoystick -= InputJoystick;
         }
 
         private void OnTriggerEnter(Collider other)

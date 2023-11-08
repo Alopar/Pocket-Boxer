@@ -1,9 +1,9 @@
 using UnityEngine;
-using Services.SignalSystem;
+using Services.InputSystem;
 using Services.SignalSystem.Signals;
 using Services.ScreenSystem;
 using Services.TutorialSystem;
-
+using Utility.DependencyInjection;
 
 namespace Gameplay
 {
@@ -16,16 +16,17 @@ namespace Gameplay
         #endregion
 
         #region FIELDS PRIVATE
+        [Inject] private IInputService _inputService;
+
         private const float deathZone = 0.2f;
         private Vector2 _lastDirection = Vector2.zero;
         #endregion
 
         #region HANDLERS
-        [Subscribe]
-        private void InputControl(InputEnable info)
+        private void OnInputChange(InputType type)
         {
             _joystick.OnPointerUp(null);
-            if (info.Enable)
+            if (type.HasFlag(InputType.Joystick))
             {
                 ShowScreen();
             }
@@ -39,11 +40,35 @@ namespace Gameplay
         #region UNITY CALLBACKS
         private void Start()
         {
+            SetMainCamera();
+        }
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            _inputService.OnInputChange += OnInputChange;
+        }
+
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            _inputService.OnInputChange -= OnInputChange;
+        }
+
+        private void Update()
+        {
+            GetInputOnJoystick();
+        }
+        #endregion
+
+        #region METHODS PRIVATE
+        private void SetMainCamera()
+        {
             _canvas.worldCamera = Camera.main;
             _canvas.planeDistance = 5f;
         }
 
-        private void Update()
+        private void GetInputOnJoystick()
         {
             var pointerDown = false;
             var pointerUp = false;
@@ -65,7 +90,7 @@ namespace Gameplay
 
             if (_joystick.Direction == Vector2.zero && !pointerDown && !pointerUp) return;
 
-            _signalService.Send<InputDirection>(new(direction, pointerDown, pointerUp, distance, isDeathZone));
+            _inputService.SetJoystickData(new(direction, pointerDown, pointerUp, distance, isDeathZone));
             _signalService.Send<GameplayEventChange>(new(GameplayEvent.JoysticInput));
         }
         #endregion

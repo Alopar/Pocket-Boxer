@@ -1,6 +1,6 @@
 ﻿namespace Gameplay
 {
-    public enum InputType
+    public enum SimulatorInputType
     {
         Tap,
         Swipe
