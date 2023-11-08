@@ -7,7 +7,7 @@ namespace Gameplay
     public class TokenFactory
     {
         #region FIELDS PRIVATE
-        [Inject] private ComponentDependencyResolver _componentResolver;
+        [Inject] private ComponentResolver _componentResolver;
         #endregion
 
         #region METHODS PUBLIC

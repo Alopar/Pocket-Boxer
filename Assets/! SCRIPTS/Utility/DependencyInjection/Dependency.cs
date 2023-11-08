@@ -67,6 +67,7 @@ namespace Utility.DependencyInjection
 
         public Dependency<TContract> FromInstance(TContract instance)
         {
+            DependencyContainer.Inject(instance);
             _instanceType = instance.GetType();
             _instance = instance;
             _isSingleton = true;

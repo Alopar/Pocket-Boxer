@@ -43,9 +43,10 @@ namespace Services.SignalSystem
         public void Send<T>(T signal) where T : struct, ISignal
         {
             var type = typeof(T);
-            if (!_receivers.ContainsKey(type)) return;
-
             _lastSignals[type] = signal;
+
+            if (!_receivers.ContainsKey(type)) return;
+            
             foreach (var receiver in _receivers[type])
             {
                 var listener = receiver.Listener as Action<T>;

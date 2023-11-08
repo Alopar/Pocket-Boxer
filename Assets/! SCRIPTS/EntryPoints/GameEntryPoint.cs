@@ -31,31 +31,41 @@ namespace Manager
 
         private static void RegisterDependencyContext()
         {
-            Container.Bind<ComponentDependencyResolver>().AsSingle();
+            Container.Bind<ComponentResolver>().AsSingle();
 
             Container.Bind<ISignalService>().FromInstance(new SignalSystem(new EventBus()));
 
-            var startDataPreset = Resources.Load<SaveDataPreset>(GameSettings.StartSaveDataPresetPath);
-            var debugDataPreset = Resources.Load<SaveDataPreset>(GameSettings.DebugSaveDataPresetPath);
-            Container.Bind<SaveDataPreset>("start").FromInstance(startDataPreset);
-            Container.Bind<SaveDataPreset>("debug").FromInstance(debugDataPreset);
-            Container.Bind<ISaveService>().To<PlayerPrefSaveSystem>().AsSingle();
+            BindSaveService();
 
             Container.Bind<IDatabaseService>().To<ScriptableObjectDatabase>().AsSingle();
             Container.Bind<IAudioService>().To<AudioSystem>().AsSingle();
             Container.Bind<IWalletService>().To<Wallet>().AsSingle();
-            Container.Bind<GameTracker>().AsSingle().NonLazy();
 
-            var screenContainer = Resources.Load<ScreenContainer>(GameSettings.ScreenContainerPath);
-            Container.Bind<ScreenContainer>().FromInstance(screenContainer);
-            Container.Bind<ScreenFactory>();
-            Container.Bind<ScreenSystem>().AsSingle().NonLazy();
-
-            var tutorialSequence = Resources.Load<TutorialSequence>(GameSettings.TutorialSequencePath);
-            Container.Bind<TutorialSequence>().FromInstance(tutorialSequence);
-            Container.Bind<TutorialSystem>().AsSingle().NonLazy();
+            BindScreenService();
+            BindTutorialService();
 
             Container.Bind<StatsManager>().AsSingle().NonLazy();
+            Container.Bind<GameTracker>().AsSingle().NonLazy();
+        }
+
+        private static void BindScreenService()
+        {
+            var screenContainer = Resources.Load<ScreenContainer>(GameSettings.ScreenContainerPath);
+            Container.Bind<ScreenFactory>();
+            Container.Bind<IScreenService>().FromInstance(new ScreenSystem(screenContainer));
+        }
+
+        private static void BindSaveService()
+        {
+            var startPreset = Resources.Load<SaveDataPreset>(GameSettings.StartSaveDataPresetPath);
+            var debugPreset = Resources.Load<SaveDataPreset>(GameSettings.DebugSaveDataPresetPath);
+            Container.Bind<ISaveService>().FromInstance(new PlayerPrefSaveSystem(startPreset, debugPreset));
+        }
+
+        private static void BindTutorialService()
+        {
+            var tutorialSequence = Resources.Load<TutorialSequence>(GameSettings.TutorialSequencePath);
+            Container.Bind<ITutorialService>().FromInstance(new TutorialSystem(tutorialSequence));
         }
 
         private static void InitializeSystems()

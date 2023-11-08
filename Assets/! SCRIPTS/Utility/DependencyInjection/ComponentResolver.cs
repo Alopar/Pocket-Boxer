@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Utility.DependencyInjection
 {
-    public class ComponentDependencyResolver
+    public class ComponentResolver
     {
         public object Resolve(Component dependant)
         {

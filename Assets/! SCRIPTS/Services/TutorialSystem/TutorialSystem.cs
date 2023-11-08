@@ -5,20 +5,22 @@ using Utility.DependencyInjection;
 
 namespace Services.TutorialSystem
 {
-    public class TutorialSystem
+
+    public class TutorialSystem : ITutorialService
     {
         #region FIELDS PRIVATE
         [Inject] private ISignalService _signalService;
         [Inject] private ISaveService _saveService;
-        [Inject] private TutorialSequence _sequence;
+
+        private readonly TutorialSequence _sequence;
         
         private TutorialStep _currentStep;
         #endregion
 
         #region CONSTRUCTORS
-        public TutorialSystem()
+        public TutorialSystem(TutorialSequence sequence)
         {
-            Init();
+            _sequence = sequence;
         }
         #endregion
 
@@ -39,13 +41,6 @@ namespace Services.TutorialSystem
         #endregion
 
         #region METHODS PRIVATE
-        private void Init()
-        {
-            LoadData();
-            _signalService.AddListener<GameplayEventChange>(GameplayEvent, false);
-            _signalService.Send<TutorialStepChange>(new(_currentStep));
-        }
-
         private void LoadData()
         {
             var loadData = _saveService.Load<TutorialSaveData>();
@@ -61,6 +56,15 @@ namespace Services.TutorialSystem
         private void StepActions(TutorialStep step)
         {
             // no actions
+        }
+        #endregion
+
+        #region METHODS PUBLIC
+        public void Init()
+        {
+            LoadData();
+            _signalService.AddListener<GameplayEventChange>(GameplayEvent, false);
+            _signalService.Send<TutorialStepChange>(new(_currentStep));
         }
         #endregion
     }

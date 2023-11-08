@@ -4,16 +4,19 @@ using Utility.DependencyInjection;
 
 namespace Services.ScreenSystem
 {
-    public class ScreenSystem
+    public class ScreenSystem : IScreenService
     {
         #region FIELDS PRIVATE
-        [Inject] private ScreenFactory _factory;
-        [Inject] private ScreenContainer _container;
+        [Inject] private readonly ScreenFactory _factory;
+
+        private readonly ScreenContainer _container;
         #endregion
 
         #region CONSTRUCTORS
-        public ScreenSystem()
+        public ScreenSystem(ScreenContainer container)
         {
+            _container = container;
+
             SceneManager.sceneLoaded += SceneLoadedHandler;
         }
         #endregion

@@ -1,14 +1,21 @@
 using UnityEngine;
 using Utility.GameSettings;
-using Utility.DependencyInjection;
 
 namespace Services.SaveSystem
 {
     public class PlayerPrefSaveSystem : ISaveService
     {
         #region FIELDS PRIVATE
-        [Inject(id:"start")] private SaveDataPreset _startPreset;
-        [Inject(id:"debug")] private SaveDataPreset _debugPreset;
+        private readonly SaveDataPreset _startPreset;
+        private readonly SaveDataPreset _debugPreset;
+        #endregion
+
+        #region CONSTRUCTORS
+        public PlayerPrefSaveSystem(SaveDataPreset startPreset, SaveDataPreset debugPreset)
+        {
+            _startPreset = startPreset;
+            _debugPreset = debugPreset;
+        }
         #endregion
 
         #region METHODS PUBLIC
