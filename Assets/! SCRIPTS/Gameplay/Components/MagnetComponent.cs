@@ -96,7 +96,8 @@ namespace Gameplay
                 spline.Add(new(position));
             }
 
-            spline.SetTangentMode(TangentMode.AutoSmooth);
+            //TODO: spline bug?
+            //spline.SetTangentMode(TangentMode.AutoSmooth);
         }
         #endregion
 

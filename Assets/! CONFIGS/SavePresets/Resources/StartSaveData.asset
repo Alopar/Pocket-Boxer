@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: StartSaveData
   m_EditorClassIdentifier: 
   _currencyData:
-    Money: 0
+    Money: 200
     Diamond: 0
     ExperiencePoints: 0
     StrengthPoints: 0

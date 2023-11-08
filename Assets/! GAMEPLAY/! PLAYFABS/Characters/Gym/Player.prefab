@@ -630,7 +630,7 @@ MonoBehaviour:
   _magnetPoint: {fileID: 4693202451544798638}
   _magnetDistance: 2
   _magnetSpeed: 8
-  _pathPrecision: 6
+  _pathPrecision: 10
   _pathCurve:
     serializedVersion: 2
     m_Curve:
