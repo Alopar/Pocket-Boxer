@@ -9,10 +9,12 @@ using Services.InputSystem;
 using Services.AudioSystem;
 using Services.SignalSystem;
 using Services.ScreenSystem;
+using Services.CurrencySystem;
 using Services.TutorialSystem;
 using Utility.GameSettings;
 using Utility.DependencyInjection;
 using Container = Utility.DependencyInjection.DependencyContainer;
+
 
 namespace Manager
 {
@@ -33,21 +35,32 @@ namespace Manager
         private static void RegisterDependencyContext()
         {
             Container.Bind<ComponentResolver>().AsSingle();
-
             Container.Bind<ISignalService>().FromInstance(new SignalSystem(new EventBus()));
 
             BindSaveService();
-
-            Container.Bind<IDatabaseService>().To<ScriptableObjectDatabase>().AsSingle();
+            
             Container.Bind<IInputService>().To<InputSystem>().AsSingle();
             Container.Bind<IAudioService>().To<AudioSystem>().AsSingle();
-            Container.Bind<IWalletService>().To<Wallet>().AsSingle();
+            Container.Bind<ICurrencyService>().To<CurrencySystem>().AsSingle();
+            Container.Bind<IDatabaseService>().To<ScriptableObjectDatabase>().AsSingle();
 
             BindScreenService();
             BindTutorialService();
 
             Container.Bind<StatsManager>().AsSingle().NonLazy();
             Container.Bind<GameTracker>().AsSingle().NonLazy();
+
+            //TODO: refactoring
+            var currencyService = Container.Get<ICurrencyService>();
+            currencyService.PutCurrency(CurrencyType.StrengthPoints, 0);
+            currencyService.PutCurrency(CurrencyType.DexterityPoints, 0);
+            currencyService.PutCurrency(CurrencyType.EndurancePoints, 0);
+        }
+        private static void BindSaveService()
+        {
+            var startPreset = Resources.Load<SaveDataPreset>(GameSettings.StartSaveDataPresetPath);
+            var debugPreset = Resources.Load<SaveDataPreset>(GameSettings.DebugSaveDataPresetPath);
+            Container.Bind<ISaveService>().FromInstance(new PlayerPrefSaveSystem(startPreset, debugPreset));
         }
 
         private static void BindScreenService()
@@ -55,13 +68,6 @@ namespace Manager
             var screenContainer = Resources.Load<ScreenContainer>(GameSettings.ScreenContainerPath);
             Container.Bind<ScreenFactory>();
             Container.Bind<IScreenService>().FromInstance(new ScreenSystem(screenContainer));
-        }
-
-        private static void BindSaveService()
-        {
-            var startPreset = Resources.Load<SaveDataPreset>(GameSettings.StartSaveDataPresetPath);
-            var debugPreset = Resources.Load<SaveDataPreset>(GameSettings.DebugSaveDataPresetPath);
-            Container.Bind<ISaveService>().FromInstance(new PlayerPrefSaveSystem(startPreset, debugPreset));
         }
 
         private static void BindTutorialService()

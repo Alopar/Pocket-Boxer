@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using UnityEngine;
+using Services.CurrencySystem;
 using Utility.DependencyInjection;
 using DG.Tweening;
 using NaughtyAttributes;

@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Services.CurrencySystem;
 using Services.SignalSystem;
 using Services.SignalSystem.Signals;
 using Services.TutorialSystem;
@@ -12,13 +13,12 @@ namespace Gameplay
         #region FIELDS INSPECTOR
         [HideInInspector] public int currencyAmount;
         [HideInInspector] public CurrencyType currencyType;
-
         [HideInInspector] public TutorialStep tutorialStep;
         #endregion
 
         #region FIELDS PRIVATE
-        [Inject] private IWalletService _wallet;
-        [Inject] private ISignalService _signals;
+        [Inject] private ICurrencyService _currencyService;
+        [Inject] private ISignalService _signalService;
         #endregion
 
         #region HANDLERS
@@ -32,39 +32,19 @@ namespace Gameplay
         #region UNITY CALLBACKS
         public void OnEnable()
         {
-            _signals?.Subscribe(this);
+            _signalService?.Subscribe(this);
         }
 
         private void OnDisable()
         {
-            _signals?.Unsubscribe(this);
+            _signalService?.Unsubscribe(this);
         }
         #endregion
 
         #region METHODS PUBLIC
         public void AddCurrency(CurrencyType type, uint value)
         {
-            switch (type)
-            {
-                case CurrencyType.Money:
-                    _wallet.SetCurrency<MoneyDeposite>(value);
-                    break;
-                case CurrencyType.Diamond:
-                    _wallet.SetCurrency<DiamondDeposite>(value);
-                    break;
-                case CurrencyType.ExperiencePoints:
-                    _wallet.SetCurrency<ExperiencePointsDeposite>(value);
-                    break;
-                case CurrencyType.StrengthPoints:
-                    _wallet.SetCurrency<StrengthPointsDeposite>(value);
-                    break;
-                case CurrencyType.DexterityPoints:
-                    _wallet.SetCurrency<DexterityPointsDeposite>(value);
-                    break;
-                case CurrencyType.EndurancePoints:
-                    _wallet.SetCurrency<EndurancePointsDeposite>(value);
-                    break;
-            }
+            _currencyService.PutCurrency(type, value);
         }
         #endregion
 

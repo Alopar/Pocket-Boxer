@@ -1,9 +1,11 @@
 using System;
 using UnityEngine;
 using Services.InputSystem;
+using Services.CurrencySystem;
 using Services.SignalSystem;
 using Services.SignalSystem.Signals;
 using Utility.DependencyInjection;
+
 
 namespace Gameplay
 {
@@ -19,7 +21,7 @@ namespace Gameplay
         #endregion
 
         #region FIELDS PRIVATE
-        [Inject] private IWalletService _wallet;
+        [Inject] private ICurrencyService _currencyService;
         [Inject] private IInputService _inputService;
         [Inject] private ISignalService _signalService;
 
@@ -143,7 +145,7 @@ namespace Gameplay
         {
             Action<IInvestable> action = (IInvestable investable) => {
                 uint investition = _investitonByOnce;
-                if (_wallet.TryGetCurrency<MoneyDeposite>(investition))
+                if (_currencyService.TryTakeCurrency(CurrencyType.Money, investition))
                 {
                     investable.Invest(investition);
                 }

@@ -1,6 +1,5 @@
 ﻿using UnityEditor;
 using UnityEngine.UIElements;
-using UnityEditor.UIElements;
 using UnityEngine;
 
 namespace Gameplay

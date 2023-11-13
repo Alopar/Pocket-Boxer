@@ -466,7 +466,7 @@ PrefabInstance:
     - target: {fileID: 6922375497393936408, guid: 4239a8e9771438741ad2cddbe1d4b0e6,
         type: 3}
       propertyPath: _id
-      value: EQ01
+      value: EQ02
       objectReference: {fileID: 0}
     - target: {fileID: 6922375497393936408, guid: 4239a8e9771438741ad2cddbe1d4b0e6,
         type: 3}
@@ -612,7 +612,7 @@ PrefabInstance:
     - target: {fileID: 5600378159069402561, guid: 776e5b4e75e44c4458b1576f2eba15cf,
         type: 3}
       propertyPath: _currencyType
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5600378159069402561, guid: 776e5b4e75e44c4458b1576f2eba15cf,
         type: 3}
@@ -1212,6 +1212,11 @@ PrefabInstance:
         type: 3}
       propertyPath: _energyCost
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5600378159069402561, guid: 776e5b4e75e44c4458b1576f2eba15cf,
+        type: 3}
+      propertyPath: _currencyType
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 9147720060122947205, guid: 776e5b4e75e44c4458b1576f2eba15cf,
         type: 3}

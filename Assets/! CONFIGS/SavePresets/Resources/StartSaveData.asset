@@ -13,12 +13,21 @@ MonoBehaviour:
   m_Name: StartSaveData
   m_EditorClassIdentifier: 
   _currencyData:
-    Money: 200
-    Diamond: 0
-    ExperiencePoints: 0
-    StrengthPoints: 0
-    DexterityPoints: 0
-    EndurancePoints: 0
+    CurrencyDatas:
+    - CurrencyType: 0
+      Amount: 0
+    - CurrencyType: 1
+      Amount: 200
+    - CurrencyType: 2
+      Amount: 0
+    - CurrencyType: 3
+      Amount: 0
+    - CurrencyType: 4
+      Amount: 0
+    - CurrencyType: 5
+      Amount: 0
+    - CurrencyType: 6
+      Amount: 0
   _tutorialData:
     CurrentStep: 0
   _statsData:

@@ -1,4 +1,5 @@
 using UnityEngine;
+using Services.CurrencySystem;
 using Utility.MonoPool;
 using Utility.DependencyInjection;
 

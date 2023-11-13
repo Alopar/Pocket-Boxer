@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using Services.InputSystem;
 using Services.ScreenSystem;
+using Services.CurrencySystem;
 using Services.SignalSystem;
 using Services.SignalSystem.Signals;
 using Utility.DependencyInjection;

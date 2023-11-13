@@ -67,68 +67,6 @@ namespace Services.SignalSystem.Signals
     }
     #endregion
 
-    #region RESOURCES
-    public readonly struct MoneyChange : ISignal
-    {
-        public readonly uint Value;
-
-        public MoneyChange(uint value)
-        {
-            Value = value;
-        }
-    }
-
-    public readonly struct DiamondChange : ISignal
-    {
-        public readonly uint Value;
-
-        public DiamondChange(uint value)
-        {
-            Value = value;
-        }
-    }
-
-    public readonly struct ExperiencePointsChange : ISignal
-    {
-        public readonly uint Value;
-
-        public ExperiencePointsChange(uint value)
-        {
-            Value = value;
-        }
-    }
-
-    public readonly struct StrengthPointsChange : ISignal
-    {
-        public readonly uint Value;
-
-        public StrengthPointsChange(uint value)
-        {
-            Value = value;
-        }
-    }
-
-    public readonly struct DexterityPointsChange : ISignal
-    {
-        public readonly uint Value;
-
-        public DexterityPointsChange(uint value)
-        {
-            Value = value;
-        }
-    }
-
-    public readonly struct EndurancePointsChange : ISignal
-    {
-        public readonly uint Value;
-
-        public EndurancePointsChange(uint value)
-        {
-            Value = value;
-        }
-    }
-    #endregion
-
     #region PLAYER
     public readonly struct PlayerSpawn : ISignal
     {

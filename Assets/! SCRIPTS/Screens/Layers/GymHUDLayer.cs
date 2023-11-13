@@ -2,9 +2,11 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Services.CurrencySystem;
 using Services.SignalSystem;
 using Services.SignalSystem.Signals;
 using Services.ScreenSystem;
+using Utility.DependencyInjection;
 
 namespace Gameplay
 {
@@ -33,7 +35,27 @@ namespace Gameplay
         [SerializeField] private Image _energyFiller;
         #endregion
 
+        #region FIELDS PRIVATE
+        [Inject] private ICurrencyService _currencyService;
+        #endregion
+
         #region HANDLERS
+        private void OnCurrencyChanged(CurrencyType type, ulong value)
+        {
+            switch (type)
+            {
+                case CurrencyType.Money:
+                    _moneyText.text = value.ToString();
+                    break;
+                case CurrencyType.Diamond:
+                    _diamondText.text = value.ToString();
+                    break;
+                case CurrencyType.ExperiencePoints:
+                    _experienceText.text = value.ToString();
+                    break;
+            }
+        }
+
         [Subscribe]
         private void ShowScreen(ShowScreen info)
         {
@@ -48,24 +70,6 @@ namespace Gameplay
         {
             if (info.ScreenType != ScreenType.GymHUD) return;
             CloseScreen();
-        }
-
-        [Subscribe]
-        private void MoneyChange(MoneyChange info)
-        {
-            _moneyText.text = info.Value.ToString();
-        }
-
-        [Subscribe]
-        private void DiamondChange(DiamondChange info)
-        {
-            _diamondText.text = info.Value.ToString();
-        }
-
-        [Subscribe]
-        private void ExperiencePointsChange(ExperiencePointsChange info)
-        {
-            _experienceText.text = info.Value.ToString();
         }
 
         [Subscribe]
@@ -104,9 +108,30 @@ namespace Gameplay
         {
             HideScreen();
         }
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            _currencyService.OnCurrencyChanged += OnCurrencyChanged;
+        }
+
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            _currencyService.OnCurrencyChanged -= OnCurrencyChanged;
+        }
         #endregion
 
         #region METHODS PRIVATE
+        protected override void ShowScreen()
+        {
+            base.ShowScreen();
+
+            _moneyText.text = _currencyService.GetAmount(CurrencyType.Money).ToString();
+            _diamondText.text = _currencyService.GetAmount(CurrencyType.Diamond).ToString();
+            _experienceText.text = _currencyService.GetAmount(CurrencyType.ExperiencePoints).ToString();
+        }
+
         private string CreateTextLabel(int currentValue, int maxValue)
         {
             var digitCount = (int)Math.Log10(Math.Abs(maxValue)) + 1;

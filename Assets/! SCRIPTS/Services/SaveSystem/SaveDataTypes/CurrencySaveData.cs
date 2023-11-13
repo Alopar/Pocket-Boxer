@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using Services.CurrencySystem;
 
 namespace Services.SaveSystem
 {
@@ -8,11 +10,13 @@ namespace Services.SaveSystem
         private const string PREF_NAME = "CURRENCY-DATA";
         public override string PrefName => PREF_NAME;
 
-        public ulong Money;
-        public ulong Diamond;
-        public ulong ExperiencePoints;
-        public ulong StrengthPoints;
-        public ulong DexterityPoints;
-        public ulong EndurancePoints;
+        public List<CurrencyData> CurrencyDatas;
+    }
+
+    [Serializable]
+    public class CurrencyData
+    {
+        public CurrencyType CurrencyType;
+        public ulong Amount;
     }
 }

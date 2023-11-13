@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using Cinemachine;
+using Services.CurrencySystem;
 using Utility.DependencyInjection;
 
 namespace Gameplay

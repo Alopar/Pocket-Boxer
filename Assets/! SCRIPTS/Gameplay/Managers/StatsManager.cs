@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Services.CurrencySystem;
 using Services.SignalSystem;
 using Services.SignalSystem.Signals;
 using Services.Database;
 using Services.SaveSystem;
 using Utility.DependencyInjection;
+
 
 namespace Gameplay.Managers
 {
@@ -13,7 +15,7 @@ namespace Gameplay.Managers
     {
         #region FIELDS PRIVATE
         [Inject] private ISaveService _saveService;
-        [Inject] private IWalletService _walletService;
+        [Inject] private ICurrencyService _currencyService;
         [Inject] private IDatabaseService _databaseService;
         [Inject] private ISignalService _signalService;
 
@@ -27,51 +29,44 @@ namespace Gameplay.Managers
             LoadData();
             TakeDatabaseTables();
 
-            _signalService.Subscribe(this);
+            _currencyService.OnCurrencyChanged += OnCurrencyChanged;
         }
         #endregion
 
         #region HANDLERS
-        [Subscribe]
-        private void StrengthPointsChange(StrengthPointsChange info)
+        private void OnCurrencyChanged(CurrencyType currencyType, ulong value)
         {
-            var statType = StatType.Strength;
-            Action<float> eventCallback = (float delta) => {
-                _signalService.Send<StrengthChange>(new(_statLevels[statType], delta));
-            };
+            StatType statType;
+            Action<float> eventCallback;
+            switch (currencyType)
+            {
+                case CurrencyType.StrengthPoints:
+                    statType = StatType.Strength;
+                    eventCallback = (float delta) => {
+                        _signalService.Send<StrengthChange>(new(_statLevels[statType], delta));
+                    };
+                    break;
+                case CurrencyType.DexterityPoints:
+                    statType = StatType.Dexterity;
+                    eventCallback = (float delta) => {
+                        _signalService.Send<DexterityChange>(new(_statLevels[statType], delta));
+                    };
+                    break;
+                case CurrencyType.EndurancePoints:
+                    statType = StatType.Endurance;
+                    eventCallback = (float delta) => {
+                        _signalService.Send<EnduranceChange>(new(_statLevels[statType], delta));
+                    };
+                    break;
+                default:
+                    return;
+            }
+
             Action<uint> walletCallback = (uint cost) => {
-                _walletService.TryGetCurrency<StrengthPointsDeposite>(cost);
+                _currencyService.TryTakeCurrency(currencyType, cost);
             };
 
-            StatPointsHandler(statType, info.Value, eventCallback, walletCallback);
-        }
-
-        [Subscribe]
-        private void DexterityPointsChange(DexterityPointsChange info)
-        {
-            var statType = StatType.Dexterity;
-            Action<float> eventCallback = (float delta) => {
-                _signalService.Send<DexterityChange>(new(_statLevels[statType], delta));
-            };
-            Action<uint> walletCallback = (uint cost) => {
-                _walletService.TryGetCurrency<DexterityPointsDeposite>(cost);
-            };
-
-            StatPointsHandler(statType, info.Value, eventCallback, walletCallback);
-        }
-
-        [Subscribe]
-        private void EndurancePointsChange(EndurancePointsChange info)
-        {
-            var statType = StatType.Endurance;
-            Action<float> eventCallback = (float delta) => {
-                _signalService.Send<EnduranceChange>(new(_statLevels[statType], delta));
-            };
-            Action<uint> walletCallback = (uint cost) => {
-                _walletService.TryGetCurrency<EndurancePointsDeposite>(cost);
-            };
-
-            StatPointsHandler(statType, info.Value, eventCallback, walletCallback);
+            StatPointsHandler(statType, (uint)value, eventCallback, walletCallback);
         }
         #endregion
 
