@@ -14,7 +14,7 @@ using Services.TutorialSystem;
 using Utility.GameSettings;
 using Utility.DependencyInjection;
 using Container = Utility.DependencyInjection.DependencyContainer;
-
+using Services.AssetProvider;
 
 namespace Manager
 {
@@ -35,27 +35,27 @@ namespace Manager
         private static void RegisterDependencyContext()
         {
             Container.Bind<ComponentResolver>().AsSingle();
+            Container.Bind<IAssetService>().To<ResourcesAssetProvider>().AsSingle();
             Container.Bind<ISignalService>().FromInstance(new SignalSystem(new EventBus()));
 
             BindSaveService();
-            
+
             Container.Bind<IInputService>().To<InputSystem>().AsSingle();
             Container.Bind<IAudioService>().To<AudioSystem>().AsSingle();
             Container.Bind<ICurrencyService>().To<CurrencySystem>().AsSingle();
             Container.Bind<IDatabaseService>().To<ScriptableObjectDatabase>().AsSingle();
 
             BindScreenService();
-            BindTutorialService();
+            Container.Bind<ITutorialService>().To<TutorialSystem>().AsSingle();
 
             Container.Bind<StatsManager>().AsSingle().NonLazy();
             Container.Bind<GameTracker>().AsSingle().NonLazy();
 
             //TODO: refactoring
-            var currencyService = Container.Get<ICurrencyService>();
-            currencyService.PutCurrency(CurrencyType.StrengthPoints, 0);
-            currencyService.PutCurrency(CurrencyType.DexterityPoints, 0);
-            currencyService.PutCurrency(CurrencyType.EndurancePoints, 0);
+            UpdateCurrencyDeposites();
+            Container.Get<ITutorialService>().TriggerEvent(GameplayEvent.StartGame);
         }
+
         private static void BindSaveService()
         {
             var startPreset = Resources.Load<SaveDataPreset>(GameSettings.StartSaveDataPresetPath);
@@ -68,12 +68,6 @@ namespace Manager
             var screenContainer = Resources.Load<ScreenContainer>(GameSettings.ScreenContainerPath);
             Container.Bind<ScreenFactory>();
             Container.Bind<IScreenService>().FromInstance(new ScreenSystem(screenContainer));
-        }
-
-        private static void BindTutorialService()
-        {
-            var tutorialSequence = Resources.Load<TutorialSequence>(GameSettings.TutorialSequencePath);
-            Container.Bind<ITutorialService>().FromInstance(new TutorialSystem(tutorialSequence));
         }
 
         private static void InitializeSystems()
@@ -90,6 +84,14 @@ namespace Manager
             DOTween.Init();
             NavMesh.avoidancePredictionTime = 0.5f;
             Application.targetFrameRate = GameSettings.Data.ApplicationFrameRate;
+        }
+
+        private static void UpdateCurrencyDeposites()
+        {
+            var currencyService = Container.Get<ICurrencyService>();
+            currencyService.PutCurrency(CurrencyType.StrengthPoints, 0);
+            currencyService.PutCurrency(CurrencyType.DexterityPoints, 0);
+            currencyService.PutCurrency(CurrencyType.EndurancePoints, 0);
         }
         #endregion
 

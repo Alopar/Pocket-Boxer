@@ -265,36 +265,4 @@ namespace Services.SignalSystem.Signals
         }
     }
     #endregion
-
-    #region TUTORIAL
-    public readonly struct GameplayEventChange : ISignal
-    {
-        public readonly GameplayEvent GameplayEvent;
-
-        public GameplayEventChange(GameplayEvent gameplayEvent)
-        {
-            GameplayEvent = gameplayEvent;
-        }
-    }
-
-    public readonly struct TutorialStepChange : ISignal
-    {
-        public readonly TutorialStep TutorialStep;
-
-        public TutorialStepChange(TutorialStep tutorialStep)
-        {
-            TutorialStep = tutorialStep;
-        }
-    }
-
-    public readonly struct TutorialObserving : ISignal
-    {
-        public readonly GameObject GameObject;
-
-        public TutorialObserving(GameObject gameObject)
-        {
-            GameObject = gameObject;
-        }
-    }
-    #endregion
 }

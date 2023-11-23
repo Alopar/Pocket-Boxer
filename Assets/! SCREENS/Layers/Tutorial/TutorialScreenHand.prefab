@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1763712916038248130}
-  - component: {fileID: 8670103710107899202}
+  - component: {fileID: 4668316865283596493}
   m_Layer: 5
-  m_Name: TutorialUiHand
+  m_Name: TutorialScreenHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -37,7 +37,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 154, y: 206}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &8670103710107899202
+--- !u!114 &4668316865283596493
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -46,12 +46,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1457830637602448594}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b36996977a951ee4f99e4c90393e0ea3, type: 3}
+  m_Script: {fileID: 11500000, guid: 982324d4d8b1ee9499de769256430120, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _view: {fileID: 4055196319762095999}
   _tutorialStep: 0
-  _inUI: 1
 --- !u!1 &4055196319762095999
 GameObject:
   m_ObjectHideFlags: 0

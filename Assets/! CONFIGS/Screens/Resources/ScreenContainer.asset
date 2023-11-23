@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _screenPrefabs:
   - {fileID: 2485602678345443425, guid: 7e5b7d4366e7d9942a3e970628c6f223, type: 3}
-  - {fileID: 5950608814741371382, guid: 05a23504dfac116499c7cfa7731e04f2, type: 3}
   - {fileID: 8589953728725289142, guid: 594b76fb1861e3c47b68961e3e3dec50, type: 3}
   - {fileID: 2810016170709701170, guid: 1d6e7dd9adaac4646ba80e39a09be2c6, type: 3}
   - {fileID: 7403310229245894286, guid: f7099c7ec36d703459d60956c410acb8, type: 3}

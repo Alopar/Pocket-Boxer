@@ -1,9 +1,7 @@
 using UnityEngine;
-using Services.SignalSystem;
-using Services.SignalSystem.Signals;
 using Utility.DependencyInjection;
 
-namespace Gameplay
+namespace Services.TutorialSystem
 {
     public class TutorialPointer : MonoBehaviour
     {
@@ -12,23 +10,21 @@ namespace Gameplay
         #endregion
 
         #region FIELDS PRIVATE
-        [Inject] private ISignalService _signalService;
+        [Inject] private ITutorialService _tutorialService;
 
         private Transform _tutorialTarget;
         #endregion
 
         #region HANDLERS
-        [Subscribe]
-        private void h_TutorialObserving(TutorialObserving info)
+        private void TutorialMarkerChanged(TutorialSceneMarker marker)
         {
-            // TODO:
-            //if(info == null)
-            //{
-            //    _content.SetActive(false);
-            //    return;
-            //}
+            if (marker == null)
+            {
+                _content.SetActive(false);
+                return;
+            }
 
-            _tutorialTarget = info.GameObject.transform;
+            _tutorialTarget = marker.gameObject.transform;
             _content.SetActive(true);
         }
         #endregion
@@ -41,12 +37,12 @@ namespace Gameplay
 
         private void OnEnable()
         {
-            _signalService.Subscribe(this);
+            _tutorialService.OnMarkerChanged += TutorialMarkerChanged;
         }
 
         private void OnDisable()
         {
-            _signalService.Unsubscribe(this);
+            _tutorialService.OnMarkerChanged -= TutorialMarkerChanged;
         }
 
         private void LateUpdate()

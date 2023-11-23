@@ -1,7 +1,14 @@
-﻿namespace Services.TutorialSystem
+﻿using System;
+
+namespace Services.TutorialSystem
 {
     public interface ITutorialService
     {
-        void Init();
+        TutorialStep CurrentStep { get; }
+        TutorialSceneMarker CurrentMarker { get; }
+        event Action<TutorialStep> OnStepChanged;
+        event Action<TutorialSceneMarker> OnMarkerChanged;
+        void TriggerEvent(GameplayEvent gameplayEvent);
+        void SetCurrentMarker(TutorialSceneMarker marker);
     }
 }

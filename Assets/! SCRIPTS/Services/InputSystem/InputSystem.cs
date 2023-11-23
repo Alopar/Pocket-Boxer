@@ -1,10 +1,14 @@
 ﻿using System;
+using Services.TutorialSystem;
+using Utility.DependencyInjection;
 
 namespace Services.InputSystem
 {
     public class InputSystem : IInputService
     {
         #region FIELDS PRIVATE
+        [Inject] private ITutorialService _tutorialService;
+
         private JoystickData _lastJoystick;
         private SwipeData _lastSwipe;
         private TapData _lastTap;
@@ -42,6 +46,8 @@ namespace Services.InputSystem
 
             _lastJoystick = data;
             OnJoystick?.Invoke(_lastJoystick);
+
+            _tutorialService.TriggerEvent(GameplayEvent.JoysticInput);
         }
 
         public void SetSwipeData(SwipeData data)

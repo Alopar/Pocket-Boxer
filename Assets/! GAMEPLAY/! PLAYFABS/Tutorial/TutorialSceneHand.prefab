@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8724534497199861702}
-  - component: {fileID: 6320874188494926589}
+  - component: {fileID: 4349281794487308349}
   m_Layer: 0
-  m_Name: TutorialWorldHand
+  m_Name: TutorialSceneHand
   m_TagString: TutorialMarker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24,6 +24,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6470817145105906907}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
@@ -31,9 +32,8 @@ Transform:
   m_Children:
   - {fileID: 686011239479837032}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6320874188494926589
+--- !u!114 &4349281794487308349
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,12 +42,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6470817145105906907}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b36996977a951ee4f99e4c90393e0ea3, type: 3}
+  m_Script: {fileID: 11500000, guid: 70de3dab041cfc54992d924e727804ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _view: {fileID: 7725167821153372309}
   _tutorialStep: 0
-  _inUI: 0
 --- !u!1 &7725167821153372309
 GameObject:
   m_ObjectHideFlags: 0
@@ -71,6 +70,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7725167821153372309}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
@@ -78,13 +78,13 @@ Transform:
   m_Children:
   - {fileID: 4509342323626537460}
   m_Father: {fileID: 8724534497199861702}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &4342173469357132293
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 686011239479837032}
     m_Modifications:
     - target: {fileID: 204378527314525169, guid: 725de259777e0f447916cc945cbe7adb,
@@ -148,6 +148,9 @@ PrefabInstance:
       value: handWorld
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 725de259777e0f447916cc945cbe7adb, type: 3}
 --- !u!4 &4509342323626537460 stripped
 Transform:

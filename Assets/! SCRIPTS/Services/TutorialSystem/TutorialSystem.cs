@@ -1,6 +1,7 @@
-using Services.SignalSystem;
-using Services.SignalSystem.Signals;
+using System;
 using Services.SaveSystem;
+using Services.AssetProvider;
+using Utility.GameSettings;
 using Utility.DependencyInjection;
 
 namespace Services.TutorialSystem
@@ -9,34 +10,30 @@ namespace Services.TutorialSystem
     public class TutorialSystem : ITutorialService
     {
         #region FIELDS PRIVATE
-        [Inject] private ISignalService _signalService;
         [Inject] private ISaveService _saveService;
+        [Inject] private IAssetService _assetService;
 
         private readonly TutorialSequence _sequence;
         
         private TutorialStep _currentStep;
+        private TutorialSceneMarker _sceneMarker;
+        #endregion
+
+        #region PROPERTIES
+        public TutorialStep CurrentStep => _currentStep;
+        public TutorialSceneMarker CurrentMarker => _sceneMarker;
+        #endregion
+
+        #region EVENTS
+        public event Action<TutorialStep> OnStepChanged;
+        public event Action<TutorialSceneMarker> OnMarkerChanged;
         #endregion
 
         #region CONSTRUCTORS
-        public TutorialSystem(TutorialSequence sequence)
+        public TutorialSystem()
         {
-            _sequence = sequence;
-        }
-        #endregion
-
-        #region HANDLERS
-        private void GameplayEvent(GameplayEventChange info)
-        {
-            if (_currentStep == TutorialStep.EndTutorial) return;
-
-            var buffer = _currentStep;
-            var sequence = _sequence.Sequence;
-            var tutorialPartIndex = sequence.FindIndex(e => e.Step == _currentStep);
-            _currentStep = sequence[tutorialPartIndex].Event == info.GameplayEvent ? sequence[tutorialPartIndex + 1].Step : _currentStep;
-
-            SaveData();
-            StepActions(_currentStep);
-            _signalService.Send<TutorialStepChange>(new(_currentStep));
+            _sequence = _assetService.GetTutorialSequence(GameSettings.TutorialSequencePath);
+            LoadData();
         }
         #endregion
 
@@ -60,11 +57,24 @@ namespace Services.TutorialSystem
         #endregion
 
         #region METHODS PUBLIC
-        public void Init()
+        public void TriggerEvent(GameplayEvent gameplayEvent)
         {
-            LoadData();
-            _signalService.AddListener<GameplayEventChange>(GameplayEvent, false);
-            _signalService.Send<TutorialStepChange>(new(_currentStep));
+            if (_currentStep == TutorialStep.EndTutorial) return;
+
+            var buffer = _currentStep;
+            var sequence = _sequence.Sequence;
+            var tutorialPartIndex = sequence.FindIndex(e => e.Step == _currentStep);
+            _currentStep = sequence[tutorialPartIndex].Event == gameplayEvent ? sequence[tutorialPartIndex + 1].Step : _currentStep;
+
+            SaveData();
+            StepActions(_currentStep);
+            OnStepChanged?.Invoke(_currentStep);
+        }
+
+        public void SetCurrentMarker(TutorialSceneMarker marker)
+        {
+            _sceneMarker = marker;
+            OnMarkerChanged?.Invoke(marker);
         }
         #endregion
     }

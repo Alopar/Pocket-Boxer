@@ -19,14 +19,15 @@ namespace Gameplay
         #region FIELDS PRIVATE
         [Inject] private ICurrencyService _currencyService;
         [Inject] private ISignalService _signalService;
+        [Inject] private ITutorialService _tutorialService;
         #endregion
 
         #region HANDLERS
-        [Subscribe]
-        private void TutorialStep(TutorialStepChange info)
-        {
-            tutorialStep = info.TutorialStep;
-        }
+        //[Subscribe]
+        //private void TutorialStep(TutorialStepChange info)
+        //{
+        //    tutorialStep = info.TutorialStep;
+        //}
         #endregion
 
         #region UNITY CALLBACKS

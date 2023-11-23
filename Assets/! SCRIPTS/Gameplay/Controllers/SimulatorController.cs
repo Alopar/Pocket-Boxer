@@ -7,7 +7,6 @@ using Utility.DependencyInjection;
 
 namespace Gameplay
 {
-
     [SelectionBase]
     public class SimulatorController : MonoBehaviour
     {

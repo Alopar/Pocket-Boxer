@@ -1,8 +1,6 @@
 using UnityEngine;
 using Services.InputSystem;
-using Services.SignalSystem.Signals;
 using Services.ScreenSystem;
-using Services.TutorialSystem;
 using Utility.DependencyInjection;
 
 namespace Gameplay
@@ -91,7 +89,6 @@ namespace Gameplay
             if (_joystick.Direction == Vector2.zero && !pointerDown && !pointerUp) return;
 
             _inputService.SetJoystickData(new(direction, pointerDown, pointerUp, distance, isDeathZone));
-            _signalService.Send<GameplayEventChange>(new(GameplayEvent.JoysticInput));
         }
         #endregion
     }
