@@ -1,8 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
 using Gameplay;
-using Services.TutorialSystem;
-using PointerType = Gameplay.PointerType;
 
 namespace Services.SignalSystem.Signals
 {
@@ -39,30 +37,6 @@ namespace Services.SignalSystem.Signals
         public CameraChangeFOV(float fov)
         {
             FOV = fov;
-        }
-    }
-    #endregion
-
-    #region POINTERS
-    public readonly struct TrackTarget : ISignal
-    {
-        public readonly Transform Target;
-        public readonly PointerType PointerType;
-
-        public TrackTarget(Transform target, PointerType pointerType)
-        {
-            Target = target;
-            PointerType = pointerType;
-        }
-    }
-
-    public readonly struct UntrackTarget : ISignal
-    {
-        public readonly Transform Target;
-
-        public UntrackTarget(Transform target)
-        {
-            Target = target;
         }
     }
     #endregion

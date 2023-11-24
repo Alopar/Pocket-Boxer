@@ -47,8 +47,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canvas: {fileID: 5756966962579354486}
   _content: {fileID: 6389631548151599414}
-  _basePointerPrefab: {fileID: 1918101243400737777, guid: 9c72da232ba98f04296cb27e6bfd2854,
-    type: 3}
+  _pointersPrefabs:
+  - {fileID: 1918101243400737777, guid: 05f228e58dede7e4295f5c6a698f609d, type: 3}
+  - {fileID: 1918101243400737777, guid: f694d0365dcf68443aab51c414f31814, type: 3}
 --- !u!1 &6389631548151599414
 GameObject:
   m_ObjectHideFlags: 0

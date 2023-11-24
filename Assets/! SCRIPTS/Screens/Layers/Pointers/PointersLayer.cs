@@ -1,8 +1,11 @@
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
+using Services.ScreenSystem;
+using Services.PointerSystem;
 using Services.SignalSystem;
 using Services.SignalSystem.Signals;
-using Services.ScreenSystem;
+using Utility.DependencyInjection;
 
 namespace Gameplay
 {
@@ -10,14 +13,16 @@ namespace Gameplay
     {
         #region FIELDS INSPECTOR
         [Space(10)]
-        [SerializeField] private Pointer _basePointerPrefab;
+        [SerializeField] private List<Pointer> _pointersPrefabs;
         #endregion
 
         #region FIELDS PRIVATE
+        [Inject] private IPointerService _pointerService;
+
         private Camera _camera;
         private PlayerController _player;
 
-        private Dictionary<Transform, Pointer> _targetPointers = new();
+        private Dictionary<Target, Pointer> _targetPointers = new();
         #endregion
 
         #region HANDLERS
@@ -27,24 +32,17 @@ namespace Gameplay
             _player = info.PlayerController;
         }
 
-        [Subscribe]
-        private void TrackTarget(TrackTarget info)
+        private void TrackTarget(Target target)
         {
-            if (_targetPointers.ContainsKey(info.Target)) return;
-
-            Pointer pointerPrefab = _basePointerPrefab;
-
-            var pointer = Instantiate(pointerPrefab, _content.transform);
-            _targetPointers.Add(info.Target, pointer);
+            CreatePointer(target);
         }
 
-        [Subscribe]
-        private void UntrackTarget(UntrackTarget info)
+        private void UntrackTarget(Target target)
         {
-            if (!_targetPointers.ContainsKey(info.Target)) return;
+            if (!_targetPointers.ContainsKey(target)) return;
 
-            var pointer = _targetPointers[info.Target];
-            _targetPointers.Remove(info.Target);
+            var pointer = _targetPointers[target];
+            _targetPointers.Remove(target);
 
             if (pointer == null) return;
 
@@ -56,6 +54,25 @@ namespace Gameplay
         private void Start()
         {
             FindCamera();
+        }
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            _pointerService.OnTargetAdd += TrackTarget;
+            _pointerService.OnTargetRemove += UntrackTarget;
+
+            ClearPointers();
+            CreatePointers(_pointerService.Targets);
+        }
+
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            _pointerService.OnTargetAdd -= TrackTarget;
+            _pointerService.OnTargetRemove -= UntrackTarget;
+
+            ClearPointers();
         }
 
         private void LateUpdate()
@@ -70,6 +87,40 @@ namespace Gameplay
             _camera = Camera.main;
         }
 
+        private void ClearPointers()
+        {
+            foreach (var pointer in _targetPointers)
+            {
+                if (pointer.Value == null) return;
+                Destroy(pointer.Value.gameObject);
+            }
+
+            _targetPointers.Clear();
+        }
+
+        private void CreatePointer(Target target)
+        {
+            if (_targetPointers.ContainsKey(target)) return;
+
+            var pointerPrefab = _pointersPrefabs.FirstOrDefault(e => e.Type == target.PointerType);
+            if (pointerPrefab == null)
+            {
+                Debug.LogError($"Pointer by type: {target.PointerType} not found!");
+                return;
+            }
+
+            var pointer = Instantiate(pointerPrefab, _content.transform);
+            _targetPointers.Add(target, pointer);
+        }
+
+        private void CreatePointers(IEnumerable<Target> targets)
+        {
+            foreach (var target in targets)
+            {
+                CreatePointer(target);
+            }
+        }
+
         private void UpdatePointers()
         {
             if (_player == null) return;
@@ -77,7 +128,7 @@ namespace Gameplay
             var cameraPlanes = GeometryUtility.CalculateFrustumPlanes(_camera);
             foreach (var pointer in _targetPointers)
             {
-                MovePointer(pointer.Key.transform, _player.transform, pointer.Value, cameraPlanes);
+                MovePointer(pointer.Key.Transform, _player.transform, pointer.Value, cameraPlanes);
             }
         }
 

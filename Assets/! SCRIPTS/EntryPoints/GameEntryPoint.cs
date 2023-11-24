@@ -9,12 +9,13 @@ using Services.InputSystem;
 using Services.AudioSystem;
 using Services.SignalSystem;
 using Services.ScreenSystem;
+using Services.AssetProvider;
+using Services.PointerSystem;
 using Services.CurrencySystem;
 using Services.TutorialSystem;
 using Utility.GameSettings;
 using Utility.DependencyInjection;
 using Container = Utility.DependencyInjection.DependencyContainer;
-using Services.AssetProvider;
 
 namespace Manager
 {
@@ -42,6 +43,7 @@ namespace Manager
 
             Container.Bind<IInputService>().To<InputSystem>().AsSingle();
             Container.Bind<IAudioService>().To<AudioSystem>().AsSingle();
+            Container.Bind<IPointerService>().To<PointerSystem>().AsSingle();
             Container.Bind<ICurrencyService>().To<CurrencySystem>().AsSingle();
             Container.Bind<IDatabaseService>().To<ScriptableObjectDatabase>().AsSingle();
 
