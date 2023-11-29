@@ -45,19 +45,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf9ea74eb2e4e14783838b5bbe9b8a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _type: 4
   _canvas: {fileID: 5756966962579354486}
   _content: {fileID: 6389631548151599414}
-  _moneyText: {fileID: 0}
-  _diamondText: {fileID: 0}
-  _experienceText: {fileID: 0}
   _strengthText: {fileID: 0}
   _strengthFiller: {fileID: 0}
   _dexterityText: {fileID: 0}
   _dexterityFiller: {fileID: 0}
   _enduranceText: {fileID: 0}
   _enduranceFiller: {fileID: 0}
-  _energyText: {fileID: 0}
-  _energyFiller: {fileID: 0}
 --- !u!1 &436779096899734998
 GameObject:
   m_ObjectHideFlags: 0
@@ -1357,7 +1353,7 @@ Canvas:
   m_GameObject: {fileID: 7980599354008249461}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0

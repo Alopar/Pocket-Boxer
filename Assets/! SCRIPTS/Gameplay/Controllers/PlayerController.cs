@@ -1,11 +1,11 @@
 using System;
 using UnityEngine;
 using Services.InputSystem;
-using Services.CurrencySystem;
 using Services.SignalSystem;
 using Services.SignalSystem.Signals;
+using Services.ScreenSystem;
+using Services.CurrencySystem;
 using Utility.DependencyInjection;
-
 
 namespace Gameplay
 {
@@ -21,9 +21,10 @@ namespace Gameplay
         #endregion
 
         #region FIELDS PRIVATE
-        [Inject] private ICurrencyService _currencyService;
         [Inject] private IInputService _inputService;
         [Inject] private ISignalService _signalService;
+        [Inject] private IScreenService _screenService;
+        [Inject] private ICurrencyService _currencyService;
 
         [Find] private WalletComponent _walletComponent;
         [Find] private BatteryComponent _batteryComponent;
@@ -162,13 +163,12 @@ namespace Gameplay
                 if (isEnter)
                 {
                     simulator.SetUserBattety(_batteryComponent);
-                    _signalService.Send<SimulatorChangeFocus>(new(simulator));
-                    _signalService.Send<ShowScreen>(new(ScreenType.Simulator));
+                    _screenService.ShowScreen(ScreenType.Simulator, simulator);
                 }
                 else
                 {
                     simulator.SetUserBattety(null);
-                    _signalService.Send<CloseScreen>(new(ScreenType.Simulator));
+                    _screenService.CloseScreen(ScreenType.Simulator);
                 }
             };
             EntityInteraction(entity, simulator);
@@ -183,13 +183,12 @@ namespace Gameplay
                 if (isEnter)
                 {
                     relaxer.SetUserBattety(_batteryComponent);
-                    _signalService.Send<RelaxerChangeFocus>(new(relaxer));
-                    _signalService.Send<ShowScreen>(new(ScreenType.Relaxer));
+                    _screenService.ShowScreen(ScreenType.Relaxer, relaxer);
                 }
                 else
                 {
                     relaxer.SetUserBattety(null);
-                    _signalService.Send<CloseScreen>(new(ScreenType.Relaxer));
+                    _screenService.CloseScreen(ScreenType.Relaxer);
                 }
             };
             EntityInteraction(entity, relaxer);

@@ -40,7 +40,7 @@ namespace Gameplay
         #endregion
 
         #region HANDLERS
-        private void OnCurrencyChanged(CurrencyType type, ulong value)
+        private void CurrencyChanged(CurrencyType type, ulong value)
         {
             switch (type)
             {
@@ -54,22 +54,6 @@ namespace Gameplay
                     _experienceText.text = value.ToString();
                     break;
             }
-        }
-
-        [Subscribe]
-        private void ShowScreen(ShowScreen info)
-        {
-            if (info.ScreenType != ScreenType.GymHUD) return;
-
-            ShowScreen();
-            _signalService.Send<ScreenOpened>(new(ScreenType.GymHUD));
-        }
-
-        [Subscribe]
-        private void CloseScreen(CloseScreen info)
-        {
-            if (info.ScreenType != ScreenType.GymHUD) return;
-            CloseScreen();
         }
 
         [Subscribe]
@@ -104,34 +88,20 @@ namespace Gameplay
         #endregion
 
         #region UNITY CALLBACKS
-        private void Awake()
-        {
-            HideScreen();
-        }
-
         protected override void OnEnable()
         {
             base.OnEnable();
-            _currencyService.OnCurrencyChanged += OnCurrencyChanged;
+            _currencyService.OnCurrencyChanged += CurrencyChanged;
         }
 
         protected override void OnDisable()
         {
             base.OnDisable();
-            _currencyService.OnCurrencyChanged -= OnCurrencyChanged;
+            _currencyService.OnCurrencyChanged -= CurrencyChanged;
         }
         #endregion
 
         #region METHODS PRIVATE
-        protected override void ShowScreen()
-        {
-            base.ShowScreen();
-
-            _moneyText.text = _currencyService.GetAmount(CurrencyType.Money).ToString();
-            _diamondText.text = _currencyService.GetAmount(CurrencyType.Diamond).ToString();
-            _experienceText.text = _currencyService.GetAmount(CurrencyType.ExperiencePoints).ToString();
-        }
-
         private string CreateTextLabel(int currentValue, int maxValue)
         {
             var digitCount = (int)Math.Log10(Math.Abs(maxValue)) + 1;
@@ -146,6 +116,17 @@ namespace Gameplay
             if (number < 100000) return $"{((float)number / 1000):f1}K";
             if (number < 1000000) return $"{((float)number / 1000):f0}K";
             return $"{(float)number / 1000000:f2}M";
+        }
+        #endregion
+
+        #region METHODS PUBLIC
+        public override void ShowScreen(object payload = null)
+        {
+            base.ShowScreen();
+
+            _moneyText.text = _currencyService.GetAmount(CurrencyType.Money).ToString();
+            _diamondText.text = _currencyService.GetAmount(CurrencyType.Diamond).ToString();
+            _experienceText.text = _currencyService.GetAmount(CurrencyType.ExperiencePoints).ToString();
         }
         #endregion
     }

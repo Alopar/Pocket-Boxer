@@ -4,7 +4,6 @@ using TMPro;
 using Services.InputSystem;
 using Services.ScreenSystem;
 using Services.CurrencySystem;
-using Services.SignalSystem;
 using Services.SignalSystem.Signals;
 using Utility.DependencyInjection;
 
@@ -37,28 +36,6 @@ namespace Gameplay
         #endregion
 
         #region HANDLERS
-        [Subscribe]
-        private void ShowScreen(ShowScreen info)
-        {
-            if (info.ScreenType != ScreenType.Simulator) return;
-
-            ShowScreen();
-            _signalService.Send<ScreenOpened>(new(ScreenType.Simulator));
-        }
-
-        [Subscribe]
-        private void CloseScreen(CloseScreen info)
-        {
-            if (info.ScreenType != ScreenType.Simulator) return;
-            CloseScreen();
-        }
-
-        [Subscribe]
-        private void SimulatorChangeFocus(SimulatorChangeFocus info)
-        {
-            _simulator = info.Simulator;
-        }
-
         private void InputSwipe(SwipeData data)
         {
             _simulator.AddProgress(5f);
@@ -83,11 +60,6 @@ namespace Gameplay
         #endregion
 
         #region UNITY CALLBACKS
-        private void Start()
-        {
-            HideScreen();
-        }
-
         protected override void OnEnable()
         {
             base.OnEnable();
@@ -102,10 +74,12 @@ namespace Gameplay
         #endregion
 
         #region METHODS PRIVATE
-        protected override void ShowScreen()
+        private void SetSimulator(object payload)
         {
-            base.ShowScreen();
-            ShowActivateButton();
+            if (payload is SimulatorController simulator)
+            {
+                _simulator = simulator;
+            }
         }
 
         private void ShowActivateButton()
@@ -159,6 +133,13 @@ namespace Gameplay
         #endregion
 
         #region METHODS PUBLIC
+        public override void ShowScreen(object payload = null)
+        {
+            base.ShowScreen();
+            SetSimulator(payload);
+            ShowActivateButton();
+        }
+
         public void ActivateButton()
         {
             ShowSimulatorContainer();

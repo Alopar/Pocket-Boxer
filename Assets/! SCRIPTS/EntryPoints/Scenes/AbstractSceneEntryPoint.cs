@@ -27,7 +27,7 @@ namespace Gameplay
 
         private void Start()
         {
-            InitiateScene();
+            InitializeScene();
         }
         #endregion
 
@@ -52,7 +52,7 @@ namespace Gameplay
 
         protected abstract void RegisterDependencyContext();
 
-        protected abstract void InitiateScene();
+        protected abstract void InitializeScene();
         #endregion
 
         #region METHODS PUBLIC

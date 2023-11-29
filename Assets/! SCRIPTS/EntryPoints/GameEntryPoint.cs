@@ -46,15 +46,14 @@ namespace Manager
             Container.Bind<IPointerService>().To<PointerSystem>().AsSingle();
             Container.Bind<ICurrencyService>().To<CurrencySystem>().AsSingle();
             Container.Bind<IDatabaseService>().To<ScriptableObjectDatabase>().AsSingle();
+            Container.Bind<ITutorialService>().To<TutorialSystem>().AsSingle();
 
             BindScreenService();
-            Container.Bind<ITutorialService>().To<TutorialSystem>().AsSingle();
 
             Container.Bind<StatsManager>().AsSingle().NonLazy();
             Container.Bind<GameTracker>().AsSingle().NonLazy();
 
             //TODO: refactoring
-            UpdateCurrencyDeposites();
             Container.Get<ITutorialService>().TriggerEvent(GameplayEvent.StartGame);
         }
 
@@ -76,7 +75,7 @@ namespace Manager
         {
             var prefab = Resources.Load("SYSTEMS");
             var systems = GameObject.Instantiate(prefab);
-            systems.name = "===== SYSTEMS =====";
+            systems.name = "[Systems]";
 
             Object.DontDestroyOnLoad(systems);
         }
@@ -86,14 +85,6 @@ namespace Manager
             DOTween.Init();
             NavMesh.avoidancePredictionTime = 0.5f;
             Application.targetFrameRate = GameSettings.Data.ApplicationFrameRate;
-        }
-
-        private static void UpdateCurrencyDeposites()
-        {
-            var currencyService = Container.Get<ICurrencyService>();
-            currencyService.PutCurrency(CurrencyType.StrengthPoints, 0);
-            currencyService.PutCurrency(CurrencyType.DexterityPoints, 0);
-            currencyService.PutCurrency(CurrencyType.EndurancePoints, 0);
         }
         #endregion
 

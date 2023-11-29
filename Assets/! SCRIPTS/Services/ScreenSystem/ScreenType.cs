@@ -1,7 +1,10 @@
-namespace Gameplay
+namespace Services.ScreenSystem
 {
     public enum ScreenType
     {
+        Unknown,
+        Pointers,
+        Inputters,
         GymHUD,
         ArenaHUD,
         Simulator,

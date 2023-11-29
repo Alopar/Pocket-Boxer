@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a487b5c5ac0c89d4a9ac71c374b9b498, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _type: 2
   _canvas: {fileID: 5756966962579354486}
   _content: {fileID: 6389631548151599414}
   _joystick: {fileID: 7423092092879170158}

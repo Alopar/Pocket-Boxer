@@ -36,11 +36,6 @@ namespace Gameplay
         #endregion
 
         #region UNITY CALLBACKS
-        private void Start()
-        {
-            SetMainCamera();
-        }
-
         protected override void OnEnable()
         {
             base.OnEnable();
@@ -60,12 +55,6 @@ namespace Gameplay
         #endregion
 
         #region METHODS PRIVATE
-        private void SetMainCamera()
-        {
-            _canvas.worldCamera = Camera.main;
-            _canvas.planeDistance = 5f;
-        }
-
         private void GetInputOnJoystick()
         {
             var pointerDown = false;

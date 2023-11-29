@@ -1,6 +1,8 @@
 using UnityEngine;
 using Services.SignalSystem;
 using Utility.DependencyInjection;
+using Services.InputSystem;
+using Services.ScreenSystem;
 
 namespace Gameplay
 {
@@ -13,10 +15,19 @@ namespace Gameplay
 
         }
 
-        protected override void InitiateScene()
+        protected override void InitializeScene()
         {
-            //TODO:
-            //EventHolder<ShowScreenInfo>.Send(new(ScreenType.ArenaHUD));
+            //TODO: game state machine
+            var screenService = DependencyContainer.Get<IScreenService>();
+            var screenTypes = new ScreenType[] {
+                ScreenType.ArenaHUD,
+            };
+            screenService.InitializeScreens(screenTypes);
+            screenService.SetScreensCamera(Camera.main);
+
+            screenService.ShowScreen(ScreenType.ArenaHUD);
+
+            DependencyContainer.Get<IInputService>().EnableInputs = InputType.None;
         }
         #endregion
     }

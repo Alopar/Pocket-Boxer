@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Services.InputSystem;
-using Services.SignalSystem;
 using Services.SignalSystem.Signals;
 using Services.ScreenSystem;
 using Utility.DependencyInjection;
@@ -27,28 +26,6 @@ namespace Gameplay
         #endregion
 
         #region HANDLERS
-        [Subscribe]
-        private void ShowScreen(ShowScreen info)
-        {
-            if (info.ScreenType != ScreenType.Relaxer) return;
-
-            ShowScreen();
-            _signalService.Send<ScreenOpened>(new(ScreenType.Relaxer));
-        }
-
-        [Subscribe]
-        private void CloseScreen(CloseScreen info)
-        {
-            if (info.ScreenType != ScreenType.Relaxer) return;
-            CloseScreen();
-        }
-
-        [Subscribe]
-        private void RelaxerChangeFocus(RelaxerChangeFocus info)
-        {
-            _relaxer = info.Relaxer;
-        }
-
         private void TimerChangeHandler(float value)
         {
             var min = (int)(value / 60);
@@ -67,18 +44,13 @@ namespace Gameplay
         }
         #endregion
 
-        #region UNITY CALLBACKS
-        private void Start()
-        {
-            HideScreen();
-        }
-        #endregion
-
         #region METHODS PRIVATE
-        protected override void ShowScreen()
+        private void SetRelaxer(object payload)
         {
-            base.ShowScreen();
-            ShowActivateButton();
+            if (payload is RelaxerController relaxer)
+            {
+                _relaxer = relaxer;
+            }
         }
 
         private void ShowActivateButton()
@@ -95,6 +67,13 @@ namespace Gameplay
         #endregion
 
         #region METHODS PUBLIC
+        public override void ShowScreen(object payload = null)
+        {
+            base.ShowScreen();
+            SetRelaxer(payload);
+            ShowActivateButton();
+        }
+
         public void ActivateButton()
         {
             ShowRelaxerContainer();

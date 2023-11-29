@@ -133,26 +133,6 @@ namespace Services.SignalSystem.Signals
             Number = number;
         }
     }
-
-    public readonly struct SimulatorChangeFocus : ISignal
-    {
-        public readonly SimulatorController Simulator;
-
-        public SimulatorChangeFocus(SimulatorController simulator)
-        {
-            Simulator = simulator;
-        }
-    }
-
-    public readonly struct RelaxerChangeFocus : ISignal
-    {
-        public readonly RelaxerController Relaxer;
-
-        public RelaxerChangeFocus(RelaxerController relaxer)
-        {
-            Relaxer = relaxer;
-        }
-    }
     #endregion
 
     #region CINEMA
@@ -194,48 +174,6 @@ namespace Services.SignalSystem.Signals
         {
             Actor = actor;
             EmotionName = emotionName;
-        }
-    }
-    #endregion
-
-    #region SCREENS
-    public readonly struct ShowScreen : ISignal
-    {
-        public readonly ScreenType ScreenType;
-
-        public ShowScreen(ScreenType screenType)
-        {
-            ScreenType = screenType;
-        }
-    }
-
-    public readonly struct CloseScreen : ISignal
-    {
-        public readonly ScreenType ScreenType;
-
-        public CloseScreen(ScreenType screenType)
-        {
-            ScreenType = screenType;
-        }
-    }
-
-    public readonly struct ScreenOpened : ISignal
-    {
-        public readonly ScreenType ScreenType;
-
-        public ScreenOpened(ScreenType screenType)
-        {
-            ScreenType = screenType;
-        }
-    }
-
-    public readonly struct ScreenClosed : ISignal
-    {
-        public readonly ScreenType ScreenType;
-
-        public ScreenClosed(ScreenType screenType)
-        {
-            ScreenType = screenType;
         }
     }
     #endregion
