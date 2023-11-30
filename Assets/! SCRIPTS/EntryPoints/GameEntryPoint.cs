@@ -5,6 +5,7 @@ using Gameplay;
 using Gameplay.Managers;
 using Services.Database;
 using Services.SaveSystem;
+using Services.SceneLoader;
 using Services.InputSystem;
 using Services.AudioSystem;
 using Services.SignalSystem;
@@ -14,8 +15,10 @@ using Services.PointerSystem;
 using Services.CurrencySystem;
 using Services.TutorialSystem;
 using Utility.GameSettings;
+using Utility.CoroutineRunner;
 using Utility.DependencyInjection;
 using Container = Utility.DependencyInjection.DependencyContainer;
+using UnityEngine.SceneManagement;
 
 namespace Manager
 {
@@ -35,6 +38,9 @@ namespace Manager
 
         private static void RegisterDependencyContext()
         {
+            BindCoroutineRunner();
+            Container.Bind<ISceneLoaderService>().To<SceneLoader>().AsSingle();
+
             Container.Bind<ComponentResolver>().AsSingle();
             Container.Bind<IAssetService>().To<ResourcesAssetProvider>().AsSingle();
             Container.Bind<ISignalService>().FromInstance(new SignalSystem(new EventBus()));
@@ -86,10 +92,19 @@ namespace Manager
             NavMesh.avoidancePredictionTime = 0.5f;
             Application.targetFrameRate = GameSettings.Data.ApplicationFrameRate;
         }
+
+        private static void BindCoroutineRunner()
+        {
+            var gameObject = new GameObject("[CoroutineRunner]");
+            var coroutineRunner = gameObject.AddComponent<CoroutineRunner>();
+            GameObject.DontDestroyOnLoad(coroutineRunner);
+
+            Container.Bind<ICoroutineRunner>().FromInstance(coroutineRunner);
+        }
         #endregion
 
         #region METHODS PUBLIC
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSplashScreen)]
         public static void GameInitialize()
         {
             InitializeGameSettings();
@@ -97,6 +112,10 @@ namespace Manager
 
             InitializeSystems();
             InitializeOtherSystems();
+
+            //Debug.Log(SceneManager.GetActiveScene().name);
+            //SceneManager.LoadScene(0);
+            //Container.Get<ISceneLoaderService>().Load(0, () => { Debug.Log("new scene!"); });
         }
         #endregion
     }
