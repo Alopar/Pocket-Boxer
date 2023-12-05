@@ -7,10 +7,10 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Color 18
+  m_Name: Color 36
   m_Shader: {fileID: -6465566751694194690, guid: edd7abf643fa4bc4e8561d4c280c97cf,
     type: 3}
-  m_Parent: {fileID: 2100000, guid: 2331a33a7d84438419e5f1ac39ae23c8, type: 2}
+  m_Parent: {fileID: 2100000, guid: 965294eff7117214c911a1d1c35005b8, type: 2}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - TCP2_REFLECTIONS_FRESNEL
@@ -35,6 +35,6 @@ Material:
     - _RampSmoothing: 0.466
     - _RampThreshold: 0.823
     m_Colors:
-    - _BaseColor: {r: 0.43903077, g: 0.9056604, b: 0, a: 1}
-    - _SColor: {r: 0.14212653, g: 0.38679248, b: 0, a: 1}
+    - _BaseColor: {r: 0.7811142, g: 1, b: 0, a: 1}
+    - _SColor: {r: 0.4811321, g: 0.42401245, b: 0.0068084607, a: 1}
   m_BuildTextureStacks: []
