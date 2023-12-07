@@ -5,8 +5,7 @@ namespace Gameplay
         Idle,
         Walk,
         Run,
-        Death,
-        Fire,
-        Upgrade,
+        Sleep,
+        HammerSlash,
     }
 }

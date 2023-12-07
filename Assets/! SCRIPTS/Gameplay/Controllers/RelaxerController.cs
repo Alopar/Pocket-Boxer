@@ -5,6 +5,7 @@ using Cinemachine;
 
 namespace Gameplay
 {
+
     [SelectionBase]
     public class RelaxerController : MonoBehaviour
     {
@@ -17,11 +18,16 @@ namespace Gameplay
 
         [Space(10)]
         [SerializeField] private CinemachineVirtualCamera _camera;
+
+        [Space(10)]
+        [SerializeField] private Transform _dollPoint;
+        [SerializeField] private CharacterAnimation _dollAnimation;
         #endregion
 
         #region FIELDS PRIVATE
         private float _progress;
         private int _energonCounter = 0;
+        private Manikin _manikin;
         private BatteryComponent _userBattery;
         #endregion
 
@@ -43,14 +49,17 @@ namespace Gameplay
         {
             _progress = 0;
             _energonCounter = 0;
-            StartCoroutine(Exploitation(_duration));
-
             _camera.Priority = 10;
+
+            _manikin?.Activate(_dollAnimation);
+            StartCoroutine(Exploitation(_duration));
         }
 
         public void TurnOff()
         {
             _camera.Priority = 0;
+
+            RemoveDoll();
             StopAllCoroutines();
         }
 
@@ -70,6 +79,17 @@ namespace Gameplay
             {
                 OnExploitationEnd?.Invoke();
             }
+        }
+
+        public void SetDoll(GameObject doll)
+        {
+            _manikin = new Manikin(doll, _dollPoint);
+        }
+
+        public void RemoveDoll()
+        {
+            _manikin?.Dispose();
+            _manikin = null;
         }
 
         public void SetUserBattety(BatteryComponent battery)

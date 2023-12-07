@@ -48,8 +48,8 @@ namespace Gameplay
 
             if (_constructed)
             {
-                TurnOff();
-                ShowEquipment();
+                PlaceEquipment();
+                SelfRemove();
                 return;
             }
 
@@ -111,6 +111,17 @@ namespace Gameplay
         {
             _equipment.SetActive(false);
         }
+
+        private void PlaceEquipment()
+        {
+            _equipment.transform.SetParent(transform.parent);
+            _equipment.SetActive(true);
+        }
+
+        private void SelfRemove()
+        {
+            Destroy(gameObject);
+        }
         #endregion
 
         #region METHODS PUBLIC
@@ -118,14 +129,15 @@ namespace Gameplay
         {
             _invested += (int)value;
             _constructed = _invested >= _cost;
-            if (_constructed)
-            {
-                TurnOff();
-                ShowEquipment();
-            }
 
             SaveProgress();
             OnInvest?.Invoke(_invested, (int)_cost);
+
+            if (_constructed)
+            {
+                PlaceEquipment();
+                SelfRemove();
+            }
         }
         #endregion
     }

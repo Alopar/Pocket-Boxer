@@ -17,7 +17,7 @@ MonoBehaviour:
     - CurrencyType: 0
       Amount: 0
     - CurrencyType: 1
-      Amount: 200
+      Amount: 600
     - CurrencyType: 2
       Amount: 0
     - CurrencyType: 3
@@ -41,6 +41,10 @@ MonoBehaviour:
       Available: 1
       Constructed: 0
     - ID: EQ02
+      Invested: 0
+      Available: 1
+      Constructed: 0
+    - ID: EQ03
       Invested: 0
       Available: 1
       Constructed: 0

@@ -15,8 +15,6 @@ namespace Gameplay
         #region FIELDS INSPECTOR
         [Space(10)]
         [SerializeField] private TextMeshProUGUI _moneyText;
-        [SerializeField] private TextMeshProUGUI _diamondText;
-        [SerializeField] private TextMeshProUGUI _experienceText;
 
         [Space(10)]
         [SerializeField] private TextMeshProUGUI _strengthText;
@@ -46,12 +44,6 @@ namespace Gameplay
             {
                 case CurrencyType.Money:
                     _moneyText.text = value.ToString();
-                    break;
-                case CurrencyType.Diamond:
-                    _diamondText.text = value.ToString();
-                    break;
-                case CurrencyType.ExperiencePoints:
-                    _experienceText.text = value.ToString();
                     break;
             }
         }
@@ -125,8 +117,6 @@ namespace Gameplay
             base.ShowScreen();
 
             _moneyText.text = _currencyService.GetAmount(CurrencyType.Money).ToString();
-            _diamondText.text = _currencyService.GetAmount(CurrencyType.Diamond).ToString();
-            _experienceText.text = _currencyService.GetAmount(CurrencyType.ExperiencePoints).ToString();
         }
         #endregion
     }

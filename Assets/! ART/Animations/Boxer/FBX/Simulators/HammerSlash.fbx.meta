@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 09838b1f315792d4b8a055a79fbcc660
+guid: 7663cd1a0816c034892f70286a0bc28a
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -33,11 +33,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Take 001
-      takeName: Take 001
-      internalID: 1827226128182048838
+      name: HammerSlash
+      takeName: mixamo.com
+      internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 528
+      lastFrame: 38
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

@@ -38,7 +38,7 @@ namespace Gameplay
         #region HANDLERS
         private void InputSwipe(SwipeData data)
         {
-            _simulator.AddProgress(5f);
+            OverclockSimulator();
         }
 
         private void TimerChangeHandler(float value)
@@ -130,6 +130,12 @@ namespace Gameplay
                     break;
             }
         }
+
+        private void OverclockSimulator()
+        {
+            _simulator.AddProgress(5f);
+            _simulator.ActivateNitro();
+        }
         #endregion
 
         #region METHODS PUBLIC
@@ -168,7 +174,7 @@ namespace Gameplay
 
         public void Tap()
         {
-            _simulator.AddProgress(5f);
+            OverclockSimulator();
         }
         #endregion
     }

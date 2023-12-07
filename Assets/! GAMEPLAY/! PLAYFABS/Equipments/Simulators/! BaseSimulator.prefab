@@ -31,6 +31,7 @@ Transform:
   m_Children:
   - {fileID: 132163388366243533}
   - {fileID: 5199430198057831541}
+  - {fileID: 6757374033517662143}
   m_Father: {fileID: 4271673763992119412}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4079945989577299633
@@ -222,6 +223,8 @@ MonoBehaviour:
   _maxTokens: 0
   _costTokens: 0
   _camera: {fileID: 1633163952217867290}
+  _dollPoint: {fileID: 6757374033517662143}
+  _dollAnimation: 0
 --- !u!114 &6577155361159506599
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246,6 +249,37 @@ MonoBehaviour:
   _numJumps: 1
   _jumpPower: 3
   _jumpDuration: 0.5
+--- !u!1 &7071900457971745674
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6757374033517662143}
+  m_Layer: 0
+  m_Name: DollPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6757374033517662143
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7071900457971745674}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 529650474098502659}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7354729092348879202
 GameObject:
   m_ObjectHideFlags: 0

@@ -23,6 +23,11 @@ PrefabInstance:
       propertyPath: _duration
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 2295771437367689011, guid: a570993421a4ffc46a4109a537f3ad08,
+        type: 3}
+      propertyPath: _dollAnimation
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4271673763992119412, guid: a570993421a4ffc46a4109a537f3ad08,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -97,6 +102,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Size.z
       value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9122000143015629721, guid: a570993421a4ffc46a4109a537f3ad08,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

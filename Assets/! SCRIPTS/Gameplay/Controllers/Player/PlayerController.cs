@@ -18,6 +18,9 @@ namespace Gameplay
 
         [Space(10)]
         [SerializeField, Range(0, 100)] private uint _investitonByOnce = 1;
+
+        [Space(10)]
+        [SerializeField] private GameObject _doll;
         #endregion
 
         #region FIELDS PRIVATE
@@ -77,6 +80,12 @@ namespace Gameplay
             Init();
         }
 
+        protected override void Start()
+        {
+            base.Start();
+            PlaceAgentInStartPosition();
+        }
+
         private void OnEnable()
         {
             _signalService.Subscribe(this);
@@ -112,8 +121,6 @@ namespace Gameplay
         {
             base.Init();
             _batteryComponent.Init();
-
-            PlaceAgentInStartPosition();
         }
 
         private void PlaceAgentInStartPosition()
@@ -162,11 +169,15 @@ namespace Gameplay
 
                 if (isEnter)
                 {
+                    var doll = Instantiate(_doll);
+                    simulator.SetDoll(doll);
+
                     simulator.SetUserBattety(_batteryComponent);
                     _screenService.ShowScreen(ScreenType.Simulator, simulator);
                 }
                 else
                 {
+                    simulator.RemoveDoll();
                     simulator.SetUserBattety(null);
                     _screenService.CloseScreen(ScreenType.Simulator);
                 }
@@ -182,11 +193,15 @@ namespace Gameplay
 
                 if (isEnter)
                 {
+                    var doll = Instantiate(_doll);
+                    relaxer.SetDoll(doll);
+
                     relaxer.SetUserBattety(_batteryComponent);
                     _screenService.ShowScreen(ScreenType.Relaxer, relaxer);
                 }
                 else
                 {
+                    relaxer.RemoveDoll();
                     relaxer.SetUserBattety(null);
                     _screenService.CloseScreen(ScreenType.Relaxer);
                 }

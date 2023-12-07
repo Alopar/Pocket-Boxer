@@ -4,6 +4,8 @@ using UnityEngine;
 using Cinemachine;
 using Services.CurrencySystem;
 using Utility.DependencyInjection;
+using DG.Tweening;
+using System.Collections.Generic;
 
 namespace Gameplay
 {
@@ -26,6 +28,17 @@ namespace Gameplay
 
         [Space(10)]
         [SerializeField] private CinemachineVirtualCamera _camera;
+
+        [Space(10)]
+        [SerializeField] private Transform _dollPoint;
+        [SerializeField] private CharacterAnimation _dollAnimation;
+
+        [Space(10)]
+        [SerializeField] private AbstaractSimulatorAnimation _simulatorAnimation;
+
+        [Space(10)]
+        [SerializeField] private List<GameObject> _IdleStateEquipments;
+        [SerializeField] private List<GameObject> _WorkStateEquipments;
         #endregion
 
         #region FIELDS PRIVATE
@@ -33,7 +46,10 @@ namespace Gameplay
 
         private float _progress;
         private int _tokenCounter;
+        private Manikin _manikin;
         private BatteryComponent _userBattery;
+
+        private Tween _nitroTimer;
         #endregion
 
         #region PROPERTIES
@@ -60,16 +76,30 @@ namespace Gameplay
         {
             _progress = 0;
             _tokenCounter = 0;
+            _camera.Priority = 10;
+            _simulatorAnimation?.TurnOn();
+
+            _manikin?.Activate(_dollAnimation);
+            _manikin.SetAnimationSpeed(0.5f);
+
             _userBattery?.TryGetEnergy(_energyCost);
             StartCoroutine(Exploitation(_usageDuration));
 
-            _camera.Priority = 10;
+            _IdleStateEquipments.ForEach(e => e.SetActive(false));
+            _WorkStateEquipments.ForEach(e => e.SetActive(true));
         }
 
         public void TurnOff()
         {
             _camera.Priority = 0;
+            _nitroTimer?.Complete();
+            _simulatorAnimation?.TurnOff();
+
+            RemoveDoll();
             StopAllCoroutines();
+
+            _IdleStateEquipments.ForEach(e => e.SetActive(true));
+            _WorkStateEquipments.ForEach(e => e.SetActive(false));
         }
 
         public void AddProgress(float value)
@@ -88,6 +118,25 @@ namespace Gameplay
             {
                 OnExploitationEnd?.Invoke();
             }
+        }
+
+        public void ActivateNitro()
+        {
+            _manikin?.SetAnimationSpeed(1f);
+
+            _nitroTimer?.Complete();
+            _nitroTimer = DOVirtual.Float(1f, 0.5f, 2f, (value) => { _manikin?.SetAnimationSpeed(value); });
+        }
+
+        public void SetDoll(GameObject doll)
+        {
+            _manikin = new Manikin(doll, _dollPoint);
+        }
+
+        public void RemoveDoll()
+        {
+            _manikin?.Dispose();
+            _manikin = null;
         }
 
         public void SetUserBattety(BatteryComponent battery)

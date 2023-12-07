@@ -16,6 +16,8 @@ namespace Gameplay
             prefab.gameObject.SetActive(false);
 
             var player = GameObject.Instantiate(prefab);
+            player.name = prefab.name;
+
             var children = player.GetComponentsInChildren<MonoBehaviour>(true);
             foreach (var child in children)
             {
