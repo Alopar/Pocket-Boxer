@@ -7,5 +7,7 @@ namespace Gameplay
         Run,
         Sleep,
         HammerSlash,
+        BenchPress,
+        StandingPress,
     }
 }

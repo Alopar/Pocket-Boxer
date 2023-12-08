@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6993297727132599512}
   m_Layer: 0
-  m_Name: "\u0412umbbellSimulator"
+  m_Name: DumbbellSimulator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
