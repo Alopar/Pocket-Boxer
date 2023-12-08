@@ -3,6 +3,8 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using Utility.DependencyInjection;
+using UnityEngine.WSA;
+using Unity.VisualScripting;
 
 namespace Services.ScreenSystem
 {
@@ -15,6 +17,7 @@ namespace Services.ScreenSystem
         private Transform _holder;
         private Dictionary<ScreenType, AbstractScreen> _screens = new();
 
+        private Canvas _frameCounterCanvas;
         private bool _isFrameCounterInitialized = false;
         #endregion
 
@@ -35,13 +38,17 @@ namespace Services.ScreenSystem
         {
             if (_holder != null) return;
             _holder = new GameObject("[Screens]").transform;
+            _holder.position = new Vector3(0, 0, 100);
             GameObject.DontDestroyOnLoad(_holder);
         }
 
         private void InitializeFrameCounter(Transform holder)
         {
             if(_isFrameCounterInitialized) return;
-            GameObject.Instantiate(_container.MonitoringPrefab, holder).name = _container.MonitoringPrefab.name;
+
+            var frameCounter = GameObject.Instantiate(_container.MonitoringPrefab, holder);
+            frameCounter.name = _container.MonitoringPrefab.name;
+            _frameCounterCanvas = frameCounter.GetComponent<Canvas>();
             _isFrameCounterInitialized = true;
         }
 
@@ -54,6 +61,12 @@ namespace Services.ScreenSystem
             }
 
             return true;
+        }
+
+        private void FrameCounterSetCanvasCamera(Camera camera)
+        {
+            _frameCounterCanvas.worldCamera = camera;
+            _frameCounterCanvas.planeDistance = 1f;
         }
         #endregion
 
@@ -89,6 +102,8 @@ namespace Services.ScreenSystem
             {
                 screen.SetCanvasCamera(camera);
             }
+
+            FrameCounterSetCanvasCamera(camera);
         }
 
         public void ShowScreen(ScreenType screen, object payload = null)

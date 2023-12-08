@@ -846,17 +846,17 @@ PrefabInstance:
     - target: {fileID: 2267421187095992394, guid: 87a27b1515442db478e0f5485340e9f7,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2267421187095992394, guid: 87a27b1515442db478e0f5485340e9f7,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 10
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 2267421187095992394, guid: 87a27b1515442db478e0f5485340e9f7,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6
+      value: -8
       objectReference: {fileID: 0}
     - target: {fileID: 2267421187095992394, guid: 87a27b1515442db478e0f5485340e9f7,
         type: 3}
@@ -992,17 +992,17 @@ PrefabInstance:
     - target: {fileID: 3049705793009610462, guid: cfcfe950597585d4c937d2d1405a782f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3049705793009610462, guid: cfcfe950597585d4c937d2d1405a782f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 10
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 3049705793009610462, guid: cfcfe950597585d4c937d2d1405a782f,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6
+      value: -8
       objectReference: {fileID: 0}
     - target: {fileID: 3049705793009610462, guid: cfcfe950597585d4c937d2d1405a782f,
         type: 3}
@@ -1043,6 +1043,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Priority
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3049705793937912036, guid: cfcfe950597585d4c937d2d1405a782f,
+        type: 3}
+      propertyPath: m_FollowOffset.x
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3049705793937912036, guid: cfcfe950597585d4c937d2d1405a782f,
+        type: 3}
+      propertyPath: m_FollowOffset.y
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 3049705793937912036, guid: cfcfe950597585d4c937d2d1405a782f,
+        type: 3}
+      propertyPath: m_FollowOffset.z
+      value: -8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
