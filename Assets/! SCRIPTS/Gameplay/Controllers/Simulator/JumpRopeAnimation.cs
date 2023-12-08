@@ -3,39 +3,30 @@ using UnityEngine;
 
 namespace Gameplay
 {
-    public class TrademillAnimation : AbstaractSimulatorAnimation
+    public class JumpRopeAnimation : MonoBehaviour
     {
         #region FIELDS INSPECTOR
         [SerializeField, Range(0, 10)] private float _speed;
         [SerializeField] private MeshRenderer _meshRenderer;
+        [SerializeField] private Animator _animator;
         #endregion
 
         #region METHODS PUBLIC
-        public override void TurnOn()
+        private void Start()
         {
-            StartCoroutine(MoveRoad());
-        }
-
-        public override void TurnOff()
-        {
-            StopAllCoroutines();
-        }
-
-        public override void PlayShot()
-        {
-            // N/A
+            StartCoroutine(RollRope());
         }
         #endregion
 
         #region COROUTINES
-        private IEnumerator MoveRoad()
+        private IEnumerator RollRope()
         {
-            var material = _meshRenderer.materials[4];
+            var material = _meshRenderer.materials[0];
             material.SetTextureOffset("_BaseMap", Vector2.zero);
             while (true)
             {
                 var offset = material.GetTextureOffset("_BaseMap");
-                offset.y -= Time.deltaTime * _speed;
+                offset.x += (Time.deltaTime * _speed) * _animator.speed;
                 material.SetTextureOffset("_BaseMap", offset);
 
                 yield return null;

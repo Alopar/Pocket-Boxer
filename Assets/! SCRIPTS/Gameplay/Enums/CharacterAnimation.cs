@@ -9,5 +9,7 @@ namespace Gameplay
         HammerSlash,
         BenchPress,
         StandingPress,
+        JumpingRope,
+        CrossPunch,
     }
 }

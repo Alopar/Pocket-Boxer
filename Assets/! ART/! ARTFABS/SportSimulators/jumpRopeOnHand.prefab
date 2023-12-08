@@ -76,10 +76,66 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 12bb219105b08904ead42148ceb4a411,
         type: 3}
       propertyPath: m_Name
-      value: jumpRopeAnimation Variant
+      value: jumpRopeOnHand
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 12bb219105b08904ead42148ceb4a411,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1564449633826200869}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 12bb219105b08904ead42148ceb4a411,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2547357541624134030}
   m_SourcePrefab: {fileID: 100100000, guid: 12bb219105b08904ead42148ceb4a411, type: 3}
+--- !u!23 &1112701444817772044 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 12bb219105b08904ead42148ceb4a411,
+    type: 3}
+  m_PrefabInstance: {fileID: 1779073242989838984}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1473205263057223641 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 12bb219105b08904ead42148ceb4a411,
+    type: 3}
+  m_PrefabInstance: {fileID: 1779073242989838984}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1564449633826200869
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1473205263057223641}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 129c4aa4dbfc01940b0c15ed9255f9b1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2547357541624134030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1473205263057223641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b22bbbad793b7741abf2c23dc0729ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 2
+  _meshRenderer: {fileID: 1112701444817772044}
+  _animator: {fileID: 0}

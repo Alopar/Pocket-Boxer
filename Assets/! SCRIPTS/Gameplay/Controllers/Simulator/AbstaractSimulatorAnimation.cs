@@ -6,5 +6,6 @@ namespace Gameplay
     {
         public abstract void TurnOn();
         public abstract void TurnOff();
+        public abstract void PlayShot();
     }
 }

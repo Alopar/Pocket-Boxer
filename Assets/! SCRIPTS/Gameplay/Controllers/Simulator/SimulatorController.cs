@@ -64,6 +64,13 @@ namespace Gameplay
         public event Action OnExploitationEnd;
         #endregion
 
+        #region HANDLERS
+        private void ManikinHit()
+        {
+            _simulatorAnimation?.PlayShot();
+        }
+        #endregion
+
         #region METHODS PRIVATE
         private float NextProgressPoint(int points, int pointCounter)
         {
@@ -131,12 +138,17 @@ namespace Gameplay
         public void SetDoll(GameObject doll)
         {
             _manikin = new Manikin(doll, _dollPoint);
+            _manikin.OnHit += ManikinHit;
         }
 
         public void RemoveDoll()
         {
-            _manikin?.Dispose();
-            _manikin = null;
+            if(_manikin != null)
+            {
+                _manikin.Dispose();
+                _manikin.OnHit -= ManikinHit;
+                _manikin = null;
+            }
         }
 
         public void SetUserBattety(BatteryComponent battery)
