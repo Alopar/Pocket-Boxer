@@ -7,24 +7,24 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Color 9
+  m_Name: Color 46
   m_Shader: {fileID: -6465566751694194690, guid: edd7abf643fa4bc4e8561d4c280c97cf,
     type: 3}
-  m_Parent: {fileID: 2100000, guid: 965294eff7117214c911a1d1c35005b8, type: 2}
-  m_ModifiedSerializedProperties: 0
+  m_Parent: {fileID: 2100000, guid: 4cbfc5587cb269143bdb491bc4b300b6, type: 2}
+  m_ModifiedSerializedProperties: 16
   m_ValidKeywords:
   - TCP2_REFLECTIONS_FRESNEL
   - TCP2_RIM_LIGHTING_LIGHTMASK
   - TCP2_SHADOW_LIGHT_COLOR
-  - TCP2_SPECULAR
-  - _EMISSION
+  - _ALPHAPREMULTIPLY_ON
   m_InvalidKeywords:
   - TCP2_UV_NORMALS_FULL
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
+  m_CustomRenderQueue: 3000
+  stringTagMap:
+    RenderType: Transparent
   disabledShaderPasses: []
   m_LockedProperties: 
   m_SavedProperties:
@@ -35,8 +35,18 @@ Material:
         m_Scale: {x: 60, y: 60}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
-    m_Floats: []
+    m_Floats:
+    - _Cull: 2
+    - _DstBlend: 10
+    - _RampSmoothing: 0.622
+    - _RampThreshold: 0.658
+    - _ReceiveShadowsOff: 1
+    - _RenderingMode: 2
+    - _SrcBlend: 1
+    - _UseEmission: 0
+    - _UseSpecular: 0
+    - _ZWrite: 0
     m_Colors:
-    - _BaseColor: {r: 0.7877358, g: 0.91029066, b: 1, a: 1}
-    - _SColor: {r: 0.14738078, g: 0.12615699, b: 0.1981132, a: 1}
+    - _BaseColor: {r: 0, g: 0.5490193, b: 1, a: 0.4392157}
+    - _SColor: {r: 0.24719095, g: 0, b: 1, a: 1}
   m_BuildTextureStacks: []
