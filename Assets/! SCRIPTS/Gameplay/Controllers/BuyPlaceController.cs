@@ -16,6 +16,7 @@ namespace Gameplay
         [Space(10)]
         [SerializeField] private Transform _view;
         [SerializeField] private Transform _informers;
+        [SerializeField] private InvestProgressbar _progressbar;
 
         [Space(10)]
         [SerializeField] private GameObject _equipment;
@@ -93,13 +94,13 @@ namespace Gameplay
         private void TurnOn()
         {
             _collider.enabled = true;
-            _informers.gameObject.SetActive(true);
+            _progressbar.ShowAvailableState();
         }
 
         private void TurnOff()
         {
             _collider.enabled = false;
-            _informers.gameObject.SetActive(false);
+            _progressbar.ShowUnavailableState();
         }
 
         private void ShowEquipment()

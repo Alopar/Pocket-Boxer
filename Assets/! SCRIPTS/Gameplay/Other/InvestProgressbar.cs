@@ -7,8 +7,12 @@ namespace Gameplay
     public class InvestProgressbar : MonoBehaviour
     {
         #region FIELDS INSPECTOR
-        [SerializeField] private Image _filler;
+        [SerializeField] private Slider _filler;
         [SerializeField] private TextMeshProUGUI _investedText;
+
+        [Space(10)]
+        [SerializeField] private GameObject _availableState;
+        [SerializeField] private GameObject _unavailableState;
         #endregion
 
         #region FIELDS PRIVATE
@@ -18,7 +22,7 @@ namespace Gameplay
         #region HANDLERS
         private void OnInvest(int current, int max)
         {
-            _filler.fillAmount = (float)current / max;
+            _filler.value = (float)current / max;
             _investedText.text = (max - current).ToString();
         }
         #endregion
@@ -44,6 +48,20 @@ namespace Gameplay
         private  void Init()
         {
             _investable = GetComponentInParent<IInvestable>();
+        }
+        #endregion
+
+        #region METHODS PUBLIC
+        public void ShowAvailableState()
+        {
+            _availableState.SetActive(true);
+            _unavailableState.SetActive(false);
+        }
+
+        public void ShowUnavailableState()
+        {
+            _availableState.SetActive(false);
+            _unavailableState.SetActive(true);
         }
         #endregion
     }

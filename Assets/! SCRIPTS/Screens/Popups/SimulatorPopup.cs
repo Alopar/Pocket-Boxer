@@ -17,12 +17,18 @@ namespace Gameplay
         [Space(10)]
         [SerializeField] private GameObject _simulatorContainer;
         [SerializeField] private TextMeshProUGUI _timerText;
-        [SerializeField] private Image _progressFiller;
+        [SerializeField] private Slider _progressFiller;
+        [SerializeField] private Image _progressFillerImage;
 
         [Space(10)]
         [SerializeField] private GameObject _strengthIcon;
         [SerializeField] private GameObject _dexterityIcon;
         [SerializeField] private GameObject _enduranceIcon;
+
+        [Space(10)]
+        [SerializeField] private Color _strengthColor;
+        [SerializeField] private Color _dexterityColor;
+        [SerializeField] private Color _enduranceColor;
 
         [Space(10)]
         [SerializeField] private GameObject _tapContainer;
@@ -50,7 +56,7 @@ namespace Gameplay
 
         private void ProgressChangeHandler(float value)
         {
-            _progressFiller.fillAmount = value;
+            _progressFiller.value = value;
         }
 
         private void ExploitationEndHandler()
@@ -93,8 +99,25 @@ namespace Gameplay
             _activateButton.SetActive(false);
             _simulatorContainer.SetActive(true);
 
+            SetFillerColor();
             ShowInputTools();
             ShowCurrencyIcon();
+        }
+
+        private void SetFillerColor()
+        {
+            switch (_simulator.CurrencyType)
+            {
+                case CurrencyType.StrengthPoints:
+                    _progressFillerImage.color = _strengthColor;
+                    break;
+                case CurrencyType.DexterityPoints:
+                    _progressFillerImage.color = _dexterityColor;
+                    break;
+                case CurrencyType.EndurancePoints:
+                    _progressFillerImage.color = _enduranceColor;
+                    break;
+            }
         }
 
         private void ShowInputTools()

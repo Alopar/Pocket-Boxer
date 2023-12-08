@@ -18,19 +18,19 @@ namespace Gameplay
 
         [Space(10)]
         [SerializeField] private TextMeshProUGUI _strengthText;
-        [SerializeField] private Image _strengthFiller;
+        [SerializeField] private Slider _strengthFiller;
 
         [Space(10)]
         [SerializeField] private TextMeshProUGUI _dexterityText;
-        [SerializeField] private Image _dexterityFiller;
+        [SerializeField] private Slider _dexterityFiller;
 
         [Space(10)]
         [SerializeField] private TextMeshProUGUI _enduranceText;
-        [SerializeField] private Image _enduranceFiller;
+        [SerializeField] private Slider _enduranceFiller;
 
         [Space(10)]
         [SerializeField] private TextMeshProUGUI _energyText;
-        [SerializeField] private Image _energyFiller;
+        [SerializeField] private Slider _energyFiller;
         #endregion
 
         #region FIELDS PRIVATE
@@ -52,21 +52,21 @@ namespace Gameplay
         private void StrengthChange(StrengthChange info)
         {
             _strengthText.text = info.Level.ToString();
-            _strengthFiller.fillAmount = info.Delta;
+            _strengthFiller.value = info.Delta;
         }
 
         [Subscribe]
         private void DexterityChange(DexterityChange info)
         {
             _dexterityText.text = info.Level.ToString();
-            _dexterityFiller.fillAmount = info.Delta;
+            _dexterityFiller.value = info.Delta;
         }
 
         [Subscribe]
         private void EnduranceChange(EnduranceChange info)
         {
             _enduranceText.text = info.Level.ToString();
-            _enduranceFiller.fillAmount = info.Delta;
+            _enduranceFiller.value = info.Delta;
         }
 
         [Subscribe]
@@ -75,7 +75,7 @@ namespace Gameplay
             _energyText.text = CreateTextLabel(info.Occupied, info.Capacity);
 
             var delta = (float)info.Occupied / info.Capacity;
-            _energyFiller.fillAmount = delta;
+            _energyFiller.value = delta;
         }
         #endregion
 

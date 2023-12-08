@@ -16,7 +16,7 @@ namespace Gameplay
         [Space(10)]
         [SerializeField] private GameObject _relaxerContainer;
         [SerializeField] private TextMeshProUGUI _timerText;
-        [SerializeField] private Image _progressFiller;
+        [SerializeField] private Slider _progressFiller;
         #endregion
 
         #region FIELDS PRIVATE
@@ -35,7 +35,7 @@ namespace Gameplay
 
         private void ProgressChangeHandler(float value)
         {
-            _progressFiller.fillAmount = value;
+            _progressFiller.value = value;
         }
 
         private void ExploitationEndHandler()
