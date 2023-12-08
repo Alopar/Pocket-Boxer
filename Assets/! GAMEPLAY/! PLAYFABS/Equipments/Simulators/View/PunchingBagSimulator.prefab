@@ -260,6 +260,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: pear
       objectReference: {fileID: 0}
+    - target: {fileID: 6469769015934349000, guid: 92bc91c8ccd1e884f9273acad21c17b0,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5fc91f61eacd1f04598a83b5183edc3f, type: 2}
+    - target: {fileID: 6469769015934349000, guid: 92bc91c8ccd1e884f9273acad21c17b0,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4095a532ddf922b46a95e3f58a4c3384, type: 2}
+    - target: {fileID: 6469769015934349000, guid: 92bc91c8ccd1e884f9273acad21c17b0,
+        type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8c7a940c7a5517d4c9f7af353224bceb, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
