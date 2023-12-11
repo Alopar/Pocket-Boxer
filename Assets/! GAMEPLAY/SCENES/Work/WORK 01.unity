@@ -2197,11 +2197,6 @@ PrefabInstance:
       propertyPath: _energyCost
       value: 20
       objectReference: {fileID: 0}
-    - target: {fileID: 5600378159069402561, guid: 776e5b4e75e44c4458b1576f2eba15cf,
-        type: 3}
-      propertyPath: _currencyType
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 9147720060122947205, guid: 776e5b4e75e44c4458b1576f2eba15cf,
         type: 3}
       propertyPath: m_LocalPosition.x
