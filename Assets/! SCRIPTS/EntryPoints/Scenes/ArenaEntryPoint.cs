@@ -7,7 +7,7 @@ using Services.ScreenSystem;
 namespace Gameplay
 {
     [DefaultExecutionOrder(-100)]
-    public class ArenaEntryPoint : AbstractSceneEntryPoint
+    public class ArenaEntryPoint : AbstractBootstrapper
     {
         #region METHODS PRIVATE
         protected override void RegisterDependencyContext()

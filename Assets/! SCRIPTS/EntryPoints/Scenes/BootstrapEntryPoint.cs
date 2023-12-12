@@ -7,7 +7,7 @@ using Services.CurrencySystem;
 namespace Gameplay
 {
     [DefaultExecutionOrder(-100)]
-    public class BootstrapEntryPoint : AbstractSceneEntryPoint
+    public class BootstrapEntryPoint : AbstractBootstrapper
     {
         #region METHODS PRIVATE
         protected override void RegisterDependencyContext()

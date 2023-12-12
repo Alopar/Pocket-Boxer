@@ -18,7 +18,6 @@ using Utility.GameSettings;
 using Utility.CoroutineRunner;
 using Utility.DependencyInjection;
 using Container = Utility.DependencyInjection.DependencyContainer;
-using UnityEngine.SceneManagement;
 
 namespace Manager
 {
@@ -63,6 +62,15 @@ namespace Manager
             Container.Get<ITutorialService>().TriggerEvent(GameplayEvent.StartGame);
         }
 
+        private static void BindCoroutineRunner()
+        {
+            var gameObject = new GameObject("[CoroutineRunner]");
+            var coroutineRunner = gameObject.AddComponent<CoroutineRunner>();
+            GameObject.DontDestroyOnLoad(coroutineRunner);
+
+            Container.Bind<ICoroutineRunner>().FromInstance(coroutineRunner);
+        }
+
         private static void BindSaveService()
         {
             var startPreset = Resources.Load<SaveDataPreset>(GameSettings.StartSaveDataPresetPath);
@@ -93,14 +101,6 @@ namespace Manager
             Application.targetFrameRate = GameSettings.Data.ApplicationFrameRate;
         }
 
-        private static void BindCoroutineRunner()
-        {
-            var gameObject = new GameObject("[CoroutineRunner]");
-            var coroutineRunner = gameObject.AddComponent<CoroutineRunner>();
-            GameObject.DontDestroyOnLoad(coroutineRunner);
-
-            Container.Bind<ICoroutineRunner>().FromInstance(coroutineRunner);
-        }
         #endregion
 
         #region METHODS PUBLIC

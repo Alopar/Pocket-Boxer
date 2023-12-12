@@ -7,7 +7,7 @@ using NaughtyAttributes;
 namespace Gameplay
 {
     [DefaultExecutionOrder(-100)]
-    public abstract class AbstractSceneEntryPoint : MonoBehaviour
+    public abstract class AbstractBootstrapper : MonoBehaviour
     {
         #region FIELDS INSPECTOR
         [SerializeField] private List<MonoBehaviour> _dependants;
