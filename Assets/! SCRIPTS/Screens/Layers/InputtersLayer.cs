@@ -3,7 +3,7 @@ using Services.InputSystem;
 using Services.ScreenSystem;
 using Utility.DependencyInjection;
 
-namespace Gameplay
+namespace Screens.Layers
 {
     public class InputtersLayer : AbstractScreen
     {

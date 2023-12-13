@@ -8,7 +8,7 @@ using Services.SignalSystem.Signals;
 using Services.ScreenSystem;
 using Utility.DependencyInjection;
 
-namespace Gameplay
+namespace Screens.Layers
 {
     public class GymHUDLayer : AbstractScreen
     {
