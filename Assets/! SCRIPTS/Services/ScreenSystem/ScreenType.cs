@@ -8,6 +8,7 @@ namespace Services.ScreenSystem
         GymHUD,
         ArenaHUD,
         Simulator,
-        Relaxer
+        Relaxer,
+        Ability
     }
 }

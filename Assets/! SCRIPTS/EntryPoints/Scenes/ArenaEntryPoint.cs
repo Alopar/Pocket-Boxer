@@ -21,11 +21,13 @@ namespace Gameplay
             var screenService = DependencyContainer.Get<IScreenService>();
             var screenTypes = new ScreenType[] {
                 ScreenType.ArenaHUD,
+                ScreenType.Ability
             };
             screenService.InitializeScreens(screenTypes);
             screenService.SetScreensCamera(Camera.main);
 
             screenService.ShowScreen(ScreenType.ArenaHUD);
+            screenService.ShowScreen(ScreenType.Ability);
 
             DependencyContainer.Get<IInputService>().EnableInputs = InputType.None;
         }

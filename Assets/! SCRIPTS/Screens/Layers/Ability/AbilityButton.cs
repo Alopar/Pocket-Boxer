@@ -19,6 +19,10 @@ namespace Screens.Layers.Arena
         [SerializeField] private AbilityType _abilityType;
         #endregion
 
+        #region FIELDS PRIVATE
+        private AbilityButtonState _currentState;
+        #endregion
+
         #region PROPERTIES
         public AbilityType AbilityType => _abilityType;
         #endregion
@@ -32,10 +36,6 @@ namespace Screens.Layers.Arena
         {
             OnAbility?.Invoke(_abilityType);
         }
-        #endregion
-
-        #region FIELDS PRIVATE
-        private AbilityButtonState _currentState;
         #endregion
 
         #region UNITY CALLBACKS
