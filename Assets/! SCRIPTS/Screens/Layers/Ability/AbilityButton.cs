@@ -59,14 +59,17 @@ namespace Screens.Layers.Arena
                 case AbilityButtonState.Disable:
                     _button.enabled = false;
                     _background.color = _disaleColor;
+                    _background.fillAmount = 1f;
                     break;
                 case AbilityButtonState.Cooldown:
                     _button.enabled = false;
                     _background.color = _cooldownColor;
+                    _background.fillAmount = 0f;
                     break;
                 case AbilityButtonState.Active:
                     _button.enabled = true;
                     _background.color = _activeColor;
+                    _background.fillAmount = 1f;
                     break;
             }
         }

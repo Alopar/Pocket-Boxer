@@ -12,7 +12,7 @@ namespace Gameplay
         #region METHODS PRIVATE
         protected override void RegisterDependencyContext()
         {
-
+            DependencyContainer.Bind<BoxerFactory>();
         }
 
         protected override void InitializeScene()

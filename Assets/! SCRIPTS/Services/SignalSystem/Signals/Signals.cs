@@ -52,6 +52,16 @@ namespace Services.SignalSystem.Signals
         }
     }
 
+    public readonly struct BoxerSpawn : ISignal
+    {
+        public readonly BoxerController BoxerController;
+
+        public BoxerSpawn(BoxerController boxerController)
+        {
+            BoxerController = boxerController;
+        }
+    }
+
     public readonly struct BatteryOccupied : ISignal
     {
         public readonly int Capacity;

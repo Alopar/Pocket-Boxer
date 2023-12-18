@@ -1403,6 +1403,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: jumpRopeOnHand
       objectReference: {fileID: 0}
+    - target: {fileID: 1473205263057223641, guid: 750221cd19412554bb2f17a73d52175a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2250164621848782179, guid: 750221cd19412554bb2f17a73d52175a,
         type: 3}
       propertyPath: m_LocalPosition.x
