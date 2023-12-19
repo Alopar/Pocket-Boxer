@@ -27,8 +27,26 @@ namespace Screens.Layers.Arena
         [Subscribe]
         private void BoxerSpawn(BoxerSpawn signal)
         {
+            if (signal.BoxerController.ControleType != ControleType.Player) return;
+
             _boxer = signal.BoxerController;
+            _boxer.OnStateChange += BoxerChangeState;
+
             SubsctibeAbilityEvents();
+            ActivateButtonStates();
+        }
+
+        private void BoxerChangeState(BoxerState state)
+        {
+            switch (state)
+            {
+                case BoxerState.Stance:
+                    ActivateButtonStates();
+                    break;
+                case BoxerState.Action:
+                    DeactivateButtonStates();
+                    break;
+            }
         }
 
         private void UseAbility(AbilityType type)
@@ -133,15 +151,25 @@ namespace Screens.Layers.Arena
             _footJoystic.OnAbility -= UseAbility;
         }
 
-        //private void ActivateButtonStates()
-        //{
-        //    _blockButton.SetState(AbilityButtonState.Active);
-        //    _headButton.SetState(AbilityButtonState.Active);
-        //    _dodgeButton.SetState(AbilityButtonState.Active);
+        private void ActivateButtonStates()
+        {
+            _blockButton.TurnOn();
+            _headButton.TurnOn();
+            _dodgeButton.TurnOn();
 
-        //    _handJoystic.SetState(AbilityButtonState.Active);
-        //    _footJoystic.SetState(AbilityButtonState.Active);
-        //}
+            _handJoystic.TurnOn();
+            _footJoystic.TurnOn();
+        }
+
+        private void DeactivateButtonStates()
+        {
+            _blockButton.TurnOff();
+            _headButton.TurnOff();
+            _dodgeButton.TurnOff();
+
+            _handJoystic.TurnOff();
+            _footJoystic.TurnOff();
+        }
 
         private void SubsctibeAbilityEvents()
         {
@@ -166,7 +194,6 @@ namespace Screens.Layers.Arena
         public override void ShowScreen(object payload = null)
         {
             base.ShowScreen();
-            //ActivateButtonStates();
         }
         #endregion
     }

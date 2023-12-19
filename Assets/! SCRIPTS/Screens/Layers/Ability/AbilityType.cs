@@ -2,6 +2,7 @@
 {
     public enum AbilityType
     {
+        None,
         Block,
         Dodge,
         Headbutt,

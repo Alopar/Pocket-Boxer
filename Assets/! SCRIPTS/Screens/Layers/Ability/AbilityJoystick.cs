@@ -35,6 +35,7 @@ namespace Screens.Layers.Arena
 
         private AbilityButtonState _currentState;
         private bool _enabled = false;
+        private bool _isOn = false;
         #endregion
 
         #region PROPERTIES
@@ -128,6 +129,21 @@ namespace Screens.Layers.Arena
         #endregion
 
         #region METHODS PUBLIC
+        public void TurnOn()
+        {
+            _isOn = true;
+            _enabled = true;
+            SetState(_currentState);
+        }
+
+        public void TurnOff()
+        {
+            _isOn = false;
+            _enabled = false;
+            _handleBackground.color = _disaleColor;
+            _ghostBackground.color = _disaleColor;
+        }
+
         public void SetState(AbilityButtonState state)
         {
             _currentState = state;
@@ -148,9 +164,12 @@ namespace Screens.Layers.Arena
                     break;
             }
 
-            _enabled = enable;
-            _handleBackground.color = stateColor;
-            _ghostBackground.color = stateColor;
+            if (_isOn)
+            {
+                _enabled = enable;
+                _handleBackground.color = stateColor;
+                _ghostBackground.color = stateColor;
+            }
         }
 
         public void SetCooldown(float value)

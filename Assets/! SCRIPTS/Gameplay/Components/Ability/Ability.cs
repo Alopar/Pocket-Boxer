@@ -1,6 +1,6 @@
-﻿using Screens.Layers.Arena;
-using System;
+﻿using System;
 using UnityEngine;
+using Screens.Layers.Arena;
 
 namespace Gameplay
 {
@@ -56,7 +56,7 @@ namespace Gameplay
             OnStateChanged?.Invoke(_type, _state);
             _cooldownTimer = _cooldownDuration;
 
-            Debug.Log(_type);
+            OnActivated?.Invoke(_type);
 
             return true;
         }

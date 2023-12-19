@@ -255,6 +255,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 731410681330932893}
     m_Modifications:
+    - target: {fileID: 1264876986476533240, guid: f30c1e83a7e376943afee302e79d083e,
+        type: 3}
+      propertyPath: _abilityType
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 1601926162253678566, guid: f30c1e83a7e376943afee302e79d083e,
         type: 3}
       propertyPath: m_Pivot.x
@@ -499,7 +504,7 @@ PrefabInstance:
     - target: {fileID: 5632759483606104736, guid: 9361fbc9d6d47b74a8b13e58168b17c9,
         type: 3}
       propertyPath: _abilityType
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6730539664909401490, guid: 9361fbc9d6d47b74a8b13e58168b17c9,
         type: 3}
@@ -646,7 +651,7 @@ PrefabInstance:
     - target: {fileID: 5632759483606104736, guid: 9361fbc9d6d47b74a8b13e58168b17c9,
         type: 3}
       propertyPath: _abilityType
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6730539664909401490, guid: 9361fbc9d6d47b74a8b13e58168b17c9,
         type: 3}
@@ -790,6 +795,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: HeadButton
       objectReference: {fileID: 0}
+    - target: {fileID: 5632759483606104736, guid: 9361fbc9d6d47b74a8b13e58168b17c9,
+        type: 3}
+      propertyPath: _abilityType
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -824,7 +834,7 @@ PrefabInstance:
     - target: {fileID: 1264876986476533240, guid: f30c1e83a7e376943afee302e79d083e,
         type: 3}
       propertyPath: _abilityType
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1601926162253678566, guid: f30c1e83a7e376943afee302e79d083e,
         type: 3}

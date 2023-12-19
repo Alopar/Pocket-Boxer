@@ -20,6 +20,7 @@ namespace Screens.Layers.Arena
         #endregion
 
         #region FIELDS PRIVATE
+        private bool _isOn = false;
         private AbilityButtonState _currentState;
         #endregion
 
@@ -51,27 +52,51 @@ namespace Screens.Layers.Arena
         #endregion
 
         #region METHODS PUBLIC
+        public void TurnOn()
+        {
+            _isOn = true;
+            SetState(_currentState);
+        }
+
+        public void TurnOff()
+        {
+            _isOn = false;
+            _button.enabled = false;
+            _background.color = _disaleColor;
+        }
+
         public void SetState(AbilityButtonState state)
         {
+            var enable = false;
+            var color = Color.white;
+            var fill = 0f;
             _currentState = state;
             switch (_currentState)
             {
                 case AbilityButtonState.Disable:
-                    _button.enabled = false;
-                    _background.color = _disaleColor;
-                    _background.fillAmount = 1f;
+                    enable = false;
+                    color = _disaleColor;
+                    fill = 1f;
                     break;
                 case AbilityButtonState.Cooldown:
-                    _button.enabled = false;
-                    _background.color = _cooldownColor;
-                    _background.fillAmount = 0f;
+                    enable = false;
+                    color = _cooldownColor;
+                    fill = 0f;
                     break;
                 case AbilityButtonState.Active:
-                    _button.enabled = true;
-                    _background.color = _activeColor;
-                    _background.fillAmount = 1f;
+                    enable = true;
+                    color = _activeColor;
+                    fill = 1f;
                     break;
             }
+
+            if (_isOn)
+            {
+                _button.enabled = enable;
+                _background.color = color;
+            }
+
+            _background.fillAmount = fill;
         }
 
         public void SetCooldown(float value)

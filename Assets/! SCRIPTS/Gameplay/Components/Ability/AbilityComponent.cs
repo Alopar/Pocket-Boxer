@@ -19,6 +19,17 @@ namespace Gameplay
         public List<Ability> Abilities => _abilities;
         #endregion
 
+        #region EVENTS
+        public event Action<AbilityType> OnAbility;
+        #endregion
+
+        #region HANDLERS
+        public void AbilityActivated(AbilityType type)
+        {
+            OnAbility?.Invoke(type);
+        }
+        #endregion
+
         #region UNITY CALLBACKS
         private void Awake()
         {
@@ -41,7 +52,10 @@ namespace Gameplay
         {
             foreach (AbilityType type in Enum.GetValues(typeof(AbilityType)))
             {
+                if(type == AbilityType.None) continue;
+
                 var ability = new Ability(type, _cooldowns.Find(e => e.Type == type).Duration);
+                ability.OnActivated += AbilityActivated;
                 _abilities.Add(ability);
             }
         }
@@ -50,9 +64,6 @@ namespace Gameplay
         {
             _abilities.ForEach(e => e.Cooldown(Time.deltaTime));
         }
-        #endregion
-
-        #region METHODS PUBLIC
         #endregion
     }
 }

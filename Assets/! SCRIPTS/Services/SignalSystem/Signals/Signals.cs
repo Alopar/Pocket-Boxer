@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using Gameplay;
+using Screens.Layers.Arena;
 
 namespace Services.SignalSystem.Signals
 {
@@ -59,6 +60,18 @@ namespace Services.SignalSystem.Signals
         public BoxerSpawn(BoxerController boxerController)
         {
             BoxerController = boxerController;
+        }
+    }
+
+    public readonly struct Strike : ISignal
+    {
+        public readonly AbilityType Ability;
+        public readonly ControleType ControleType;
+
+        public Strike(AbilityType ability, ControleType controleType)
+        {
+            Ability = ability;
+            ControleType = controleType;
         }
     }
 
