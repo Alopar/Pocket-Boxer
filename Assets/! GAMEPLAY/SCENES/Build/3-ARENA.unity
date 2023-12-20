@@ -927,6 +927,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Arena
       objectReference: {fileID: 0}
+    - target: {fileID: 3022722603122158426, guid: 047a07c0abb2a5341a7dbdd2ae2d89eb,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7311c849adde766499a885e9fd0257df, type: 2}
     - target: {fileID: 8271427853940223205, guid: 047a07c0abb2a5341a7dbdd2ae2d89eb,
         type: 3}
       propertyPath: m_LocalPosition.x
