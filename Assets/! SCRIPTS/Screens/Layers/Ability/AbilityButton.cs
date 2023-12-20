@@ -29,13 +29,13 @@ namespace Screens.Layers.Arena
         #endregion
 
         #region EVENTS
-        public event Action<AbilityType> OnAbility;
+        public event Action<AbilityType, TargetZone> OnAbility;
         #endregion
 
         #region HANDLERS
         private void OnButtonClick()
         {
-            OnAbility?.Invoke(_abilityType);
+            OnAbility?.Invoke(_abilityType, TargetZone.None);
         }
         #endregion
 

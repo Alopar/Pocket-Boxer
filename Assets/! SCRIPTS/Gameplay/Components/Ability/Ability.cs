@@ -22,7 +22,7 @@ namespace Gameplay
         #endregion
 
         #region EVENTS
-        public event Action<AbilityType> OnActivated;
+        public event Action<AbilityType, TargetZone> OnActivated;
         public event Action<AbilityType, AbilityState> OnStateChanged;
         public event Action<AbilityType, float, float> OnCooldownChanged;
         #endregion
@@ -48,7 +48,7 @@ namespace Gameplay
             OnStateChanged?.Invoke(_type, _state);
         }
 
-        public bool TryActivate()
+        public bool TryActivate(TargetZone zone)
         {
             if (_state != AbilityState.Available) return false;
 
@@ -56,7 +56,7 @@ namespace Gameplay
             OnStateChanged?.Invoke(_type, _state);
             _cooldownTimer = _cooldownDuration;
 
-            OnActivated?.Invoke(_type);
+            OnActivated?.Invoke(_type, zone);
 
             return true;
         }

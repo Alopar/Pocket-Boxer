@@ -45,7 +45,7 @@ namespace Screens.Layers.Arena
 
         #region EVENTS
         public event Action<Vector2> OnInput;
-        public event Action<AbilityType> OnAbility;
+        public event Action<AbilityType, TargetZone> OnAbility;
         #endregion
 
         #region UNITY CALLBACKS
@@ -96,8 +96,22 @@ namespace Screens.Layers.Arena
                 return;
             }
 
+            var zone = TargetZone.None;
+            if (_input.y > 0.5f)
+            {
+                zone = TargetZone.Top;
+            }
+            else if (_input.y < 0.5 && _input.y > -0.5f)
+            {
+                zone = TargetZone.Middle;
+            }
+            else
+            {
+                zone = TargetZone.Bottom;
+            }
+
+            OnAbility.Invoke(_abilityType, zone);
             DropJoystick();
-            OnAbility.Invoke(_abilityType);
         }
         #endregion
 

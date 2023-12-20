@@ -49,10 +49,10 @@ namespace Screens.Layers.Arena
             }
         }
 
-        private void UseAbility(AbilityType type)
+        private void UseAbility(AbilityType type, TargetZone zone)
         {
             var ability = _boxer.AbilityComponent.Abilities.Find(e => e.Type == type);
-            ability.TryActivate();
+            ability.TryActivate(zone);
         }
 
         private void AbilityStateChanged(AbilityType type, AbilityState state)

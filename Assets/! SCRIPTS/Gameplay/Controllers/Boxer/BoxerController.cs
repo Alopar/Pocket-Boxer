@@ -120,30 +120,55 @@ namespace Gameplay
             _animator.CrossFadeInFixedTime("FightingStance", 0.2f);
         }
 
-        private void Ability(AbilityType type)
+        private void Ability(AbilityType type, TargetZone zone)
         {
             if (_state == BoxerState.Death) return;
             if (_state == BoxerState.Victory) return;
 
             _currentAbility = type;
-            switch (type)
+            string animationName = null;
+            switch (_currentAbility)
             {
                 case AbilityType.Block:
-                    _animator.CrossFadeInFixedTime("Block", 0.2f);
+                    animationName = "Block";
                     break;
                 case AbilityType.Dodge:
-                    _animator.CrossFadeInFixedTime("Dodge", 0.2f);
+                    animationName = "Dodge";
                     break;
                 case AbilityType.Headbutt:
-                    _animator.CrossFadeInFixedTime("Headbutt", 0.2f);
+                    animationName = "Headbutt";
                     break;
                 case AbilityType.HandKick:
-                    _animator.CrossFadeInFixedTime("TopHandKick", 0.2f);
+                    switch (zone)
+                    {
+                        case TargetZone.Top:
+                            animationName = "TopHandKick";
+                            break;
+                        case TargetZone.Middle:
+                            animationName = "MiddleHandKick";
+                            break;
+                        case TargetZone.Bottom:
+                            animationName = "BottomHandKick";
+                            break;
+                    }
                     break;
                 case AbilityType.FootKick:
-                    _animator.CrossFadeInFixedTime("TopFootKick", 0.2f);
+                    switch (zone)
+                    {
+                        case TargetZone.Top:
+                            animationName = "TopFootKick";
+                            break;
+                        case TargetZone.Middle:
+                            animationName = "MiddleFootKick";
+                            break;
+                        case TargetZone.Bottom:
+                            animationName = "BottomFootKick";
+                            break;
+                    }
                     break;
             }
+
+            _animator.CrossFadeInFixedTime(animationName, 0.2f);
 
             _state = BoxerState.Action;
             OnStateChange?.Invoke(_state);

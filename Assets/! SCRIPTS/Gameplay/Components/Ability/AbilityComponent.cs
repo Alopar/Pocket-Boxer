@@ -20,13 +20,13 @@ namespace Gameplay
         #endregion
 
         #region EVENTS
-        public event Action<AbilityType> OnAbility;
+        public event Action<AbilityType, TargetZone> OnAbility;
         #endregion
 
         #region HANDLERS
-        public void AbilityActivated(AbilityType type)
+        public void AbilityActivated(AbilityType type, TargetZone zone)
         {
-            OnAbility?.Invoke(type);
+            OnAbility?.Invoke(type, zone);
         }
         #endregion
 
