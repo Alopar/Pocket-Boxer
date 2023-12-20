@@ -776,7 +776,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74569eac1c671f24fae424b2a63cf960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _boxerPrefab: {fileID: 6181338609530779425, guid: 8fbdb16f95f7a0e46b95c8b12fbfb058,
+  _boxerPrefab: {fileID: 7063570877392892146, guid: 7f164cd20074ab74c9874610333d8f00,
     type: 3}
 --- !u!1 &1890838055
 GameObject:
@@ -822,7 +822,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74569eac1c671f24fae424b2a63cf960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _boxerPrefab: {fileID: 6181338609530779425, guid: 6536dbbd671b6ea4e884e1a8158631b0,
+  _boxerPrefab: {fileID: 58898614644860144, guid: a1bf41362746401478a9f324103ba2f8,
     type: 3}
 --- !u!114 &2042560394 stripped
 MonoBehaviour:

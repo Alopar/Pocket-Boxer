@@ -3,6 +3,8 @@
     public enum BoxerState
     {
         Stance,
-        Action
+        Action,
+        Death,
+        Victory,
     }
 }

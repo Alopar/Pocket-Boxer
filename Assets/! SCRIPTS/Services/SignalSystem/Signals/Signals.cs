@@ -67,10 +67,22 @@ namespace Services.SignalSystem.Signals
     {
         public readonly AbilityType Ability;
         public readonly ControleType ControleType;
+        public readonly int Damage;
 
-        public Strike(AbilityType ability, ControleType controleType)
+        public Strike(AbilityType ability, ControleType controleType, int damage)
         {
             Ability = ability;
+            ControleType = controleType;
+            Damage = damage;
+        }
+    }
+
+    public readonly struct Defeat : ISignal
+    {
+        public readonly ControleType ControleType;
+
+        public Defeat(ControleType controleType)
+        {
             ControleType = controleType;
         }
     }

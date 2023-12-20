@@ -28,8 +28,40 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 3373253982728756805}
   m_Father: {fileID: 3291780065475643802}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3004116725533760173
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3373253982728756805}
+  m_Layer: 0
+  m_Name: FloatupPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3373253982728756805
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3004116725533760173}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1, y: 3.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3890365641170142423}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4145454253543308751
 GameObject:
@@ -43,7 +75,7 @@ GameObject:
   - component: {fileID: 6181338609530779425}
   - component: {fileID: 3979206058922741890}
   m_Layer: 0
-  m_Name: Boxer
+  m_Name: '! BaseBoxer'
   m_TagString: Player
   m_Icon: {fileID: 2800000, guid: 90b87a61a0773a84d9fb0687dba4a0fe, type: 3}
   m_NavMeshLayer: 0
@@ -78,12 +110,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91f998f4497db3a4ca7f43c8b8e86cf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _name: Player
   _controleType: 0
   _view: {fileID: 8497932285276152021}
   _informers: {fileID: 3890365641170142423}
   _animator: {fileID: 3161194627151256319}
   _animationTransmitter: {fileID: 5884819950682128385}
   _doll: {fileID: 5046780940967902699}
+  _floatupHpPoint: {fileID: 3373253982728756805}
+  _floatupHpPrefab: {fileID: 6536454669955684272, guid: 30441f5382547b14dba74253c578d927,
+    type: 3}
 --- !u!114 &3979206058922741890
 MonoBehaviour:
   m_ObjectHideFlags: 0

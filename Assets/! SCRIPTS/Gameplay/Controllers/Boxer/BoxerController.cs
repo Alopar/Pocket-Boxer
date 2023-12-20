@@ -5,6 +5,7 @@ using Screens.Layers.Arena;
 using Services.SignalSystem;
 using Utility.DependencyInjection;
 using Services.SignalSystem.Signals;
+using Utility.MonoPool;
 
 namespace Gameplay
 {
@@ -12,6 +13,7 @@ namespace Gameplay
     public class BoxerController : MonoBehaviour
     {
         #region FIELDS INSPECTOR
+        [SerializeField] private string _name;
         [SerializeField] private ControleType _controleType;
 
         [Header("BASE SETTINGS:")]
@@ -24,6 +26,10 @@ namespace Gameplay
 
         [Space(10)]
         [SerializeField] private GameObject _doll;
+
+        [Space(10)]
+        [SerializeField] private Transform _floatupHpPoint;
+        [SerializeField] private FloatupNumeric _floatupHpPrefab;
         #endregion
 
         #region FIELDS PRIVATE
@@ -32,25 +38,65 @@ namespace Gameplay
 
         private BoxerState _state;
         private AbilityType _currentAbility;
+
+        private int _strength;
+        private int _dexterity;
+        private int _endurance;
+
+        private int _maxHP;
+        private int _currentHP;
         #endregion
 
         #region PROPERTIES
         public ControleType ControleType => _controleType;
         public AbilityComponent AbilityComponent => _abilityComponent;
+        public string Name => _name;
         #endregion
 
         #region EVENTS
         public event Action<BoxerState> OnStateChange;
+        public event Action<ControleType, int, int> OnHealthChange;
         #endregion
 
         #region HANDLERS
         [Subscribe(false)]
         private void Strike(Strike signal)
         {
+            if (_state == BoxerState.Death) return;
             if (signal.ControleType == _controleType) return;
             if (_currentAbility == AbilityType.Block || _currentAbility == AbilityType.Dodge) return;
 
-            _animator.CrossFadeInFixedTime("TopHit", 0.2f);
+            _currentHP -= signal.Damage;
+            OnHealthChange?.Invoke(_controleType, _currentHP, _maxHP);
+
+            var numeric = MonoPool.Instantiate(_floatupHpPrefab);
+            numeric.transform.position = _floatupHpPoint.position;
+            numeric.Init(signal.Damage);
+
+            if (_currentHP <= 0)
+            {
+                _state = BoxerState.Death;
+                OnStateChange?.Invoke(_state);
+
+                _signalService.Send<Defeat>(new(_controleType));
+
+                _animator.CrossFadeInFixedTime("DeathBackward", 0.2f);
+            }
+            else
+            {
+                _animator.CrossFadeInFixedTime("TopHit", 0.2f);
+            }
+        }
+
+        [Subscribe(false)]
+        private void Defeat(Defeat signal)
+        {
+            if (signal.ControleType == _controleType) return;
+
+            _state = BoxerState.Victory;
+            OnStateChange?.Invoke(_state);
+
+            _animator.CrossFadeInFixedTime("Victory", 0.2f);
         }
 
         private void AnimationStance(byte index)
@@ -63,7 +109,10 @@ namespace Gameplay
 
         private void AnimationStrike(byte index)
         {
-            _signalService.Send<Strike>(new(_currentAbility, _controleType));
+            var damage = 0;
+            damage = _strength * 2;
+
+            _signalService.Send<Strike>(new(_currentAbility, _controleType, damage));
         }
 
         private void AnimationEnd(byte index)
@@ -73,6 +122,9 @@ namespace Gameplay
 
         private void Ability(AbilityType type)
         {
+            if (_state == BoxerState.Death) return;
+            if (_state == BoxerState.Victory) return;
+
             _currentAbility = type;
             switch (type)
             {
@@ -129,6 +181,19 @@ namespace Gameplay
         private void Init()
         {
             _animator.CrossFadeInFixedTime("FightingStance", 0.2f);
+            OnHealthChange?.Invoke(_controleType, _currentHP, _maxHP);
+        }
+        #endregion
+
+        #region METHODS PUBLIC
+        public void SetStats(int strength, int dexterity, int endurance)
+        {
+            _strength = strength;
+            _dexterity = dexterity;
+            _endurance = endurance;
+
+            _maxHP = _endurance * 50;
+            _currentHP = _maxHP;
         }
         #endregion
     }

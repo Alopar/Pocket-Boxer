@@ -30,6 +30,9 @@ namespace Gameplay
             boxer.transform.position = transform.position;
             boxer.transform.rotation = transform.rotation;
 
+            //TODO:
+            boxer.SetStats(2, 3, 2);
+
             _signalService.Send<BoxerSpawn>(new(boxer));
         }
         #endregion
