@@ -53,11 +53,21 @@ namespace Services.SignalSystem.Signals
         }
     }
 
-    public readonly struct BoxerSpawn : ISignal
+    public readonly struct PlayerBoxerSpawn : ISignal
     {
         public readonly BoxerController BoxerController;
 
-        public BoxerSpawn(BoxerController boxerController)
+        public PlayerBoxerSpawn(BoxerController boxerController)
+        {
+            BoxerController = boxerController;
+        }
+    }
+
+    public readonly struct EnemyBoxerSpawn : ISignal
+    {
+        public readonly BoxerController BoxerController;
+
+        public EnemyBoxerSpawn(BoxerController boxerController)
         {
             BoxerController = boxerController;
         }
@@ -66,12 +76,14 @@ namespace Services.SignalSystem.Signals
     public readonly struct Strike : ISignal
     {
         public readonly AbilityType Ability;
+        public readonly TargetZone TargetZone;
         public readonly ControleType ControleType;
         public readonly int Damage;
 
-        public Strike(AbilityType ability, ControleType controleType, int damage)
+        public Strike(AbilityType ability, TargetZone targetZone, ControleType controleType, int damage)
         {
             Ability = ability;
+            TargetZone = targetZone;
             ControleType = controleType;
             Damage = damage;
         }

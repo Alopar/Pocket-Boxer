@@ -5,7 +5,7 @@ using Utility.DependencyInjection;
 
 namespace Gameplay
 {
-    public class BoxerSpawner : MonoBehaviour, IDependant
+    public class EnemyBoxerSpawner : MonoBehaviour, IDependant
     {
         #region FIELDS INSPECTOR
         [SerializeField] private BoxerController _boxerPrefab;
@@ -33,7 +33,7 @@ namespace Gameplay
             //TODO:
             boxer.SetStats(2, 3, 2);
 
-            _signalService.Send<BoxerSpawn>(new(boxer));
+            _signalService.Send<EnemyBoxerSpawn>(new(boxer));
         }
         #endregion
     }

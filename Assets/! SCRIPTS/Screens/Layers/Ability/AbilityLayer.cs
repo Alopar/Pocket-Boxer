@@ -25,10 +25,8 @@ namespace Screens.Layers.Arena
 
         #region HANDLERS
         [Subscribe]
-        private void BoxerSpawn(BoxerSpawn signal)
+        private void PlayerBoxerSpawn(PlayerBoxerSpawn signal)
         {
-            if (signal.BoxerController.ControleType != ControleType.Player) return;
-
             _boxer = signal.BoxerController;
             _boxer.OnStateChange += BoxerChangeState;
 

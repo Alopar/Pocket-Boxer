@@ -63,6 +63,31 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 3979206058922741890, guid: 6536dbbd671b6ea4e884e1a8158631b0,
+        type: 3}
+      propertyPath: _cooldowns.Array.data[0].Duration
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3979206058922741890, guid: 6536dbbd671b6ea4e884e1a8158631b0,
+        type: 3}
+      propertyPath: _cooldowns.Array.data[1].Duration
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3979206058922741890, guid: 6536dbbd671b6ea4e884e1a8158631b0,
+        type: 3}
+      propertyPath: _cooldowns.Array.data[2].Duration
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3979206058922741890, guid: 6536dbbd671b6ea4e884e1a8158631b0,
+        type: 3}
+      propertyPath: _cooldowns.Array.data[3].Duration
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3979206058922741890, guid: 6536dbbd671b6ea4e884e1a8158631b0,
+        type: 3}
+      propertyPath: _cooldowns.Array.data[4].Duration
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4145454253543308751, guid: 6536dbbd671b6ea4e884e1a8158631b0,
         type: 3}
       propertyPath: m_Name
@@ -91,5 +116,28 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4145454253543308751, guid: 6536dbbd671b6ea4e884e1a8158631b0,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6774197633851948466}
   m_SourcePrefab: {fileID: 100100000, guid: 6536dbbd671b6ea4e884e1a8158631b0, type: 3}
+--- !u!1 &9173150422808919420 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4145454253543308751, guid: 6536dbbd671b6ea4e884e1a8158631b0,
+    type: 3}
+  m_PrefabInstance: {fileID: 5100906137959219379}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6774197633851948466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9173150422808919420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be942c79099d4494187ba753e51e41a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _brainDelay: 3

@@ -120,6 +120,8 @@ MonoBehaviour:
   _floatupHpPoint: {fileID: 3373253982728756805}
   _floatupHpPrefab: {fileID: 6536454669955684272, guid: 30441f5382547b14dba74253c578d927,
     type: 3}
+  _healthModifier: 50
+  _cooldownModifier: 10
 --- !u!114 &3979206058922741890
 MonoBehaviour:
   m_ObjectHideFlags: 0

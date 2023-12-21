@@ -15,6 +15,7 @@ namespace Screens.Layers.Arena
         [SerializeField] private RectTransform _handle = null;
 
         [Space(10)]
+        [SerializeField] private Image _filler;
         [SerializeField] private Image _handleBackground;
         [SerializeField] private Image _ghostBackground;
 
@@ -133,12 +134,23 @@ namespace Screens.Layers.Arena
             _handle.anchorMax = center;
             _handle.pivot = center;
             _handle.anchoredPosition = Vector2.zero;
+
+            _filler.fillAmount = 1f;
         }
 
         private void DropJoystick()
         {
             _input = Vector2.zero;
             _handle.anchoredPosition = Vector2.zero;
+        }
+
+        private void SetColorBackground(Color color)
+        {
+            _filler.color = color;
+            _ghostBackground.color = color;
+
+            color.a = 0.6f;
+            _handleBackground.color = color;
         }
         #endregion
 
@@ -154,8 +166,7 @@ namespace Screens.Layers.Arena
         {
             _isOn = false;
             _enabled = false;
-            _handleBackground.color = _disaleColor;
-            _ghostBackground.color = _disaleColor;
+            SetColorBackground(_disaleColor);
         }
 
         public void SetState(AbilityButtonState state)
@@ -181,14 +192,13 @@ namespace Screens.Layers.Arena
             if (_isOn)
             {
                 _enabled = enable;
-                _handleBackground.color = stateColor;
-                _ghostBackground.color = stateColor;
+                SetColorBackground(stateColor);
             }
         }
 
         public void SetCooldown(float value)
         {
-            _handleBackground.fillAmount = value;
+            _filler.fillAmount = value;
         }
         #endregion
     }

@@ -58,6 +58,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3979206058922741890, guid: 6536dbbd671b6ea4e884e1a8158631b0,
+        type: 3}
+      propertyPath: _cooldowns.Array.data[0].Duration
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3979206058922741890, guid: 6536dbbd671b6ea4e884e1a8158631b0,
+        type: 3}
+      propertyPath: _cooldowns.Array.data[1].Duration
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3979206058922741890, guid: 6536dbbd671b6ea4e884e1a8158631b0,
+        type: 3}
+      propertyPath: _cooldowns.Array.data[2].Duration
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3979206058922741890, guid: 6536dbbd671b6ea4e884e1a8158631b0,
+        type: 3}
+      propertyPath: _cooldowns.Array.data[3].Duration
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3979206058922741890, guid: 6536dbbd671b6ea4e884e1a8158631b0,
+        type: 3}
+      propertyPath: _cooldowns.Array.data[4].Duration
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4145454253543308751, guid: 6536dbbd671b6ea4e884e1a8158631b0,
         type: 3}
       propertyPath: m_Name

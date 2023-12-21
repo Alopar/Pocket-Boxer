@@ -3,9 +3,9 @@ using UnityEngine;
 using Tools;
 using Screens.Layers.Arena;
 using Services.SignalSystem;
-using Utility.DependencyInjection;
 using Services.SignalSystem.Signals;
 using Utility.MonoPool;
+using Utility.DependencyInjection;
 
 namespace Gameplay
 {
@@ -30,6 +30,10 @@ namespace Gameplay
         [Space(10)]
         [SerializeField] private Transform _floatupHpPoint;
         [SerializeField] private FloatupNumeric _floatupHpPrefab;
+
+        [Header("BALANCE SETTINGS:")]
+        [SerializeField] private int _healthModifier;
+        [SerializeField] private int _cooldownModifier;
         #endregion
 
         #region FIELDS PRIVATE
@@ -37,7 +41,8 @@ namespace Gameplay
         [Find] private AbilityComponent _abilityComponent;
 
         private BoxerState _state;
-        private AbilityType _currentAbility;
+        private AbilityType _ability = AbilityType.None;
+        private TargetZone _zone = TargetZone.None;
 
         private int _strength;
         private int _dexterity;
@@ -48,6 +53,9 @@ namespace Gameplay
         #endregion
 
         #region PROPERTIES
+        public BoxerState State => _state;
+        public AbilityType Ability => _ability;
+        public TargetZone TargetZone => _zone;
         public ControleType ControleType => _controleType;
         public AbilityComponent AbilityComponent => _abilityComponent;
         public string Name => _name;
@@ -62,29 +70,37 @@ namespace Gameplay
         [Subscribe(false)]
         private void Strike(Strike signal)
         {
-            if (_state == BoxerState.Death) return;
             if (signal.ControleType == _controleType) return;
-            if (_currentAbility == AbilityType.Block || _currentAbility == AbilityType.Dodge) return;
+            if (_state == BoxerState.Death || _state == BoxerState.Victory) return;
+            if (_ability == AbilityType.Block || _ability == AbilityType.Dodge) return;
+            
+            DealDamage(signal.Damage);
+            ShowNumerics(signal.Damage);
+            DropAbility();
 
-            _currentHP -= signal.Damage;
-            OnHealthChange?.Invoke(_controleType, _currentHP, _maxHP);
-
-            var numeric = MonoPool.Instantiate(_floatupHpPrefab);
-            numeric.transform.position = _floatupHpPoint.position;
-            numeric.Init(signal.Damage);
-
-            if (_currentHP <= 0)
+            if (_currentHP > 0)
             {
-                _state = BoxerState.Death;
-                OnStateChange?.Invoke(_state);
+                var animationName = "TopHit";
+                switch (signal.TargetZone)
+                {
+                    case TargetZone.Top:
+                        animationName = "HitHead";
+                        break;
+                    case TargetZone.Middle:
+                        animationName = "HitBody";
+                        break;
+                    case TargetZone.Bottom:
+                        animationName = "HitLeg";
+                        break;
+                }
 
-                _signalService.Send<Defeat>(new(_controleType));
-
-                _animator.CrossFadeInFixedTime("DeathBackward", 0.2f);
+                ChangeAnimation(animationName);
             }
             else
             {
-                _animator.CrossFadeInFixedTime("TopHit", 0.2f);
+                ChangeState(BoxerState.Death);
+                ChangeAnimation("DeathBackward");
+                _signalService.Send<Defeat>(new(_controleType));
             }
         }
 
@@ -93,41 +109,38 @@ namespace Gameplay
         {
             if (signal.ControleType == _controleType) return;
 
-            _state = BoxerState.Victory;
-            OnStateChange?.Invoke(_state);
-
-            _animator.CrossFadeInFixedTime("Victory", 0.2f);
+            ChangeState(BoxerState.Victory);
+            ChangeAnimation("Victory");
         }
 
         private void AnimationStance(byte index)
         {
             if (_state == BoxerState.Stance) return;
-
-            _state = BoxerState.Stance;
-            OnStateChange?.Invoke(_state);
+            ChangeState(BoxerState.Stance);
         }
 
         private void AnimationStrike(byte index)
         {
-            var damage = 0;
-            damage = _strength * 2;
-
-            _signalService.Send<Strike>(new(_currentAbility, _controleType, damage));
+            var damage = CalculateDamage(_ability, _zone);
+            _signalService.Send<Strike>(new(_ability, _zone, _controleType, damage));
+            DropAbility();
         }
 
         private void AnimationEnd(byte index)
         {
-            _animator.CrossFadeInFixedTime("FightingStance", 0.2f);
+            ChangeAnimation("FightingStance");
+            DropAbility();
         }
 
-        private void Ability(AbilityType type, TargetZone zone)
+        private void AbilityActivated(AbilityType type, TargetZone zone)
         {
-            if (_state == BoxerState.Death) return;
-            if (_state == BoxerState.Victory) return;
+            if (_state == BoxerState.Death || _state == BoxerState.Victory) return;
 
-            _currentAbility = type;
+            _ability = type;
+            _zone = zone;
+
             string animationName = null;
-            switch (_currentAbility)
+            switch (_ability)
             {
                 case AbilityType.Block:
                     animationName = "Block";
@@ -139,7 +152,7 @@ namespace Gameplay
                     animationName = "Headbutt";
                     break;
                 case AbilityType.HandKick:
-                    switch (zone)
+                    switch (_zone)
                     {
                         case TargetZone.Top:
                             animationName = "TopHandKick";
@@ -153,7 +166,7 @@ namespace Gameplay
                     }
                     break;
                 case AbilityType.FootKick:
-                    switch (zone)
+                    switch (_zone)
                     {
                         case TargetZone.Top:
                             animationName = "TopFootKick";
@@ -168,10 +181,8 @@ namespace Gameplay
                     break;
             }
 
-            _animator.CrossFadeInFixedTime(animationName, 0.2f);
-
-            _state = BoxerState.Action;
-            OnStateChange?.Invoke(_state);
+            ChangeState(BoxerState.Action);
+            ChangeAnimation(animationName);
         }
         #endregion
 
@@ -180,7 +191,7 @@ namespace Gameplay
         {
             _signalService.Subscribe(this);
 
-            _abilityComponent.OnAbility += Ability;
+            _abilityComponent.OnAbility += AbilityActivated;
             _animationTransmitter.AnimationEvent01 += AnimationStance;
             _animationTransmitter.AnimationEvent04 += AnimationStrike;
             _animationTransmitter.AnimationEvent05 += AnimationEnd;
@@ -190,7 +201,7 @@ namespace Gameplay
         {
             _signalService.Unsubscribe(this);
 
-            _abilityComponent.OnAbility -= Ability;
+            _abilityComponent.OnAbility -= AbilityActivated;
             _animationTransmitter.AnimationEvent01 -= AnimationStance;
             _animationTransmitter.AnimationEvent04 -= AnimationStrike;
             _animationTransmitter.AnimationEvent05 -= AnimationEnd;
@@ -205,8 +216,78 @@ namespace Gameplay
         #region METHODS PRIVATE
         private void Init()
         {
-            _animator.CrossFadeInFixedTime("FightingStance", 0.2f);
+            ChangeAnimation("FightingStance");
             OnHealthChange?.Invoke(_controleType, _currentHP, _maxHP);
+        }
+
+        private void ChangeState(BoxerState state)
+        {
+            _state = state;
+            OnStateChange?.Invoke(_state);
+        }
+
+        private void DealDamage(int value)
+        {
+            _currentHP -= value;
+            OnHealthChange?.Invoke(_controleType, _currentHP, _maxHP);
+        }
+
+        private void ShowNumerics(int number)
+        {
+            var numeric = MonoPool.Instantiate(_floatupHpPrefab);
+            numeric.transform.position = _floatupHpPoint.position;
+            numeric.Init(number);
+        }
+
+        private void ChangeAnimation(string name)
+        {
+            _animator.CrossFadeInFixedTime(name, 0.2f);
+        }
+
+        private void DropAbility()
+        {
+            _ability = AbilityType.None;
+        }
+
+        private int CalculateDamage(AbilityType ability, TargetZone zone)
+        {
+            var damage = 0;
+            switch (ability)
+            {
+                case AbilityType.Headbutt:
+                    damage = _strength * 5;
+                    break;
+                case AbilityType.HandKick:
+                    switch (zone)
+                    {
+                        case TargetZone.Top:
+                            damage = _strength * 3;
+                            break;
+                        case TargetZone.Middle:
+                            damage = _strength * 1;
+                            break;
+                        case TargetZone.Bottom:
+                            damage = _strength * 2;
+                            break;
+                    }
+                    break;
+                case AbilityType.FootKick:
+                    switch (zone)
+                    {
+                        case TargetZone.Top:
+                            damage = _strength * 4;
+                            break;
+                        case TargetZone.Middle:
+                            damage = _strength * 2;
+                            break;
+                        case TargetZone.Bottom:
+                            damage = _strength * 3;
+                            break;
+                    }
+                    break;
+            }
+
+            return damage;
         }
         #endregion
 
@@ -217,8 +298,11 @@ namespace Gameplay
             _dexterity = dexterity;
             _endurance = endurance;
 
-            _maxHP = _endurance * 50;
+            _maxHP = _endurance * _healthModifier;
             _currentHP = _maxHP;
+
+            var modifier = 1f + ((float)_dexterity / _cooldownModifier);
+            _abilityComponent.SetCooldownModifier(modifier);
         }
         #endregion
     }

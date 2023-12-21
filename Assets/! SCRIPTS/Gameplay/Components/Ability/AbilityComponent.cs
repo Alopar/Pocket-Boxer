@@ -13,6 +13,7 @@ namespace Gameplay
 
         #region FIELDS PRIVATE
         private List<Ability> _abilities = new();
+        private float _cooldownModifier = 1f;
         #endregion
 
         #region PROPERTIES
@@ -38,7 +39,7 @@ namespace Gameplay
 
         private void Start()
         {
-            _abilities.ForEach(e => e.TurnOn());
+            ActivateAbilitys();
         }
 
         private void LateUpdate()
@@ -60,9 +61,21 @@ namespace Gameplay
             }
         }
 
+        private void ActivateAbilitys()
+        {
+            _abilities.ForEach(e => e.TurnOn());
+        }
+
         private void CooldownAbilitys()
         {
-            _abilities.ForEach(e => e.Cooldown(Time.deltaTime));
+            _abilities.ForEach(e => e.Cooldown(Time.deltaTime * _cooldownModifier));
+        }
+        #endregion
+
+        #region METHODS PUBLIC
+        public void SetCooldownModifier(float value)
+        {
+            _cooldownModifier = value;
         }
         #endregion
     }

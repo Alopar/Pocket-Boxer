@@ -8,6 +8,9 @@ namespace Screens.Layers.Arena
     {
         #region FIELDS INSPECTOR
         [SerializeField] private Button _button;
+
+        [Space(10)]
+        [SerializeField] private Image _filler;
         [SerializeField] private Image _background;
 
         [Space(10)]
@@ -51,6 +54,16 @@ namespace Screens.Layers.Arena
         }
         #endregion
 
+        #region METHODS PRIVATE
+        private void SetColorBackground(Color color)
+        {
+            _filler.color = color;
+
+            color.a = 0.6f;
+            _background.color = color;
+        }
+        #endregion
+
         #region METHODS PUBLIC
         public void TurnOn()
         {
@@ -62,7 +75,7 @@ namespace Screens.Layers.Arena
         {
             _isOn = false;
             _button.enabled = false;
-            _background.color = _disaleColor;
+            SetColorBackground(_disaleColor);
         }
 
         public void SetState(AbilityButtonState state)
@@ -93,15 +106,15 @@ namespace Screens.Layers.Arena
             if (_isOn)
             {
                 _button.enabled = enable;
-                _background.color = color;
+                SetColorBackground(color);
             }
 
-            _background.fillAmount = fill;
+            _filler.fillAmount = fill;
         }
 
         public void SetCooldown(float value)
         {
-            _background.fillAmount = value;
+            _filler.fillAmount = value;
         }
         #endregion
     }

@@ -30,19 +30,21 @@ namespace Screens.Layers.Arena
 
         #region HANDLERS
         [Subscribe]
-        private void BoxerSpawn(BoxerSpawn signal)
+        private void PlayerBoxerSpawn(PlayerBoxerSpawn signal)
         {
             var boxer = signal.BoxerController;
-            if (boxer.ControleType == ControleType.Player)
-            {
-                _playerBoxer = boxer;
-                _playerNameText.text = boxer.Name;
-            }
-            else
-            {
-                _opponentBoxer = boxer;
-                _enemyNameText.text = boxer.Name;
-            }
+            _playerBoxer = boxer;
+            _playerNameText.text = boxer.Name;
+
+            boxer.OnHealthChange += BoxerHealthChange;
+        }
+
+        [Subscribe]
+        private void EnemyBoxerSpawn(EnemyBoxerSpawn signal)
+        {
+            var boxer = signal.BoxerController;
+            _opponentBoxer = boxer;
+            _enemyNameText.text = boxer.Name;
 
             boxer.OnHealthChange += BoxerHealthChange;
         }
