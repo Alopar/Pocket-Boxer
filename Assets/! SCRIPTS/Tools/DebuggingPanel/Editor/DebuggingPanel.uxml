@@ -4,10 +4,28 @@
     </ui:VisualElement>
     <ui:VisualElement name="play-mode-panel" style="flex-grow: 1; flex-direction: column; display: flex; height: 354px;">
         <ui:Foldout text="Currency" name="currecy-foldout" view-data-key="DebuggingPanel__currecy-foldout">
-            <ui:EnumField label="Type" type="Gameplay.CurrencyType, Assembly-CSharp" name="currency-type-field" view-data-key="DebuggingPanel__currency-type-field" binding-path="_currencyType" />
+            <ui:EnumField label="Type" type="Services.CurrencySystem.CurrencyType, Assembly-CSharp" name="currency-type-field" view-data-key="DebuggingPanel__currency-type-field" binding-path="_currencyType" />
             <ui:SliderInt value="500" high-value="10000" name="currency-amount-slider" binding-path="_currencyAmount" view-data-key="DebuggingPanel__currency-amount-slider" label="Value" show-input-field="true" style="width: auto; flex-direction: row;" />
             <ui:Button text="ADD CURRENCY" name="currency-add-button" parse-escape-sequences="true" display-tooltip-when-elided="true" style="flex-shrink: 1; flex-grow: 1;" />
         </ui:Foldout>
         <ui:Foldout text="Foldout" />
+        <uie:Toolbar name="menu">
+            <uie:ToolbarButton parse-escape-sequences="true" display-tooltip-when-elided="true" name="currency-button" style="flex-direction: row; align-items: center; padding-bottom: 1px;">
+                <ui:VisualElement style="flex-grow: 1; background-image: url(&apos;project://database/Assets/!%20ART/UI/Common/dollar.png?fileID=2800000&amp;guid=1580d4941b9579d41a183f0cf26272e0&amp;type=3#dollar&apos;); -unity-background-scale-mode: scale-to-fit; width: 16px; height: 16px; align-self: center;" />
+                <ui:Label tabindex="-1" text="Currency" parse-escape-sequences="true" display-tooltip-when-elided="true" style="margin-left: 5px;" />
+            </uie:ToolbarButton>
+            <uie:ToolbarButton parse-escape-sequences="true" display-tooltip-when-elided="true" name="stats-button" style="flex-direction: row; align-items: center; padding-bottom: 1px;">
+                <ui:VisualElement style="flex-grow: 1; background-image: url(&apos;project://database/Assets/!%20ART/Editor/bot.png?fileID=2800000&amp;guid=a8bf0f99dfb10914c8c38af6c7c6f578&amp;type=3#bot&apos;); -unity-background-scale-mode: scale-to-fit; width: 16px; height: 16px; align-self: center;" />
+                <ui:Label tabindex="-1" text="Stats" parse-escape-sequences="true" display-tooltip-when-elided="true" style="margin-left: 5px;" />
+            </uie:ToolbarButton>
+        </uie:Toolbar>
+        <ui:VisualElement name="currency-panel" style="flex-grow: 1; max-height: 200px;">
+            <ui:EnumField label="Type" name="currency-type-field" view-data-key="DebuggingPanel__currency-type-field" binding-path="currencyType" include-obsolete-values="false" />
+            <ui:SliderInt value="500" high-value="10000" name="currency-amount-slider" binding-path="currencyAmount" view-data-key="DebuggingPanel__currency-amount-slider" label="Value" show-input-field="true" style="width: auto; flex-direction: row;" />
+            <ui:Button text="ADD" name="currency-add-button" parse-escape-sequences="true" display-tooltip-when-elided="true" />
+        </ui:VisualElement>
+        <ui:VisualElement name="stats-panel" style="flex-grow: 1; max-height: 200px;">
+            <ui:Label tabindex="-1" text="Stats information" parse-escape-sequences="true" display-tooltip-when-elided="true" />
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
