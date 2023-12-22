@@ -3,6 +3,7 @@ using Services.SignalSystem;
 using Utility.DependencyInjection;
 using Services.InputSystem;
 using Services.ScreenSystem;
+using Gameplay.Managers;
 
 namespace Gameplay
 {
@@ -12,6 +13,7 @@ namespace Gameplay
         #region METHODS PRIVATE
         protected override void RegisterDependencyContext()
         {
+            DependencyContainer.Bind<FightManager>().AsSingle().NonLazy();
             DependencyContainer.Bind<BoxerFactory>();
         }
 
@@ -21,7 +23,9 @@ namespace Gameplay
             var screenService = DependencyContainer.Get<IScreenService>();
             var screenTypes = new ScreenType[] {
                 ScreenType.ArenaHUD,
-                ScreenType.Ability
+                ScreenType.Ability,
+                ScreenType.Win,
+                ScreenType.Lose
             };
             screenService.InitializeScreens(screenTypes);
             screenService.SetScreensCamera(Camera.main);

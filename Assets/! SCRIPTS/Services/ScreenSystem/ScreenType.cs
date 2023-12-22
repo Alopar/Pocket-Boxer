@@ -9,6 +9,8 @@ namespace Services.ScreenSystem
         ArenaHUD,
         Simulator,
         Relaxer,
-        Ability
+        Ability,
+        Win,
+        Lose
     }
 }
