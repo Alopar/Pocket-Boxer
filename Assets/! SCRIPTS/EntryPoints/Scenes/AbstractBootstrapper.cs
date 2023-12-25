@@ -20,8 +20,7 @@ namespace Gameplay
         #region UNITY CALLBACKS
         private void Awake()
         {
-            SelfResolver();
-            RegisterDependencyContext();
+            SelfResolve();
             ResolveDependency();
         }
 
@@ -32,7 +31,7 @@ namespace Gameplay
         #endregion
 
         #region METHODS PRIVATE
-        private void SelfResolver()
+        private void SelfResolve()
         {
             DependencyContainer.Inject(this);
         }
@@ -49,8 +48,6 @@ namespace Gameplay
                 }
             }
         }
-
-        protected abstract void RegisterDependencyContext();
 
         protected abstract void InitializeScene();
         #endregion

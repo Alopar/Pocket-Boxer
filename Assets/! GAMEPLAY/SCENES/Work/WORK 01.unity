@@ -1274,7 +1274,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 717768917}
-  - component: {fileID: 717768916}
   m_Layer: 0
   m_Name: DEBUGGING PANEL
   m_TagString: Untagged
@@ -1282,21 +1281,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &717768916
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 717768915}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db2d2fd6a45e76f4d8ca8d003dc13075, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currencyAmount: 2500
-  currencyType: 0
-  tutorialStep: 0
 --- !u!4 &717768917
 Transform:
   m_ObjectHideFlags: 0
@@ -1743,9 +1727,9 @@ GameObject:
   - component: {fileID: 1259750362}
   - component: {fileID: 1259750363}
   m_Layer: 0
-  m_Name: SCENE ENTRY POINT
+  m_Name: Bootstrapper
   m_TagString: Untagged
-  m_Icon: {fileID: 2800000, guid: d9cc119e3531a4446b19cb91c3d3bd35, type: 3}
+  m_Icon: {fileID: 2800000, guid: 6ac733bfd834f4b4bab06306c63496f2, type: 3}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1777,12 +1761,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dependants:
+  - {fileID: 404736975}
   - {fileID: 506208983}
   - {fileID: 747413470}
-  - {fileID: 1147645369}
-  - {fileID: 404736975}
   - {fileID: 842501072}
   - {fileID: 1029631175}
+  - {fileID: 1147645369}
   - {fileID: 1149461721}
   - {fileID: 1335969625}
 --- !u!1 &1260702744

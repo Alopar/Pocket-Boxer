@@ -6,12 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/! GAMEPLAY/SCENES/Build/3-ARENA.unity
-    guid: a9968c4377c86c84baae304e8eab05b7
-  - enabled: 1
-    path: Assets/! GAMEPLAY/SCENES/Work/WORK 01.unity
-    guid: d9d68aec920abc84d9dacac80137b56a
-  - enabled: 1
     path: Assets/! GAMEPLAY/SCENES/Build/1-BOOTSTRAP.unity
     guid: 0e6e97bbad2b9a747a44f7061bc81729
+  - enabled: 1
+    path: Assets/! GAMEPLAY/SCENES/Build/2-WORLD.unity
+    guid: 64a9ed2f9ec674e4d82c0bb6a5ff7d3e
+  - enabled: 1
+    path: Assets/! GAMEPLAY/SCENES/Build/3-ARENA.unity
+    guid: a9968c4377c86c84baae304e8eab05b7
   m_configObjects: {}

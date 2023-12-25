@@ -1,6 +1,5 @@
 using UnityEngine;
-using UnityEngine.AI;
-using DG.Tweening;
+using UnityEngine.SceneManagement;
 using Gameplay;
 using Gameplay.Managers;
 using Services.Database;
@@ -19,12 +18,18 @@ using Utility.CoroutineRunner;
 using Utility.DependencyInjection;
 using Container = Utility.DependencyInjection.DependencyContainer;
 
+
 namespace Manager
 {
     public static class GameEntryPoint
     {
         #region FIELDS PRIVATE
         private const string GAME_SETTINGS_NAME = "game-settings";
+        private static int _startSceneIndex = 0;
+        #endregion
+
+        #region PROPERTIES
+        public static int StartSceneIndex => _startSceneIndex;
         #endregion
 
         #region METHODS PRIVATE
@@ -56,10 +61,12 @@ namespace Manager
             BindScreenService();
 
             Container.Bind<StatsManager>().AsSingle().NonLazy();
+            Container.Bind<FightManager>().AsSingle().NonLazy();
             Container.Bind<GameTracker>().AsSingle().NonLazy();
 
-            //TODO: refactoring
-            Container.Get<ITutorialService>().TriggerEvent(GameplayEvent.StartGame);
+            Container.Bind<TokenFactory>();
+            Container.Bind<BoxerFactory>();
+            Container.Bind<PlayerFactory>();
         }
 
         private static void BindCoroutineRunner()
@@ -85,37 +92,23 @@ namespace Manager
             Container.Bind<IScreenService>().FromInstance(new ScreenSystem(screenContainer));
         }
 
-        private static void InitializeSystems()
+        private static void LoadBootstrapScene()
         {
-            var prefab = Resources.Load("SYSTEMS");
-            var systems = GameObject.Instantiate(prefab);
-            systems.name = "[Systems]";
+            var scene = SceneManager.GetActiveScene();
+            if (scene.buildIndex == 0) return;
 
-            Object.DontDestroyOnLoad(systems);
+            _startSceneIndex = scene.buildIndex;
+            SceneManager.LoadScene(0);
         }
-
-        private static void InitializeOtherSystems()
-        {
-            DOTween.Init();
-            NavMesh.avoidancePredictionTime = 0.5f;
-            Application.targetFrameRate = GameSettings.Data.ApplicationFrameRate;
-        }
-
         #endregion
 
         #region METHODS PUBLIC
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSplashScreen)]
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         public static void GameInitialize()
         {
             InitializeGameSettings();
             RegisterDependencyContext();
-
-            InitializeSystems();
-            InitializeOtherSystems();
-
-            //Debug.Log(SceneManager.GetActiveScene().name);
-            //SceneManager.LoadScene(0);
-            //Container.Get<ISceneLoaderService>().Load(0, () => { Debug.Log("new scene!"); });
+            LoadBootstrapScene();
         }
         #endregion
     }

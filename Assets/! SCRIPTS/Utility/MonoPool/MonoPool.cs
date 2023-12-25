@@ -20,7 +20,7 @@ namespace Utility.MonoPool
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         public static void Init()
         {
-            _holder = new GameObject($"===== MONO POOL =====").transform;
+            _holder = new GameObject($"[MonoPool]").transform;
             Object.DontDestroyOnLoad(_holder);
         }
         #endregion
