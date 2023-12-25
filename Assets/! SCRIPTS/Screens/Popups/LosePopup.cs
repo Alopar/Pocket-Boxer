@@ -14,11 +14,8 @@ namespace Gameplay
         #region FIELDS INSPECTOR
         [Space(10)]
         [SerializeField] private Button _moneyButton;
+        [SerializeField] private RectTransform _moneyContent;
         [SerializeField] private TextMeshProUGUI _moneyText;
-
-        [Space(10)]
-        [SerializeField] private RectTransform _rays;
-        [SerializeField, Range(0, 99)] private float _rotateTimeCycle = 10f;
 
         [Space(10)]
         [SerializeField] private Animator _dollAnimator;
@@ -44,14 +41,12 @@ namespace Gameplay
         protected override void OnEnable()
         {
             base.OnEnable();
-            _rays.DOLocalRotate(new Vector3(0, 0, 360), _rotateTimeCycle, RotateMode.LocalAxisAdd).SetEase(Ease.Linear).SetLoops(-1);
             _moneyButton.onClick.AddListener(MoneyButton);
         }
 
         protected override void OnDisable()
         {
             base.OnDisable();
-            _rays.DOKill();
             _moneyButton.onClick.RemoveListener(MoneyButton);
         }
         #endregion
@@ -65,8 +60,9 @@ namespace Gameplay
             base.ShowScreen();
             _money = (uint)payload;
             _moneyText.text = _money.ToString();
+            LayoutRebuilder.ForceRebuildLayoutImmediate(_moneyContent);
 
-            _dollAnimator.CrossFadeInFixedTime("Drunk", 0.2f);
+            _dollAnimator.CrossFadeInFixedTime("Lose", 0.2f);
         }
         #endregion
     }

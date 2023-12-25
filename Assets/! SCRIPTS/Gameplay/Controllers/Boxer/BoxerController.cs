@@ -75,7 +75,7 @@ namespace Gameplay
             if (_ability == AbilityType.Block || _ability == AbilityType.Dodge) return;
             
             DealDamage(signal.Damage);
-            ShowNumerics(signal.Damage);
+            //ShowNumerics(signal.Damage);
             DropAbility();
 
             if (_currentHP > 0)

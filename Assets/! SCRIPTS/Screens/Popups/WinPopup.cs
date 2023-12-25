@@ -14,6 +14,7 @@ namespace Gameplay
         #region FIELDS INSPECTOR
         [Space(10)]
         [SerializeField] private Button _moneyButton;
+        [SerializeField] private RectTransform _moneyContent;
         [SerializeField] private TextMeshProUGUI _moneyText;
 
         [Space(10)]
@@ -65,8 +66,9 @@ namespace Gameplay
             base.ShowScreen();
             _money = (uint)payload;
             _moneyText.text = _money.ToString();
+            LayoutRebuilder.ForceRebuildLayoutImmediate(_moneyContent);
 
-            _dollAnimator.CrossFadeInFixedTime("Victory", 0.2f);
+            _dollAnimator.CrossFadeInFixedTime("Win", 0.2f);
         }
         #endregion
     }

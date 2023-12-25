@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e16bbb7a7de45c246963f23268d5af4d
+guid: 725360110c172db429bbdd4fec7c89f2
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -33,11 +33,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Drunk
+      name: Win
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 222
+      lastFrame: 99
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
