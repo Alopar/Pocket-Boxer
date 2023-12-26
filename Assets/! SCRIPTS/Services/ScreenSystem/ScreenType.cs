@@ -11,6 +11,7 @@ namespace Services.ScreenSystem
         Relaxer,
         Ability,
         Win,
-        Lose
+        Lose,
+        Fight
     }
 }

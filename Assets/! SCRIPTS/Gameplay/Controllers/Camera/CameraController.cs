@@ -39,14 +39,14 @@ namespace Gameplay
         #endregion
 
         #region HANDLERS
-        [Subscribe]
+        [Subscribe(false)]
         private void PlayerSpawn(PlayerSpawn info)
         {
             SetPlayer(info.PlayerController);
             _stateMachine.ChangeState<FollowCameraState>();
         }
 
-        [Subscribe]
+        [Subscribe(false)]
         private void CameraChangeFOV(CameraChangeFOV info)
         {
             var currentFOV = _playerCamera.m_Lens.FieldOfView;

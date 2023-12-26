@@ -34,8 +34,10 @@ namespace Gameplay
                 ScreenType.Inputters,
                 ScreenType.GymHUD,
                 ScreenType.Simulator,
-                ScreenType.Relaxer
+                ScreenType.Relaxer,
+                ScreenType.Fight
             };
+            _screenService.ClearScreens();
             _screenService.InitializeScreens(screenTypes);
             _screenService.SetScreensCamera(Camera.main);
         }

@@ -34,7 +34,7 @@ namespace Gameplay
         #endregion
 
         #region HANDLERS
-        [Subscribe]
+        [Subscribe(false)]
         private void HidePlayer(HidePlayer info)
         {
             _walletComponent.enabled = false;
@@ -42,7 +42,7 @@ namespace Gameplay
             _informers.gameObject.SetActive(false);
         }
 
-        [Subscribe]
+        [Subscribe(false)]
         private void ShowPlayer(ShowPlayer info)
         {
             _walletComponent.enabled = true;
@@ -83,7 +83,6 @@ namespace Gameplay
         protected override void Start()
         {
             base.Start();
-            PlaceAgentInStartPosition();
         }
 
         private void OnEnable()
@@ -100,12 +99,14 @@ namespace Gameplay
 
         private void OnTriggerEnter(Collider other)
         {
+            RingInteract(other.gameObject, true);
             RelaxerInteract(other.gameObject, true);
             SimulatorInteract(other.gameObject, true);
         }
 
         private void OnTriggerExit(Collider other)
         {
+            RingInteract(other.gameObject, false);
             RelaxerInteract(other.gameObject, false);
             SimulatorInteract(other.gameObject, false);
         }
@@ -123,11 +124,6 @@ namespace Gameplay
             _batteryComponent.Init();
         }
 
-        private void PlaceAgentInStartPosition()
-        {
-            _navMeshAgent.Warp(transform.position);
-        }
-
         private void MovePlayer(float speed)
         {
             _navMeshAgent.velocity = transform.forward.normalized * speed;
@@ -141,29 +137,29 @@ namespace Gameplay
             transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * _rotationAtTargetSpeed);
         }
 
-        private void EntityInteraction<T>(GameObject entity, Action<T> action)
+        private void EntityInteraction<T>(GameObject entity, Action<T> callback)
         {
             if (entity.TryGetComponent<T>(out var component))
             {
-                action(component);
+                callback(component);
             }
         }
 
         private void ConstractionYardInteract(GameObject entity)
         {
-            Action<IInvestable> action = (IInvestable investable) => {
+            Action<IInvestable> callback = (IInvestable investable) => {
                 uint investition = _investitonByOnce;
                 if (_currencyService.TryTakeCurrency(CurrencyType.Money, investition))
                 {
                     investable.Invest(investition);
                 }
             };
-            EntityInteraction(entity, action);
+            EntityInteraction(entity, callback);
         }
 
         private void SimulatorInteract(GameObject entity, bool isEnter)
         {
-            Action<SimulatorController> simulator = (SimulatorController simulator) =>
+            Action<SimulatorController> callback = (SimulatorController simulator) =>
             {
                 if (simulator.EnergyCost > _batteryComponent.Occupied) return;
 
@@ -182,12 +178,12 @@ namespace Gameplay
                     _screenService.CloseScreen(ScreenType.Simulator);
                 }
             };
-            EntityInteraction(entity, simulator);
+            EntityInteraction(entity, callback);
         }
 
         private void RelaxerInteract(GameObject entity, bool isEnter)
         {
-            Action<RelaxerController> relaxer = (RelaxerController relaxer) =>
+            Action<RelaxerController> callback = (RelaxerController relaxer) =>
             {
                 if (_batteryComponent.IsFull) return;
 
@@ -206,7 +202,30 @@ namespace Gameplay
                     _screenService.CloseScreen(ScreenType.Relaxer);
                 }
             };
-            EntityInteraction(entity, relaxer);
+            EntityInteraction(entity, callback);
+        }
+
+        private void RingInteract(GameObject entity, bool isEnter)
+        {
+            Action<RingController> callback = (RingController ring) =>
+            {
+                if (isEnter)
+                {
+                    _screenService.ShowScreen(ScreenType.Fight);
+                }
+                else
+                {
+                    _screenService.CloseScreen(ScreenType.Fight);
+                }
+            };
+            EntityInteraction(entity, callback);
+        }
+        #endregion
+
+        #region METHODS PUBLIC
+        public void PlaceAgentInStartPosition()
+        {
+            _navMeshAgent.Warp(transform.position);
         }
         #endregion
     }

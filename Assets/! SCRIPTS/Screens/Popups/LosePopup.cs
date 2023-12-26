@@ -1,11 +1,10 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Services.ScreenSystem;
 using Services.CurrencySystem;
 using Utility.DependencyInjection;
-using DG.Tweening;
+using Services.SceneLoader;
 
 namespace Gameplay
 {
@@ -23,6 +22,7 @@ namespace Gameplay
 
         #region FIELDS PRIVATE
         [Inject] private ICurrencyService _currencyService;
+        [Inject] private ISceneLoaderService _sceneLoaderService;
 
         private uint _money;
         #endregion
@@ -31,9 +31,7 @@ namespace Gameplay
         private void MoneyButton()
         {
             _currencyService.PutCurrency(CurrencyType.Money, _money);
-
-            //TODO: scene transition
-            Debug.Log("scene transition!");
+            _sceneLoaderService.Load("2-WORLD");
         }
         #endregion
 

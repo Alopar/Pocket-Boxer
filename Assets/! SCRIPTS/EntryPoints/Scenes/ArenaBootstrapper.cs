@@ -29,6 +29,7 @@ namespace Gameplay
                 ScreenType.Win,
                 ScreenType.Lose
             };
+            _screenService.ClearScreens();
             _screenService.InitializeScreens(screenTypes);
             _screenService.SetScreensCamera(Camera.main);
         }

@@ -23,15 +23,17 @@ namespace Gameplay
         }
         #endregion
 
-        #region METHODS PUBLIC
-        public void SpawnPlayer(PlayerController playerPrefab)
+        #region METHODS PRIVATE
+        private void SpawnPlayer(PlayerController playerPrefab)
         {
             var player = _playerFactory.Create(playerPrefab);
             player.transform.position = transform.position;
             player.transform.rotation = transform.rotation;
+            player.PlaceAgentInStartPosition();
 
             _signalService.Send<PlayerSpawn>(new(player));
         }
         #endregion
+
     }
 }
