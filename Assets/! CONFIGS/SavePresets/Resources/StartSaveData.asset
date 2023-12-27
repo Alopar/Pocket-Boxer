@@ -60,3 +60,5 @@ MonoBehaviour:
       Invested: 0
       Available: 1
       Constructed: 0
+  _fightData:
+    EnemyLevel: 1

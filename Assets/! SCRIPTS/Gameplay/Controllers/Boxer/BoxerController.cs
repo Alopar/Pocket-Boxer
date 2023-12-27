@@ -13,7 +13,6 @@ namespace Gameplay
     public class BoxerController : MonoBehaviour
     {
         #region FIELDS INSPECTOR
-        [SerializeField] private string _name;
         [SerializeField] private ControleType _controleType;
 
         [Header("BASE SETTINGS:")]
@@ -50,6 +49,7 @@ namespace Gameplay
 
         private int _maxHP;
         private int _currentHP;
+        private string _name;
         #endregion
 
         #region PROPERTIES
@@ -303,6 +303,11 @@ namespace Gameplay
 
             var modifier = 1f + ((float)_dexterity / _cooldownModifier);
             _abilityComponent.SetCooldownModifier(modifier);
+        }
+
+        public void SetName(string name)
+        {
+            _name = name;
         }
         #endregion
     }

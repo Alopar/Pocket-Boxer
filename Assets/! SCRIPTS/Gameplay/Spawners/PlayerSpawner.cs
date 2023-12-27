@@ -34,6 +34,5 @@ namespace Gameplay
             _signalService.Send<PlayerSpawn>(new(player));
         }
         #endregion
-
     }
 }

@@ -13,20 +13,10 @@ PrefabInstance:
       propertyPath: _name
       value: Bob
       objectReference: {fileID: 0}
-    - target: {fileID: 1404763746006242885, guid: 92f02ba506e2992419e2f5d7e5f49f8a,
+    - target: {fileID: 3219407449878595241, guid: 92f02ba506e2992419e2f5d7e5f49f8a,
         type: 3}
       propertyPath: m_IsActive
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3307955058411246758, guid: 92f02ba506e2992419e2f5d7e5f49f8a,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3578849566058933453, guid: 92f02ba506e2992419e2f5d7e5f49f8a,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4178823889887541903, guid: 92f02ba506e2992419e2f5d7e5f49f8a,
         type: 3}
@@ -34,11 +24,6 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6592096148403322798, guid: 92f02ba506e2992419e2f5d7e5f49f8a,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6816233492660711826, guid: 92f02ba506e2992419e2f5d7e5f49f8a,
         type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -106,7 +91,7 @@ PrefabInstance:
     - target: {fileID: 9173150422808919420, guid: 92f02ba506e2992419e2f5d7e5f49f8a,
         type: 3}
       propertyPath: m_Name
-      value: Enemy.01
+      value: Enemy.02
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -729,8 +729,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a542cb36f36fe094b9fbf270c88f745b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _boxerPrefab: {fileID: 7063570877392892146, guid: 7f164cd20074ab74c9874610333d8f00,
-    type: 3}
+  _boxers:
+  - Country: 0
+    BoxerPrefab: {fileID: 7063570877392892146, guid: 7f164cd20074ab74c9874610333d8f00,
+      type: 3}
+  - Country: 1
+    BoxerPrefab: {fileID: 7063570877392892146, guid: 4853db8fb3e936040ab8c059914147ac,
+      type: 3}
+  - Country: 2
+    BoxerPrefab: {fileID: 7063570877392892146, guid: e9141068a6b09414594f61616ff79565,
+      type: 3}
+  - Country: 3
+    BoxerPrefab: {fileID: 7063570877392892146, guid: 1008726d4ced97d4fa521a251f78095a,
+      type: 3}
+  - Country: 4
+    BoxerPrefab: {fileID: 7063570877392892146, guid: 83eb3a10ec3be0b4e84fd43d91111d00,
+      type: 3}
+  - Country: 5
+    BoxerPrefab: {fileID: 7063570877392892146, guid: ee57574182b0bcb46889449231f5719b,
+      type: 3}
 --- !u!1 &1890838055
 GameObject:
   m_ObjectHideFlags: 0

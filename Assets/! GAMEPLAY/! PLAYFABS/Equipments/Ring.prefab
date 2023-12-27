@@ -150,7 +150,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5673290961284124445
 Transform:
   m_ObjectHideFlags: 0
@@ -1398,6 +1398,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cb0ec2c0af2b6f408b71e893d41fd43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _flag: {fileID: 8325841941506570529}
+  _photo: {fileID: 4766079798005896441}
+  _name: {fileID: 8985105282354266968}
+  _strengthText: {fileID: 2437647592057090586}
+  _dexterityText: {fileID: 6933760175933088522}
+  _enduranceText: {fileID: 2230691348293536987}
+  _enemyContent:
+  - Country: 0
+    Flag: {fileID: 21300000, guid: 762ba5ffaeefb2c438c34b404b289f7f, type: 3}
+    Photo: {fileID: 21300000, guid: 60c6439367aed6542a1c23364d0a46b8, type: 3}
+  - Country: 1
+    Flag: {fileID: 21300000, guid: 26a5c73e78072954f82f6b55a206b354, type: 3}
+    Photo: {fileID: 21300000, guid: 692bd3900ff8f2d408d4221ede6b6de0, type: 3}
+  - Country: 2
+    Flag: {fileID: 21300000, guid: 2094dfba93d882f4ab4bc7fe9eb98c92, type: 3}
+    Photo: {fileID: 21300000, guid: cd507f0f82342fa4cb9b2a1d54d008dd, type: 3}
+  - Country: 3
+    Flag: {fileID: 21300000, guid: 968c25fdd0122ae44b9588c1d8a670d5, type: 3}
+    Photo: {fileID: 21300000, guid: f8e9c8bf16648d24e926aa6c699cd69b, type: 3}
+  - Country: 4
+    Flag: {fileID: 21300000, guid: 968c25fdd0122ae44b9588c1d8a670d5, type: 3}
+    Photo: {fileID: 21300000, guid: 91cf7617df7b84d4d895123c9a381db1, type: 3}
+  - Country: 5
+    Flag: {fileID: 21300000, guid: 74ffe0de8f9a31d469553f16dad306ef, type: 3}
+    Photo: {fileID: 21300000, guid: 4d2f2dfb70000f941be91208db8257aa, type: 3}
 --- !u!1 &6358274743197739321
 GameObject:
   m_ObjectHideFlags: 0

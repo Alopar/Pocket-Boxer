@@ -14,6 +14,7 @@ namespace Services.SaveSystem
         [SerializeField] private TutorialSaveData _tutorialData;
         [SerializeField] private StatsSaveData _statsData;
         [SerializeField] private SimulatorSaveData _simulatorData;
+        [SerializeField] private FightData _fightData;
         #endregion
 
         #region FIELDS PRIVATE

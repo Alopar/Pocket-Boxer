@@ -36,6 +36,7 @@ namespace Gameplay
             var dextetity = _statsManager.GetLevel(StatType.Dexterity);
             var endurance = _statsManager.GetLevel(StatType.Endurance);
             boxer.SetStats(strength, dextetity, endurance);
+            boxer.SetName("Player");
 
             _signalService.Send<PlayerBoxerSpawn>(new(boxer));
         }
