@@ -13,7 +13,17 @@ PrefabInstance:
       propertyPath: _name
       value: Bob
       objectReference: {fileID: 0}
+    - target: {fileID: 2574642215858694706, guid: 92f02ba506e2992419e2f5d7e5f49f8a,
+        type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9fd90bf1188d8914e95028d73706cd09, type: 2}
     - target: {fileID: 4178823889887541903, guid: 92f02ba506e2992419e2f5d7e5f49f8a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6173670840076627652, guid: 92f02ba506e2992419e2f5d7e5f49f8a,
         type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -23,6 +33,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6875070409403863123, guid: 92f02ba506e2992419e2f5d7e5f49f8a,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e0cdd90a7d81be3458827a9fee2ff062, type: 2}
+    - target: {fileID: 6875070409403863123, guid: 92f02ba506e2992419e2f5d7e5f49f8a,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9fd90bf1188d8914e95028d73706cd09, type: 2}
     - target: {fileID: 7141073743897877409, guid: 92f02ba506e2992419e2f5d7e5f49f8a,
         type: 3}
       propertyPath: m_IsActive
@@ -86,7 +106,7 @@ PrefabInstance:
     - target: {fileID: 9173150422808919420, guid: 92f02ba506e2992419e2f5d7e5f49f8a,
         type: 3}
       propertyPath: m_Name
-      value: Enemy.01
+      value: Enemy.04
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
