@@ -743,7 +743,7 @@ MonoBehaviour:
     BoxerPrefab: {fileID: 7063570877392892146, guid: 1008726d4ced97d4fa521a251f78095a,
       type: 3}
   - Country: 4
-    BoxerPrefab: {fileID: 7063570877392892146, guid: 83eb3a10ec3be0b4e84fd43d91111d00,
+    BoxerPrefab: {fileID: 7063570877392892146, guid: c4d358b5af1e56041a9ef55b43cb0aac,
       type: 3}
   - Country: 5
     BoxerPrefab: {fileID: 7063570877392892146, guid: ee57574182b0bcb46889449231f5719b,

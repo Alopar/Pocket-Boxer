@@ -33,7 +33,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: MiddleHandKick
+      name: BottomHandKick
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
@@ -57,7 +57,14 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.30372494
+      - time: 0.29738215
+        functionName: EmitStringEvent01
+        data: RH
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.30795625
         functionName: EmitEvent04
         data: 
         objectReferenceParameter: {instanceID: 0}
@@ -66,7 +73,7 @@ ModelImporter:
         messageOptions: 0
       - time: 0.77077365
         functionName: EmitEvent05
-        data: 
+        data: RH
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0

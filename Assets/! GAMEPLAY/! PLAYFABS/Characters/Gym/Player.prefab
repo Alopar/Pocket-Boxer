@@ -598,7 +598,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _view: {fileID: 8497932285276152021}
   _informers: {fileID: 3890365641170142423}
-  _moveSpeed: 5
+  _moveSpeed: 6
   _animator: {fileID: 3161194627151256319}
   _animationTransmitter: {fileID: 5884819950682128385}
   _rotationAtTargetSpeed: 8
