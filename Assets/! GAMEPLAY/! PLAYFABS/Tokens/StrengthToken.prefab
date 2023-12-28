@@ -63,6 +63,11 @@ PrefabInstance:
       propertyPath: _currencyType
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 5500575819687595513, guid: df1fc43cbfffbdf428a58d5b6f9ff9e3,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.25
+      objectReference: {fileID: 0}
     - target: {fileID: 7348096321615224707, guid: df1fc43cbfffbdf428a58d5b6f9ff9e3,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
