@@ -225,6 +225,9 @@ MonoBehaviour:
   _camera: {fileID: 1633163952217867290}
   _dollPoint: {fileID: 6757374033517662143}
   _dollAnimation: 0
+  _simulatorAnimation: {fileID: 0}
+  _IdleStateEquipments: []
+  _WorkStateEquipments: []
 --- !u!114 &6577155361159506599
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -136,7 +136,7 @@ PrefabInstance:
     - target: {fileID: -8645864510416166096, guid: 681a3ed497f504345ad90f09b2b8b2cc,
         type: 3}
       propertyPath: _usageDuration
-      value: 10
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: -8645864510416166096, guid: 681a3ed497f504345ad90f09b2b8b2cc,
         type: 3}
@@ -153,6 +153,21 @@ PrefabInstance:
       propertyPath: _IdleStateEquipments.Array.data[0]
       value: 
       objectReference: {fileID: 2720892138690181407}
+    - target: {fileID: 132163388366243533, guid: 681a3ed497f504345ad90f09b2b8b2cc,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.369
+      objectReference: {fileID: 0}
+    - target: {fileID: 132163388366243533, guid: 681a3ed497f504345ad90f09b2b8b2cc,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.374
+      objectReference: {fileID: 0}
+    - target: {fileID: 132163388366243533, guid: 681a3ed497f504345ad90f09b2b8b2cc,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.212
+      objectReference: {fileID: 0}
     - target: {fileID: 529650474098502659, guid: 681a3ed497f504345ad90f09b2b8b2cc,
         type: 3}
       propertyPath: m_LocalRotation.w
