@@ -19,8 +19,7 @@ ModelImporter:
     rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
-    animationImportWarnings: Event EmitEvent05 has a time (1.319831) outside the
-      clip's valid range (0.000000..0.933333). It will never be fired
+    animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
@@ -38,7 +37,7 @@ ModelImporter:
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 46
+      lastFrame: 28
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
