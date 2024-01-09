@@ -22,6 +22,9 @@ namespace Gameplay
         [Space(10)]
         [SerializeField] private Transform _dollPoint;
         [SerializeField] private CharacterAnimation _dollAnimation;
+
+        [Space(10)]
+        [SerializeField] private ParticleSystem _sleepVFX;
         #endregion
 
         #region FIELDS PRIVATE
@@ -53,6 +56,8 @@ namespace Gameplay
 
             _manikin?.Activate(_dollAnimation);
             StartCoroutine(Exploitation(_duration));
+
+            _sleepVFX.Play();
         }
 
         public void TurnOff()
@@ -61,6 +66,8 @@ namespace Gameplay
 
             RemoveDoll();
             StopAllCoroutines();
+
+            _sleepVFX.Stop();
         }
 
         public void AddProgress(float value)
