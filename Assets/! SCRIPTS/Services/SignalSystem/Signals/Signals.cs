@@ -111,17 +111,17 @@ namespace Services.SignalSystem.Signals
         }
     }
 
+    public readonly struct BatteryDischarge : ISignal
+    {
+        // N/A
+    }
+
     public readonly struct HidePlayer : ISignal
     {
         // N/A
     }
 
     public readonly struct ShowPlayer : ISignal
-    {
-        // N/A
-    }
-
-    public readonly struct BatteryDischarge : ISignal
     {
         // N/A
     }

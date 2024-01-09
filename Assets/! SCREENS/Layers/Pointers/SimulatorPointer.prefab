@@ -236,6 +236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6049959614ecfa34fbbc61861171cb6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _self: {fileID: 4354644696656829973}
   _pivot: {fileID: 7542840665553974578}
   _Icon: {fileID: 4457919621094465242}
   _type: 2

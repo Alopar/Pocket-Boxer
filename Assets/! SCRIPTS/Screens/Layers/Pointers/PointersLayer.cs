@@ -157,7 +157,7 @@ namespace Gameplay
             var pointerDirection = pointerPosition - playerPosition;
 
             var angle = Mathf.Atan2(pointerDirection.y, pointerDirection.x) * Mathf.Rad2Deg - 90f;
-            pointer.Pivot.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            pointer.Pivot.localRotation = Quaternion.AngleAxis(angle, Vector3.forward);
             pointer.Icon.localRotation = Quaternion.AngleAxis(-angle, Vector3.forward);
         }
         #endregion

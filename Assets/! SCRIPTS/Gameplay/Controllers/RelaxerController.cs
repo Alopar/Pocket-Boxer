@@ -2,11 +2,15 @@ using System;
 using System.Collections;
 using UnityEngine;
 using Cinemachine;
+using Services.SignalSystem;
+using Services.SignalSystem.Signals;
+using Services.PointerSystem;
+using Utility.DependencyInjection;
 
 namespace Gameplay
 {
     [SelectionBase]
-    public class RelaxerController : MonoBehaviour
+    public class RelaxerController : MonoBehaviour, IDependant
     {
         #region FIELDS INSPECTOR
         [SerializeField] private string _id;
@@ -27,6 +31,9 @@ namespace Gameplay
         #endregion
 
         #region FIELDS PRIVATE
+        [Inject] private ISignalService _signalService;
+        [Inject] private IPointerService _pointerService;
+
         private float _progress;
         private int _energonCounter = 0;
         private Manikin _manikin;
@@ -37,6 +44,33 @@ namespace Gameplay
         public event Action<float> OnTimerChange;
         public event Action<float> OnProgressChange;
         public event Action OnExploitationEnd;
+        #endregion
+
+        #region HANDLERS
+        [Subscribe(false)]
+        private void BatteryOccupied(BatteryOccupied info)
+        {
+            if(info.Occupied == 0)
+            {
+                _pointerService.AddTarget(transform, Services.PointerSystem.PointerType.Relaxer);
+            }
+            else
+            {
+                _pointerService.RemoveTarget(transform);
+            }
+        }
+        #endregion
+
+        #region UNITY CALLBACKS
+        private void OnEnable()
+        {
+            _signalService.Subscribe(this);
+        }
+
+        private void OnDisable()
+        {
+            _signalService.Unsubscribe(this);
+        }
         #endregion
 
         #region METHODS PRIVATE
