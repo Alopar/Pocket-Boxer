@@ -50,6 +50,12 @@ namespace Gameplay
             _informers.gameObject.SetActive(true);
         }
 
+        [Subscribe(true)]
+        private void BatteryDischarge(BatteryDischarge info)
+        {
+            _batteryComponent.Discharge();
+        }
+
         private void InputJoystick(JoystickData data)
         {
             var direction = _camera.transform.TransformDirection(data.Direction);
@@ -209,6 +215,8 @@ namespace Gameplay
         {
             Action<RingController> callback = (RingController ring) =>
             {
+                if (_batteryComponent.Occupied == 0) return;
+
                 if (isEnter)
                 {
                     _screenService.ShowScreen(ScreenType.Fight);

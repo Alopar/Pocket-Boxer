@@ -63,6 +63,11 @@ namespace Gameplay
             _capacity = value;
             _signalService.Send<BatteryOccupied>(new(_capacity, _occupied));
         }
+
+        public void Discharge()
+        {
+            ChangeOccupiedByValue(-_capacity);
+        }
         #endregion
     }
 }

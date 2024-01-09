@@ -5,7 +5,6 @@ using Cinemachine;
 
 namespace Gameplay
 {
-
     [SelectionBase]
     public class RelaxerController : MonoBehaviour
     {

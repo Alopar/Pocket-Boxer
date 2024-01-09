@@ -1,11 +1,13 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Services.ScreenSystem;
 using Services.CurrencySystem;
+using Services.SceneLoader;
+using Services.SignalSystem.Signals;
 using Utility.DependencyInjection;
 using DG.Tweening;
-using Services.SceneLoader;
 
 namespace Gameplay
 {
@@ -36,7 +38,9 @@ namespace Gameplay
         private void MoneyButton()
         {
             _currencyService.PutCurrency(CurrencyType.Money, _money);
-            _sceneLoaderService.Load("2-WORLD");
+
+            Action callback = () => _signalService.Send<BatteryDischarge>(new());
+            _sceneLoaderService.Load("2-WORLD", callback);
         }
         #endregion
 
@@ -54,9 +58,6 @@ namespace Gameplay
             _rays.DOKill();
             _moneyButton.onClick.RemoveListener(MoneyButton);
         }
-        #endregion
-
-        #region METHODS PRIVATE
         #endregion
 
         #region METHODS PUBLIC

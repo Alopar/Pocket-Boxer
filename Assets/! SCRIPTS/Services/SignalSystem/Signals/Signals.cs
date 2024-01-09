@@ -120,6 +120,11 @@ namespace Services.SignalSystem.Signals
     {
         // N/A
     }
+
+    public readonly struct BatteryDischarge : ISignal
+    {
+        // N/A
+    }
     #endregion
 
     #region STATS
