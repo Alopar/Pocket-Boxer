@@ -1,11 +1,11 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using Services.CurrencySystem;
 using Utility.DependencyInjection;
 using DG.Tweening;
-using System.Collections.Generic;
 
 namespace Gameplay
 {
@@ -32,6 +32,9 @@ namespace Gameplay
         [Space(10)]
         [SerializeField] private Transform _dollPoint;
         [SerializeField] private CharacterAnimation _dollAnimation;
+
+        [Space(10)]
+        [SerializeField] private GameObject _icon;
 
         [Space(10)]
         [SerializeField] private AbstaractSimulatorAnimation _simulatorAnimation;
@@ -94,6 +97,8 @@ namespace Gameplay
 
             _IdleStateEquipments.ForEach(e => e.SetActive(false));
             _WorkStateEquipments.ForEach(e => e.SetActive(true));
+
+            _icon.SetActive(false);
         }
 
         public void TurnOff()
@@ -107,6 +112,8 @@ namespace Gameplay
 
             _IdleStateEquipments.ForEach(e => e.SetActive(true));
             _WorkStateEquipments.ForEach(e => e.SetActive(false));
+
+            _icon.SetActive(true);
         }
 
         public void AddProgress(float value)

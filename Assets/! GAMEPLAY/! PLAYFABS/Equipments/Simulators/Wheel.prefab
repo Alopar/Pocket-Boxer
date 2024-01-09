@@ -1,5 +1,85 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &2652342636398906180
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 4819555317325945586}
+    m_Modifications:
+    - target: {fileID: 1233288690341172535, guid: 0355902dadc2045448a6ce2fa4fe9501,
+        type: 3}
+      propertyPath: m_Name
+      value: EnduranceFloater
+      objectReference: {fileID: 0}
+    - target: {fileID: 7272586740117373264, guid: 0355902dadc2045448a6ce2fa4fe9501,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7272586740117373264, guid: 0355902dadc2045448a6ce2fa4fe9501,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 7272586740117373264, guid: 0355902dadc2045448a6ce2fa4fe9501,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 7272586740117373264, guid: 0355902dadc2045448a6ce2fa4fe9501,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.017037077
+      objectReference: {fileID: 0}
+    - target: {fileID: 7272586740117373264, guid: 0355902dadc2045448a6ce2fa4fe9501,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.12940949
+      objectReference: {fileID: 0}
+    - target: {fileID: 7272586740117373264, guid: 0355902dadc2045448a6ce2fa4fe9501,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.98296297
+      objectReference: {fileID: 0}
+    - target: {fileID: 7272586740117373264, guid: 0355902dadc2045448a6ce2fa4fe9501,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.12940949
+      objectReference: {fileID: 0}
+    - target: {fileID: 7272586740117373264, guid: 0355902dadc2045448a6ce2fa4fe9501,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7272586740117373264, guid: 0355902dadc2045448a6ce2fa4fe9501,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7272586740117373264, guid: 0355902dadc2045448a6ce2fa4fe9501,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 15
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0355902dadc2045448a6ce2fa4fe9501, type: 3}
+--- !u!1 &3878309652469177971 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1233288690341172535, guid: 0355902dadc2045448a6ce2fa4fe9501,
+    type: 3}
+  m_PrefabInstance: {fileID: 2652342636398906180}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4621371103171283476 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7272586740117373264, guid: 0355902dadc2045448a6ce2fa4fe9501,
+    type: 3}
+  m_PrefabInstance: {fileID: 2652342636398906180}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3822531545092763700
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -124,6 +204,11 @@ PrefabInstance:
       propertyPath: _id
       value: E02
       objectReference: {fileID: 0}
+    - target: {fileID: -8645864510416166096, guid: 681a3ed497f504345ad90f09b2b8b2cc,
+        type: 3}
+      propertyPath: _icon
+      value: 
+      objectReference: {fileID: 3878309652469177971}
     - target: {fileID: -8645864510416166096, guid: 681a3ed497f504345ad90f09b2b8b2cc,
         type: 3}
       propertyPath: _camera
@@ -352,6 +437,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 2101056191279188529}
+    - targetCorrespondingSourceObject: {fileID: 529650474098502659, guid: 681a3ed497f504345ad90f09b2b8b2cc,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4621371103171283476}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 681a3ed497f504345ad90f09b2b8b2cc, type: 3}
 --- !u!4 &4819555317325945586 stripped
