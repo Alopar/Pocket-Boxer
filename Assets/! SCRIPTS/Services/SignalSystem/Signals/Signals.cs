@@ -185,6 +185,16 @@ namespace Services.SignalSystem.Signals
             Number = number;
         }
     }
+
+    public readonly struct EquipmentBuyed : ISignal
+    {
+        public readonly string ID;
+
+        public EquipmentBuyed(string id)
+        {
+            ID = id;
+        }
+    }
     #endregion
 
     #region CINEMA

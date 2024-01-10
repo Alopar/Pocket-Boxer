@@ -42,23 +42,23 @@ MonoBehaviour:
       Constructed: 0
     - ID: EQ02
       Invested: 0
-      Available: 1
+      Available: 0
       Constructed: 0
     - ID: EQ03
       Invested: 0
-      Available: 1
+      Available: 0
       Constructed: 0
     - ID: EQ04
       Invested: 0
-      Available: 1
+      Available: 0
       Constructed: 0
     - ID: EQ05
       Invested: 0
-      Available: 1
+      Available: 0
       Constructed: 0
     - ID: EQ06
       Invested: 0
-      Available: 1
+      Available: 0
       Constructed: 0
   _fightData:
     EnemyLevel: 1

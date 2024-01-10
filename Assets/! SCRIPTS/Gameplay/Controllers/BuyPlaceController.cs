@@ -2,6 +2,8 @@ using System;
 using UnityEngine;
 using DG.Tweening;
 using Services.SaveSystem;
+using Services.SignalSystem;
+using Services.SignalSystem.Signals;
 using Utility.DependencyInjection;
 
 namespace Gameplay
@@ -20,10 +22,14 @@ namespace Gameplay
 
         [Space(10)]
         [SerializeField] private GameObject _equipment;
+
+        [Space(10)]
+        [SerializeField] private string _openingEquipmentID;
         #endregion
 
         #region FIELDS PRIVATE
         [Inject] private ISaveService _saveService;
+        [Inject] private ISignalService _signalService;
         [Find] private Collider _collider;
 
         private int _invested;
@@ -35,7 +41,32 @@ namespace Gameplay
         public event Action<int, int> OnInvest;
         #endregion
 
+        #region HANDLERS
+        [Subscribe]
+        private void EquipmentBuyed(EquipmentBuyed info)
+        {
+            if(info.ID == _openingEquipmentID)
+            {
+                _available = true;
+                SaveProgress();
+
+                TurnOn();
+                DOVirtual.DelayedCall(0.1f, () => { Invest(0); });
+            }
+        }
+        #endregion
+
         #region UNITY CALLBACKS
+        private void OnEnable()
+        {
+            _signalService.Subscribe(this);
+        }
+
+        private void OnDisable()
+        {
+            _signalService.Unsubscribe(this);
+        }
+
         private void Start()
         {
             Init();
@@ -123,6 +154,11 @@ namespace Gameplay
         {
             Destroy(gameObject);
         }
+
+        private void NotifyOtherPlace()
+        {
+            _signalService.Send<EquipmentBuyed>(new(_id));
+        }
         #endregion
 
         #region METHODS PUBLIC
@@ -136,6 +172,7 @@ namespace Gameplay
 
             if (_constructed)
             {
+                NotifyOtherPlace();
                 PlaceEquipment();
                 SelfRemove();
             }
