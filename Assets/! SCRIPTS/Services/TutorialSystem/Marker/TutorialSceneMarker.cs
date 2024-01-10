@@ -8,7 +8,15 @@ namespace Services.TutorialSystem
     {
         protected override void TutorialStepChanged(TutorialStep step)
         {
-            _view.SetActive(step == _tutorialStep);
+            if(step == _tutorialStep)
+            {
+                _view.SetActive(true);
+                _tutorialService.SetCurrentMarker(this);
+            }
+            else
+            {
+                _view.SetActive(false);
+            }
         }
     }
 }

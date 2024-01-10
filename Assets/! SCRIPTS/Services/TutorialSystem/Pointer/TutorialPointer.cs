@@ -30,13 +30,9 @@ namespace Services.TutorialSystem
         #endregion
 
         #region UNITY CALLBACKS
-        private void Awake()
-        {
-            Init();
-        }
-
         private void OnEnable()
         {
+            TutorialMarkerChanged(_tutorialService.CurrentMarker);
             _tutorialService.OnMarkerChanged += TutorialMarkerChanged;
         }
 
@@ -52,11 +48,6 @@ namespace Services.TutorialSystem
         #endregion
 
         #region METHODS PRIVATE
-        private void Init()
-        {
-            _content.SetActive(false);
-        }
-
         private void RotateAtTarget()
         {
             if (_tutorialTarget == null) return;

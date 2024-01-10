@@ -4,6 +4,7 @@ using TMPro;
 using Services.InputSystem;
 using Services.ScreenSystem;
 using Services.CurrencySystem;
+using Services.TutorialSystem;
 using Services.SignalSystem.Signals;
 using Utility.DependencyInjection;
 
@@ -37,6 +38,7 @@ namespace Gameplay
 
         #region FIELDS PRIVATE
         [Inject] private IInputService _inputService;
+        [Inject] private ITutorialService _tutorialService;
 
         private SimulatorController _simulator;
         #endregion
@@ -180,6 +182,7 @@ namespace Gameplay
 
             _inputService.EnableInputs = InputType.Swipe | InputType.Tap;
             _signalService.Send<HidePlayer>(new());
+            _tutorialService.TriggerEvent(GameplayEvent.PushTrainButton);
         }
 
         public void BreakButton()

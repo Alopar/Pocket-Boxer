@@ -21,13 +21,9 @@ namespace Services.TutorialSystem
         #endregion
 
         #region UNITY CALLBACKS
-        private void Awake()
-        {
-            TutorialStepChanged(_tutorialService.CurrentStep);
-        }
-
         private void OnEnable()
         {
+            TutorialStepChanged(_tutorialService.CurrentStep);
             _tutorialService.OnStepChanged += TutorialStepChanged;
         }
 

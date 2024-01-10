@@ -2,8 +2,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Services.InputSystem;
-using Services.SignalSystem.Signals;
 using Services.ScreenSystem;
+using Services.TutorialSystem;
+using Services.SignalSystem.Signals;
 using Utility.DependencyInjection;
 
 namespace Gameplay
@@ -21,6 +22,7 @@ namespace Gameplay
 
         #region FIELDS PRIVATE
         [Inject] private IInputService _inputService;
+        [Inject] private ITutorialService _tutorialService;
 
         private RelaxerController _relaxer;
         #endregion
@@ -85,6 +87,7 @@ namespace Gameplay
 
             _signalService.Send<HidePlayer>(new());
             _inputService.EnableInputs = InputType.None;
+            _tutorialService.TriggerEvent(GameplayEvent.PushSleepButton);
         }
 
         public void BreakButton()

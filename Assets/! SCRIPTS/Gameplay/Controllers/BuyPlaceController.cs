@@ -4,6 +4,7 @@ using DG.Tweening;
 using Services.SaveSystem;
 using Services.SignalSystem;
 using Services.SignalSystem.Signals;
+using Services.TutorialSystem;
 using Utility.DependencyInjection;
 
 namespace Gameplay
@@ -30,6 +31,8 @@ namespace Gameplay
         #region FIELDS PRIVATE
         [Inject] private ISaveService _saveService;
         [Inject] private ISignalService _signalService;
+        [Inject] private ITutorialService _tutorialService;
+
         [Find] private Collider _collider;
 
         private int _invested;
@@ -175,6 +178,8 @@ namespace Gameplay
                 NotifyOtherPlace();
                 PlaceEquipment();
                 SelfRemove();
+
+                _tutorialService.TriggerEvent(GameplayEvent.BuyEquipment);
             }
         }
         #endregion
