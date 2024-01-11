@@ -25,36 +25,204 @@ MonoBehaviour:
     _name: Bob
   - _level: 2
     _cost: 200
-    _strength: 2
-    _dexterity: 1
-    _endurance: 1
+    _strength: 1
+    _dexterity: 2
+    _endurance: 2
     _country: GER
     _name: Trevor
   - _level: 3
     _cost: 300
-    _strength: 3
-    _dexterity: 1
-    _endurance: 1
+    _strength: 2
+    _dexterity: 3
+    _endurance: 3
     _country: CHI
     _name: Tayson
   - _level: 4
     _cost: 400
-    _strength: 4
-    _dexterity: 2
-    _endurance: 1
+    _strength: 2
+    _dexterity: 4
+    _endurance: 3
     _country: SPA
     _name: Billy
   - _level: 5
     _cost: 500
-    _strength: 5
-    _dexterity: 3
-    _endurance: 1
+    _strength: 3
+    _dexterity: 5
+    _endurance: 3
     _country: AFR
     _name: Jacson
   - _level: 6
     _cost: 600
+    _strength: 3
+    _dexterity: 6
+    _endurance: 4
+    _country: RUS
+    _name: Ivan
+  - _level: 7
+    _cost: 700
+    _strength: 4
+    _dexterity: 7
+    _endurance: 4
+    _country: USA
+    _name: Bob
+  - _level: 8
+    _cost: 800
+    _strength: 5
+    _dexterity: 8
+    _endurance: 4
+    _country: GER
+    _name: Trevor
+  - _level: 9
+    _cost: 900
     _strength: 6
-    _dexterity: 3
-    _endurance: 2
+    _dexterity: 9
+    _endurance: 5
+    _country: CHI
+    _name: Tayson
+  - _level: 10
+    _cost: 1000
+    _strength: 7
+    _dexterity: 10
+    _endurance: 6
+    _country: SPA
+    _name: Billy
+  - _level: 11
+    _cost: 1100
+    _strength: 8
+    _dexterity: 11
+    _endurance: 7
+    _country: AFR
+    _name: Jacson
+  - _level: 12
+    _cost: 1200
+    _strength: 9
+    _dexterity: 12
+    _endurance: 8
+    _country: RUS
+    _name: Ivan
+  - _level: 13
+    _cost: 1300
+    _strength: 10
+    _dexterity: 13
+    _endurance: 9
+    _country: USA
+    _name: Bob
+  - _level: 14
+    _cost: 1400
+    _strength: 12
+    _dexterity: 14
+    _endurance: 10
+    _country: GER
+    _name: Trevor
+  - _level: 15
+    _cost: 1500
+    _strength: 14
+    _dexterity: 15
+    _endurance: 12
+    _country: CHI
+    _name: Tayson
+  - _level: 16
+    _cost: 1600
+    _strength: 16
+    _dexterity: 16
+    _endurance: 14
+    _country: SPA
+    _name: Billy
+  - _level: 17
+    _cost: 1700
+    _strength: 18
+    _dexterity: 17
+    _endurance: 16
+    _country: AFR
+    _name: Jacson
+  - _level: 18
+    _cost: 1800
+    _strength: 20
+    _dexterity: 18
+    _endurance: 20
+    _country: RUS
+    _name: Ivan
+  - _level: 19
+    _cost: 1900
+    _strength: 23
+    _dexterity: 19
+    _endurance: 24
+    _country: USA
+    _name: Bob
+  - _level: 20
+    _cost: 2000
+    _strength: 26
+    _dexterity: 20
+    _endurance: 30
+    _country: GER
+    _name: Trevor
+  - _level: 21
+    _cost: 2100
+    _strength: 29
+    _dexterity: 21
+    _endurance: 36
+    _country: CHI
+    _name: Tayson
+  - _level: 22
+    _cost: 2200
+    _strength: 32
+    _dexterity: 22
+    _endurance: 42
+    _country: SPA
+    _name: Billy
+  - _level: 23
+    _cost: 2300
+    _strength: 35
+    _dexterity: 23
+    _endurance: 48
+    _country: AFR
+    _name: Jacson
+  - _level: 24
+    _cost: 2400
+    _strength: 38
+    _dexterity: 24
+    _endurance: 54
+    _country: RUS
+    _name: Ivan
+  - _level: 25
+    _cost: 2500
+    _strength: 42
+    _dexterity: 25
+    _endurance: 62
+    _country: USA
+    _name: Bob
+  - _level: 26
+    _cost: 2600
+    _strength: 46
+    _dexterity: 26
+    _endurance: 70
+    _country: GER
+    _name: Trevor
+  - _level: 27
+    _cost: 2700
+    _strength: 50
+    _dexterity: 27
+    _endurance: 78
+    _country: CHI
+    _name: Tayson
+  - _level: 28
+    _cost: 2800
+    _strength: 54
+    _dexterity: 28
+    _endurance: 80
+    _country: SPA
+    _name: Billy
+  - _level: 29
+    _cost: 2900
+    _strength: 58
+    _dexterity: 29
+    _endurance: 90
+    _country: AFR
+    _name: Jacson
+  - _level: 30
+    _cost: 3000
+    _strength: 62
+    _dexterity: 30
+    _endurance: 100
     _country: RUS
     _name: Ivan

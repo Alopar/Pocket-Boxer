@@ -255,19 +255,19 @@ namespace Gameplay
             switch (ability)
             {
                 case AbilityType.Headbutt:
-                    damage = _strength * 5;
+                    damage = _strength * 3;
                     break;
                 case AbilityType.HandKick:
                     switch (zone)
                     {
                         case TargetZone.Top:
-                            damage = _strength * 3;
+                            damage = _strength * 2;
                             break;
                         case TargetZone.Middle:
                             damage = _strength * 1;
                             break;
                         case TargetZone.Bottom:
-                            damage = _strength * 2;
+                            damage = _strength * 1;
                             break;
                     }
                     break;
@@ -275,13 +275,13 @@ namespace Gameplay
                     switch (zone)
                     {
                         case TargetZone.Top:
-                            damage = _strength * 4;
+                            damage = _strength * 3;
                             break;
                         case TargetZone.Middle:
                             damage = _strength * 2;
                             break;
                         case TargetZone.Bottom:
-                            damage = _strength * 3;
+                            damage = _strength * 2;
                             break;
                     }
                     break;

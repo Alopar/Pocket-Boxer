@@ -26,3 +26,93 @@ MonoBehaviour:
     _cost: 400
   - _level: 5
     _cost: 500
+  - _level: 6
+    _cost: 600
+  - _level: 7
+    _cost: 700
+  - _level: 8
+    _cost: 800
+  - _level: 9
+    _cost: 900
+  - _level: 10
+    _cost: 1000
+  - _level: 11
+    _cost: 1100
+  - _level: 12
+    _cost: 1200
+  - _level: 13
+    _cost: 1300
+  - _level: 14
+    _cost: 1400
+  - _level: 15
+    _cost: 1500
+  - _level: 16
+    _cost: 1600
+  - _level: 17
+    _cost: 1700
+  - _level: 18
+    _cost: 1800
+  - _level: 19
+    _cost: 1900
+  - _level: 20
+    _cost: 2000
+  - _level: 21
+    _cost: 2100
+  - _level: 22
+    _cost: 2200
+  - _level: 23
+    _cost: 2300
+  - _level: 24
+    _cost: 2400
+  - _level: 25
+    _cost: 2500
+  - _level: 26
+    _cost: 2600
+  - _level: 27
+    _cost: 2700
+  - _level: 28
+    _cost: 2800
+  - _level: 29
+    _cost: 2900
+  - _level: 30
+    _cost: 3000
+  - _level: 31
+    _cost: 3100
+  - _level: 32
+    _cost: 3200
+  - _level: 33
+    _cost: 3300
+  - _level: 34
+    _cost: 3400
+  - _level: 35
+    _cost: 3500
+  - _level: 36
+    _cost: 3600
+  - _level: 37
+    _cost: 3700
+  - _level: 38
+    _cost: 3800
+  - _level: 39
+    _cost: 3900
+  - _level: 40
+    _cost: 4000
+  - _level: 41
+    _cost: 4100
+  - _level: 42
+    _cost: 4200
+  - _level: 43
+    _cost: 4300
+  - _level: 44
+    _cost: 4400
+  - _level: 45
+    _cost: 4500
+  - _level: 46
+    _cost: 4600
+  - _level: 47
+    _cost: 4700
+  - _level: 48
+    _cost: 4800
+  - _level: 49
+    _cost: 4900
+  - _level: 50
+    _cost: 5000

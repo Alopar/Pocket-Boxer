@@ -17,7 +17,7 @@ MonoBehaviour:
     - CurrencyType: 0
       Amount: 0
     - CurrencyType: 1
-      Amount: 600
+      Amount: 100
     - CurrencyType: 2
       Amount: 0
     - CurrencyType: 3
