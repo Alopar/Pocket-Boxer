@@ -6,6 +6,7 @@ using Services.SignalSystem;
 using Services.SignalSystem.Signals;
 using Utility.MonoPool;
 using Utility.DependencyInjection;
+using Lofelt.NiceVibrations;
 
 namespace Gameplay
 {
@@ -73,7 +74,7 @@ namespace Gameplay
             if (signal.ControleType == _controleType) return;
             if (_state == BoxerState.Death || _state == BoxerState.Victory) return;
             if (_ability == AbilityType.Block || _ability == AbilityType.Dodge) return;
-            
+
             DealDamage(signal.Damage);
             //ShowNumerics(signal.Damage);
             DropAbility();
@@ -102,6 +103,8 @@ namespace Gameplay
                 ChangeAnimation("DeathBackward");
                 _signalService.Send<Defeat>(new(_controleType));
             }
+
+            DamageFeedback(signal);
         }
 
         [Subscribe(false)]
@@ -123,7 +126,9 @@ namespace Gameplay
         {
             var damage = CalculateDamage(_ability, _zone);
             _signalService.Send<Strike>(new(_ability, _zone, _controleType, damage));
+
             DropAbility();
+            StrikeFeedback();
         }
 
         private void AnimationEnd(byte index)
@@ -288,6 +293,25 @@ namespace Gameplay
             }
 
             return damage;
+        }
+
+        private void StrikeFeedback()
+        {
+            if (_controleType == ControleType.AI) return;
+
+            HapticPatterns.PlayPreset(HapticPatterns.PresetType.MediumImpact);
+        }
+
+        private void DamageFeedback(Strike signal)
+        {
+            if (_controleType == ControleType.AI) return;
+
+            if (signal.TargetZone == TargetZone.Top)
+            {
+                _signalService.Send<CameraShake>(new());
+            }
+
+            HapticPatterns.PlayPreset(HapticPatterns.PresetType.HeavyImpact);
         }
         #endregion
 

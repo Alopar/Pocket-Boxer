@@ -40,6 +40,11 @@ namespace Services.SignalSystem.Signals
             FOV = fov;
         }
     }
+
+    public readonly struct CameraShake : ISignal
+    {
+        // N/A
+    }
     #endregion
 
     #region PLAYER
