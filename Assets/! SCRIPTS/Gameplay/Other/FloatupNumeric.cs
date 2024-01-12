@@ -52,6 +52,11 @@ namespace Gameplay
             _inPool = true;
             MonoPool.Return(this);
         }
+
+        protected void SetTextColor(Color color)
+        {
+            _text.color = color;
+        }
         #endregion
 
         #region METHODS PUBLIC

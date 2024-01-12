@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Services.CurrencySystem;
 using Utility.DependencyInjection;
-using Lofelt.NiceVibrations;
 
 namespace Gameplay
 {
@@ -12,6 +11,10 @@ namespace Gameplay
         #region FIELDS PRIVATE
         [Inject] private ICurrencyService _currencyService;
         [Find] private MagnetComponent _magnetComponent;
+        #endregion
+
+        #region EVENTS
+        public event Action<uint, CurrencyType> OnTokenCollected;
         #endregion
 
         #region UNITY CALLBACKS
@@ -29,7 +32,8 @@ namespace Gameplay
                 var token = target.GetComponent<Token>();
                 _currencyService.PutCurrency(token.Currency, token.Cost);
                 token.Delete();
-                HapticPatterns.PlayPreset(HapticPatterns.PresetType.LightImpact);
+
+                OnTokenCollected?.Invoke(token.Cost, token.Currency);
             };
 
             callbacks.Enqueue(callback);
