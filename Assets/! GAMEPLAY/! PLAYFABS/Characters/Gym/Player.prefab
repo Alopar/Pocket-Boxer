@@ -696,7 +696,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _floatupNumericPoint: {fileID: 8925977730953794611}
-  _FloatupTokenPrefab: {fileID: 602677324227189402, guid: 863c572c4b2005c439faac2dc59b7d81,
+  _floatupTokenPrefab: {fileID: 602677324227189402, guid: 863c572c4b2005c439faac2dc59b7d81,
+    type: 3}
+  _floatupStatsPrefab: {fileID: 7991199082736235630, guid: 02f5ff0f4d09c44419ca452ba4a6d227,
     type: 3}
 --- !u!1 &4194909911942392277
 GameObject:

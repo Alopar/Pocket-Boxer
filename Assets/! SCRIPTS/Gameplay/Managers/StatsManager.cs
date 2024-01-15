@@ -23,6 +23,10 @@ namespace Gameplay.Managers
         private Dictionary<StatType, StatsUpgrade> _statUpgradeTables = new();
         #endregion
 
+        #region EVENTS
+        public event Action<StatType, int> OnStatChange;
+        #endregion
+
         #region CONSTRUCTORS
         public StatsManager()
         {
@@ -107,6 +111,8 @@ namespace Gameplay.Managers
 
                 eventCallback.Invoke(CreateDelta(value, cost));
                 walletCallback.Invoke(cost);
+
+                OnStatChange?.Invoke(type, GetLevel(type));
             }
             else
             {
