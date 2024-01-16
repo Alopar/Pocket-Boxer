@@ -69,6 +69,7 @@ namespace Services.SaveSystem
         #region METHODS PUBLIC
         public T GetGameData<T>() where T : AbstractSaveData
         {
+            //TODO: need deep copy list in data
             _gameDatas ??= CreateGameDatas();
             return (T)_gameDatas.OfType<T>().First().Copy();
         }

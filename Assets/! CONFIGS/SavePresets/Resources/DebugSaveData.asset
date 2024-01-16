@@ -25,7 +25,7 @@ MonoBehaviour:
     - CurrencyType: 4
       Amount: 0
     - CurrencyType: 5
-      Amount: 0
+      Amount: 50
     - CurrencyType: 6
       Amount: 0
   _tutorialData:
@@ -43,22 +43,22 @@ MonoBehaviour:
     - ID: EQ02
       Invested: 50
       Available: 1
-      Constructed: 0
+      Constructed: 1
     - ID: EQ03
       Invested: 50
       Available: 1
-      Constructed: 0
+      Constructed: 1
     - ID: EQ04
       Invested: 50
       Available: 1
-      Constructed: 0
+      Constructed: 1
     - ID: EQ05
       Invested: 50
       Available: 1
-      Constructed: 0
+      Constructed: 1
     - ID: EQ06
       Invested: 50
       Available: 1
-      Constructed: 0
+      Constructed: 1
   _fightData:
     EnemyLevel: 5
