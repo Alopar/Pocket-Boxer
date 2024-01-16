@@ -175,12 +175,14 @@ namespace Gameplay
                     simulator.SetDoll(doll);
 
                     simulator.SetUserBattety(_batteryComponent);
+                    simulator.FocusOn();
                     _screenService.ShowScreen(ScreenType.Simulator, simulator);
                 }
                 else
                 {
                     simulator.RemoveDoll();
                     simulator.SetUserBattety(null);
+                    simulator.FocusOff();
                     _screenService.CloseScreen(ScreenType.Simulator);
                 }
             };

@@ -96,7 +96,7 @@ PrefabInstance:
     - target: {fileID: 2892488852762425861, guid: bcca930ea29a85e44ab12960ef1e1cde,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 2892488852762425861, guid: bcca930ea29a85e44ab12960ef1e1cde,
         type: 3}
@@ -151,6 +151,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1842058744972091211}
+    - targetCorrespondingSourceObject: {fileID: 4266960078525785632, guid: bcca930ea29a85e44ab12960ef1e1cde,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2595943849116119820}
   m_SourcePrefab: {fileID: 100100000, guid: bcca930ea29a85e44ab12960ef1e1cde, type: 3}
 --- !u!1 &831199800325270903 stripped
 GameObject:
@@ -179,6 +183,24 @@ MonoBehaviour:
   _shakeDuration: 0.5
   _shakeStrength: 0.1
   _animationPart: {fileID: 831199800325270903}
+--- !u!114 &2595943849116119820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1025437140730238484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 0, g: 1, b: 0, a: 1}
+  outlineWidth: 5
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!4 &2101056191279188529 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2892488852762425861, guid: bcca930ea29a85e44ab12960ef1e1cde,
@@ -214,6 +236,11 @@ PrefabInstance:
       propertyPath: _camera
       value: 
       objectReference: {fileID: 5985595875305960171}
+    - target: {fileID: -8645864510416166096, guid: 681a3ed497f504345ad90f09b2b8b2cc,
+        type: 3}
+      propertyPath: _outline
+      value: 
+      objectReference: {fileID: 2595943849116119820}
     - target: {fileID: -8645864510416166096, guid: 681a3ed497f504345ad90f09b2b8b2cc,
         type: 3}
       propertyPath: _maxTokens

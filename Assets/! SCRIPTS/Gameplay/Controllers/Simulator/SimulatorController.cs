@@ -6,6 +6,7 @@ using Cinemachine;
 using Services.CurrencySystem;
 using Utility.DependencyInjection;
 using DG.Tweening;
+using QuickOutline;
 
 namespace Gameplay
 {
@@ -42,6 +43,9 @@ namespace Gameplay
         [Space(10)]
         [SerializeField] private List<GameObject> _IdleStateEquipments;
         [SerializeField] private List<GameObject> _WorkStateEquipments;
+
+        [Space(10)]
+        [SerializeField] private Outline _outline;
         #endregion
 
         #region FIELDS PRIVATE
@@ -74,7 +78,19 @@ namespace Gameplay
         }
         #endregion
 
+        #region UNITY CALLBACKS
+        private void Awake()
+        {
+            Init();
+        }
+        #endregion
+
         #region METHODS PRIVATE
+        private void Init()
+        {
+            FocusOff();
+        }
+
         private float NextProgressPoint(int points, int pointCounter)
         {
             return (100f / points) * pointCounter + 1;
@@ -82,11 +98,23 @@ namespace Gameplay
         #endregion
 
         #region METHODS PUBLIC
+        public void FocusOn()
+        {
+            _outline.enabled = true;
+        }
+
+        public void FocusOff()
+        {
+            _outline.enabled = false;
+        }
+
         public void TurnOn()
         {
             _progress = 0;
             _tokenCounter = 0;
             _camera.Priority = 10;
+
+            FocusOff();
             _simulatorAnimation?.TurnOn();
 
             _manikin?.Activate(_dollAnimation);
