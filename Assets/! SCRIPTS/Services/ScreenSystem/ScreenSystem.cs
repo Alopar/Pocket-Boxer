@@ -101,7 +101,9 @@ namespace Services.ScreenSystem
                 screen.SetCanvasCamera(camera);
             }
 
+#if DEBUG
             FrameCounterSetCanvasCamera(camera);
+#endif
         }
 
         public void ShowScreen(ScreenType screen, object payload = null)
