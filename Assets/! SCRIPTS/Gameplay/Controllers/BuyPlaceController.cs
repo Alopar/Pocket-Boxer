@@ -45,7 +45,7 @@ namespace Gameplay
         #endregion
 
         #region HANDLERS
-        [Subscribe]
+        [Subscribe(false)]
         private void EquipmentBuyed(EquipmentBuyed info)
         {
             if(info.ID == _openingEquipmentID)

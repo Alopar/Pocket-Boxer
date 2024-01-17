@@ -603,7 +603,7 @@ MonoBehaviour:
   _animator: {fileID: 3161194627151256319}
   _animationTransmitter: {fileID: 5884819950682128385}
   _rotationAtTargetSpeed: 8
-  _investitonByOnce: 5
+  _investitonByOnce: 1
   _doll: {fileID: 5046780940967902699}
 --- !u!114 &4813005234092883839
 MonoBehaviour:
