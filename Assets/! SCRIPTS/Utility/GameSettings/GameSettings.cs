@@ -35,6 +35,8 @@ namespace Utility.GameSettings
     {
         public int ApplicationFrameRate;
         public bool UseDebugSaveData;
+        public bool ShowFrameCounter;
         public bool ShowDebugMarkers;
+        public bool ShowDebugConsole;
     }
 }

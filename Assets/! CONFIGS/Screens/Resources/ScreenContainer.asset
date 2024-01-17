@@ -24,3 +24,5 @@ MonoBehaviour:
   - {fileID: 3526465353735207578, guid: 28705f4cd86130e4c8f5379cb5eeac34, type: 3}
   - {fileID: 1487469151353527226, guid: 30a0120ce87837140b952dbc8becdfb2, type: 3}
   _monitoringPrefab: {fileID: 11496292, guid: 0abab5bb77339e4428787a870eb31bd3, type: 3}
+  _debugConsolePrefab: {fileID: 11452418, guid: 67117722a812a2e46ab8cb8eafbf5f5e,
+    type: 3}

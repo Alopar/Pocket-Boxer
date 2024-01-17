@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
+using Utility.GameSettings;
 using Utility.DependencyInjection;
 
 namespace Services.ScreenSystem
@@ -17,6 +18,7 @@ namespace Services.ScreenSystem
 
         private Canvas _frameCounterCanvas;
         private bool _isFrameCounterInitialized = false;
+        private bool _isDebugConsoleInitialized = false;
         #endregion
 
         #region EVENTS
@@ -35,6 +37,7 @@ namespace Services.ScreenSystem
         private void InitializeHolder()
         {
             if (_holder != null) return;
+
             _holder = new GameObject("[Screens]").transform;
             _holder.position = new Vector3(0, 0, 100);
             GameObject.DontDestroyOnLoad(_holder);
@@ -42,12 +45,23 @@ namespace Services.ScreenSystem
 
         private void InitializeFrameCounter(Transform holder)
         {
-            if(_isFrameCounterInitialized) return;
+            if (!GameSettings.Data.ShowFrameCounter) return;
+            if (_isFrameCounterInitialized) return;
 
             var frameCounter = GameObject.Instantiate(_container.MonitoringPrefab, holder);
             frameCounter.name = _container.MonitoringPrefab.name;
             _frameCounterCanvas = frameCounter.GetComponent<Canvas>();
             _isFrameCounterInitialized = true;
+        }
+
+        private void InitializeDebugConsole(Transform holder)
+        {
+            if (!GameSettings.Data.ShowDebugConsole) return;
+            if (_isDebugConsoleInitialized) return;
+
+            var debugConsole = GameObject.Instantiate(_container.DebugConsolePrefab, holder);
+            debugConsole.name = _container.DebugConsolePrefab.name;
+            _isDebugConsoleInitialized = true;
         }
 
         private bool CheckAvailableScreen(ScreenType screen)
@@ -63,6 +77,8 @@ namespace Services.ScreenSystem
 
         private void FrameCounterSetCanvasCamera(Camera camera)
         {
+            if (_frameCounterCanvas == null) return;
+
             _frameCounterCanvas.worldCamera = camera;
             _frameCounterCanvas.planeDistance = 1f;
         }
@@ -89,9 +105,8 @@ namespace Services.ScreenSystem
                 _screens.Add(screenType, screen);
             }
 
-#if DEBUG
             InitializeFrameCounter(_holder);
-#endif
+            InitializeDebugConsole(_holder);
         }
 
         public void SetScreensCamera(Camera camera)
@@ -101,9 +116,7 @@ namespace Services.ScreenSystem
                 screen.SetCanvasCamera(camera);
             }
 
-#if DEBUG
             FrameCounterSetCanvasCamera(camera);
-#endif
         }
 
         public void ShowScreen(ScreenType screen, object payload = null)

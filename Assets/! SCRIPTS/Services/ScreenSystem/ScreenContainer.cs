@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Tayx.Graphy;
+using IngameDebugConsole;
 
 namespace Services.ScreenSystem
 {
@@ -12,11 +13,13 @@ namespace Services.ScreenSystem
 
         [Space(10)]
         [SerializeField] private GraphyManager _monitoringPrefab;
+        [SerializeField] private DebugLogManager _debugConsolePrefab;
         #endregion
 
         #region PROPERTIES
         public List<AbstractScreen> ScreenPrefabs => _screenPrefabs;
         public GraphyManager MonitoringPrefab => _monitoringPrefab;
+        public DebugLogManager DebugConsolePrefab => _debugConsolePrefab;
         #endregion
     }
 }

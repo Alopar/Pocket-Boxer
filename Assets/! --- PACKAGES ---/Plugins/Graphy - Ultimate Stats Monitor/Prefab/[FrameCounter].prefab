@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 11496292}
   - component: {fileID: 11480938}
   m_Layer: 5
-  m_Name: '[Graphy]'
+  m_Name: '[FrameCounter]'
   m_TagString: Untagged
   m_Icon: {fileID: 1638116407661442457, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0

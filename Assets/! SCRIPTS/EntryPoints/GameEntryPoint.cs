@@ -18,7 +18,6 @@ using Utility.CoroutineRunner;
 using Utility.DependencyInjection;
 using Container = Utility.DependencyInjection.DependencyContainer;
 
-
 namespace Manager
 {
     public static class GameEntryPoint

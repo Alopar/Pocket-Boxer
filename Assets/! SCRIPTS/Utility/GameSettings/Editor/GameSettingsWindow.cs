@@ -18,8 +18,10 @@ namespace Utility.GameSettings
         {
             var windowData = new GameSettingsData();
             windowData.ApplicationFrameRate = EditorGUILayout.IntSlider("Frame rate:", _gameSettingsData.ApplicationFrameRate, 0, 60);
-            windowData.UseDebugSaveData = EditorGUILayout.Toggle("Debug save data:", _gameSettingsData.UseDebugSaveData);
-            windowData.ShowDebugMarkers = EditorGUILayout.Toggle("Show markers:", _gameSettingsData.ShowDebugMarkers);
+            windowData.ShowFrameCounter = EditorGUILayout.Toggle("Frame Counter:", _gameSettingsData.ShowFrameCounter);
+            windowData.ShowDebugConsole = EditorGUILayout.Toggle("Debug Console:", _gameSettingsData.ShowDebugConsole);
+            windowData.ShowDebugMarkers = EditorGUILayout.Toggle("Debug Markers:", _gameSettingsData.ShowDebugMarkers);
+            windowData.UseDebugSaveData = EditorGUILayout.Toggle("Debug Save Data:", _gameSettingsData.UseDebugSaveData);
 
             if (!windowData.Equals(_gameSettingsData))
             {
