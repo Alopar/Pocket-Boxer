@@ -39,6 +39,7 @@ namespace Gameplay
             boxer.transform.rotation = transform.rotation;
 
             boxer.SetStats((int)enemy.Strength, (int)enemy.Dexterity, (int)enemy.Endurance);
+            boxer.SetName(enemy.Name);
 
             _signalService.Send<EnemyBoxerSpawn>(new(boxer));
         }
