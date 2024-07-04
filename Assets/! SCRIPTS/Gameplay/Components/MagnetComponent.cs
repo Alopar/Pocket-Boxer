@@ -93,7 +93,7 @@ namespace Gameplay
                 var delta = (float)i / precision;
                 var position = direction * delta;
                 position.y += curve.Evaluate(delta);
-                spline.Add(new(position));
+                spline.Add(new BezierKnot(position));
             }
 
             spline.SetTangentMode(TangentMode.AutoSmooth);
